@@ -17,7 +17,7 @@
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
       gap: 8px;
     }
     .card {
@@ -51,20 +51,38 @@
       font-size: 0.68rem;
     }
     .card-body {
-      padding: 5px 6px;
+      padding: 6px 7px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
     }
-    .meta {
-      font-size: 0.66rem;
-      color: #6b7280;
-      line-height: 1.2;
-    }
-    .name {
-      font-weight: bold;
-      font-size: 0.76rem;
-      line-height: 1.3;
+    .title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+    .code {
+      font-size: 0.68rem;
+      color: #6b7280;
+      flex-shrink: 0;
+    }
+    .name {
+      font-weight: bold;
+      font-size: 0.78rem;
+      line-height: 1.3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .desc {
+      font-size: 0.7rem;
+      color: #9ca3af;
+      line-height: 1.35;
+    }
+    .desc.ready {
+      color: #374151;
     }
   </style>
 </head>
@@ -73,34 +91,43 @@
   <div class="grid">
     <!-- 3M 01 ガ -->
     <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m01ougaka-cafe/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank" rel="noopener noreferrer">
-        <div class="placeholder">準備中</div>
+      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m01ougaga-cake/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank" rel="noopener noreferrer">
+        <img src="https://drive.google.com/thumbnail?id=12QRfqzkQGUG9zY0OHYcT42elqUap5bcFI&sz=w400" alt="ガ サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 01</div>
-        <div class="name" title="ガ">ガ</div>
+        <div class="title-row">
+          <span class="code">3M 01</span>
+          <span class="name" title="ガ">ガ</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
     <!-- 3M 02 日 -->
     <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/d/1e6EjHguGp4-ltu1VYA5vdOD8cBxLHuF1/p/1RDCrEoOJIPUcuJ-CpkZ8DTzHyGgCkD2u/edit" target="_blank" rel="noopener noreferrer">
+      <a class="thumb-link" href="https://docs.google.com/document/d/1e6EiHqGp4-Ilu1VYA5vtOD8cBxLHuf1p/1RDCjeoQJIPuCuj-CpkZ8DTzHy6pCk2ou/edit" target="_blank" rel="noopener noreferrer">
         <div class="placeholder">準備中</div>
       </a>
       <div class="card-body">
-        <div class="meta">3M / 02</div>
-        <div class="name" title="日">日</div>
+        <div class="title-row">
+          <span class="code">3M 02</span>
+          <span class="name" title="日">日</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
-    <!-- 3M 03 おーい -->
+    <!-- 3M 03 はこころ -->
     <article class="card">
       <a class="thumb-link" href="https://wako0718.github.io/html/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1SpjsMM2OQLBQgJqC46sh2c2xuSLWN4K0&sz=w400" alt="おーい サムネイル">
+        <img src="https://drive.google.com/thumbnail?id=1SpjsMM2OQLBQgJqC46sh2c2xuSLWN4K0&sz=w400" alt="はこころ サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 03</div>
-        <div class="name" title="おーい">おーい</div>
+        <div class="title-row">
+          <span class="code">3M 03</span>
+          <span class="name" title="はこころ">はこころ</span>
+        </div>
+        <div class="desc ready">FPSゲームです。モードは二種類あります。同じコードを使えば友達とも一緒にできる…はず…</div>
       </div>
     </article>
 
@@ -110,8 +137,11 @@
         <div class="placeholder">準備中</div>
       </a>
       <div class="card-body">
-        <div class="meta">3M / 04</div>
-        <div class="name" title="緒方巴">緒方巴</div>
+        <div class="title-row">
+          <span class="code">3M 04</span>
+          <span class="name" title="緒方巴">緒方巴</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
@@ -121,8 +151,11 @@
         <div class="placeholder">準備中</div>
       </a>
       <div class="card-body">
-        <div class="meta">3M / 05</div>
-        <div class="name" title="おちけい">おちけい</div>
+        <div class="title-row">
+          <span class="code">3M 05</span>
+          <span class="name" title="おちけい">おちけい</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
@@ -132,30 +165,39 @@
         <img src="https://drive.google.com/thumbnail?id=1yfJEQg2KfvT6gm6OAJgd_JgJY8KAKe9u&sz=w400" alt="かねぴ サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 06</div>
-        <div class="name" title="かねぴ">かねぴ</div>
+        <div class="title-row">
+          <span class="code">3M 06</span>
+          <span class="name" title="かねぴ">かねぴ</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
-    <!-- 3M 07 久保田優衣 -->
+    <!-- 3M 07 ククク -->
     <article class="card">
       <div class="thumb-link">
-        <img src="https://drive.google.com/thumbnail?id=1jR1VMRKGCKXHBprP1ZlaWiT8L3eLJBg1&sz=w400" alt="久保田優衣 サムネイル">
+        <img src="https://drive.google.com/thumbnail?id=1jR1VMRKGCKXHBprP1ZlaWiT8L3eLJBg1&sz=w400" alt="ククク サムネイル">
       </div>
       <div class="card-body">
-        <div class="meta">3M / 07</div>
-        <div class="name" title="久保田優衣">久保田優衣</div>
+        <div class="title-row">
+          <span class="code">3M 07</span>
+          <span class="name" title="ククク">ククク</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
     <!-- 3M 08 鍵付き蔵 -->
     <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m-gamestock08" target="_blank" rel="noopener noreferrer">
+      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m-gamestork08" target="_blank" rel="noopener noreferrer">
         <img src="https://drive.google.com/thumbnail?id=1uvWaCu0PReO_lE0VDkalwMepAQVgEXej&sz=w400" alt="鍵付き蔵 サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 08</div>
-        <div class="name" title="鍵付き蔵">鍵付き蔵</div>
+        <div class="title-row">
+          <span class="code">3M 08</span>
+          <span class="name" title="鍵付き蔵">鍵付き蔵</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
@@ -165,8 +207,11 @@
         <img src="https://drive.google.com/thumbnail?id=1ejwjihtZ7wnF2jlowQS15YA3FwqBrt1J&sz=w400" alt="さかちゃん サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 09</div>
-        <div class="name" title="さかちゃん">さかちゃん</div>
+        <div class="title-row">
+          <span class="code">3M 09</span>
+          <span class="name" title="さかちゃん">さかちゃん</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
@@ -176,8 +221,11 @@
         <img src="https://drive.google.com/thumbnail?id=18551q8ONimaH_MRjhmZanXq6Emy_idIw&sz=w400" alt="ささみ サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 10</div>
-        <div class="name" title="ささみ">ささみ</div>
+        <div class="title-row">
+          <span class="code">3M 10</span>
+          <span class="name" title="ささみ">ささみ</span>
+        </div>
+        <div class="desc ready">ボイジャー1号で惑星の神話を巡り、レコードで宇宙人と心を通わせるRPGです。</div>
       </div>
     </article>
 
@@ -187,8 +235,11 @@
         <img src="https://drive.google.com/thumbnail?id=1Y4OKVpj-U6GsTq9GMIZimggbY3Qc0vPD&sz=w400" alt="しぶたに サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 11</div>
-        <div class="name" title="しぶたに">しぶたに</div>
+        <div class="title-row">
+          <span class="code">3M 11</span>
+          <span class="name" title="しぶたに">しぶたに</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
@@ -198,41 +249,53 @@
         <img src="https://drive.google.com/thumbnail?id=10ZSwpUqt_CEzTVRxD9us4_WDBwpP0kEK&sz=w400" alt="るる サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 12</div>
-        <div class="name" title="るる">るる</div>
+        <div class="title-row">
+          <span class="code">3M 12</span>
+          <span class="name" title="るる">るる</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
-    <!-- 3M 13 関口実里 -->
+    <!-- 3M 13 み -->
     <article class="card">
       <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m-13sekiguchi/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank" rel="noopener noreferrer">
-        <div class="placeholder">準備中</div>
+        <img src="https://drive.google.com/thumbnail?id=10WyqGWH2796UmXrHhrs-DNZaTLNZsxIJ&sz=w400" alt="み サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 13</div>
-        <div class="name" title="関口実里">関口実里</div>
+        <div class="title-row">
+          <span class="code">3M 13</span>
+          <span class="name" title="み">み</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
-    <!-- 3M 14 染川もこ -->
+    <!-- 3M 14 こも -->
     <article class="card">
       <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m14somekawa" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1XepYdmHLWYns__MenNxyQEuqy6zOX5k3&sz=w400" alt="染川もこ サムネイル">
+        <img src="https://drive.google.com/thumbnail?id=1XepYdmHLWYns__MenNxyQEuqy6zOX5k3&sz=w400" alt="こも サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 14</div>
-        <div class="name" title="染川もこ">染川もこ</div>
+        <div class="title-row">
+          <span class="code">3M 14</span>
+          <span class="name" title="こも">こも</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
-    <!-- 3M 15 平真那美 -->
+    <!-- 3M 15 平ら -->
     <article class="card">
       <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m15taira/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1b7fPp5mRzi1_HrdAUtufmYp5La1fewGU&sz=w400" alt="平真那美 サムネイル">
+        <img src="https://drive.google.com/thumbnail?id=1b7fPp5mRzi1_HrdAUtufmYp5La1fewGU&sz=w400" alt="平ら サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 15</div>
-        <div class="name" title="平真那美">平真那美</div>
+        <div class="title-row">
+          <span class="code">3M 15</span>
+          <span class="name" title="平ら">平ら</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
@@ -242,8 +305,11 @@
         <img src="https://drive.google.com/thumbnail?id=10we8dZO0buyjk-wYBqna7OxfOhY5PePe&sz=w400" alt="すずき サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 16</div>
-        <div class="name" title="すずき">すずき</div>
+        <div class="title-row">
+          <span class="code">3M 16</span>
+          <span class="name" title="すずき">すずき</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
@@ -253,8 +319,11 @@
         <img src="https://drive.google.com/thumbnail?id=1evweLUeTQLl1Eu2q6KPOnlsaUVaUNqPh&sz=w400" alt="たんじまーと サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 17</div>
-        <div class="name" title="たんじまーと">たんじまーと</div>
+        <div class="title-row">
+          <span class="code">3M 17</span>
+          <span class="name" title="たんじまーと">たんじまーと</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
@@ -264,8 +333,11 @@
         <img src="https://drive.google.com/thumbnail?id=1w1bLCQLYf9jPY76eHw3DhYx5xxC2k_z-&sz=w400" alt="ばーてぃー サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 18</div>
-        <div class="name" title="ばーてぃー">ばーてぃー</div>
+        <div class="title-row">
+          <span class="code">3M 18</span>
+          <span class="name" title="ばーてぃー">ばーてぃー</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
@@ -275,8 +347,11 @@
         <div class="placeholder">準備中</div>
       </a>
       <div class="card-body">
-        <div class="meta">3M / 19</div>
-        <div class="name" title="かずなり">かずなり</div>
+        <div class="title-row">
+          <span class="code">3M 19</span>
+          <span class="name" title="かずなり">かずなり</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
@@ -286,19 +361,25 @@
         <img src="https://drive.google.com/thumbnail?id=13tXrKZa0c8WH2HGcxBHDY3A2tfkwiKRb&sz=w400" alt="藤ねこ サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 20</div>
-        <div class="name" title="藤ねこ">藤ねこ</div>
+        <div class="title-row">
+          <span class="code">3M 20</span>
+          <span class="name" title="藤ねこ">藤ねこ</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
     <!-- 3M 21 眞榮城朱里 -->
     <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m21maeshiro01/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank" rel="noopener noreferrer">
+      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m21maeshiro?usp=sharing" target="_blank" rel="noopener noreferrer">
         <div class="placeholder">準備中</div>
       </a>
       <div class="card-body">
-        <div class="meta">3M / 21</div>
-        <div class="name" title="眞榮城朱里">眞榮城朱里</div>
+        <div class="title-row">
+          <span class="code">3M 21</span>
+          <span class="name" title="眞榮城朱里">眞榮城朱里</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
@@ -308,8 +389,11 @@
         <img src="https://drive.google.com/thumbnail?id=1g0EHgGhrULjLT6mYAqxRkMe0Ubs2sGCb&sz=w400" alt="午後ティー教 サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 22</div>
-        <div class="name" title="午後ティー教">午後ティー教</div>
+        <div class="title-row">
+          <span class="code">3M 22</span>
+          <span class="name" title="午後ティー教">午後ティー教</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
@@ -319,8 +403,11 @@
         <img src="https://drive.google.com/thumbnail?id=19TB0vlXacTjo-Jq7z3CzbECQ1vJCmbnG&sz=w400" alt="ダーヤマ サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 23</div>
-        <div class="name" title="ダーヤマ">ダーヤマ</div>
+        <div class="title-row">
+          <span class="code">3M 23</span>
+          <span class="name" title="ダーヤマ">ダーヤマ</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
@@ -330,19 +417,25 @@
         <img src="https://drive.google.com/thumbnail?id=1bttQhnytCTu-zoF6_t7WsViNdvEt5Spt&sz=w400" alt="Peroメ サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 24</div>
-        <div class="name" title="Peroメ">Peroメ</div>
+        <div class="title-row">
+          <span class="code">3M 24</span>
+          <span class="name" title="Peroメ">Peroメ</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
 
     <!-- 3M 25 やよい -->
     <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3myoshida/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank" rel="noopener noreferrer">
+      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m25yoshida/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank" rel="noopener noreferrer">
         <img src="https://drive.google.com/thumbnail?id=1bb4kqx-Xb50NeSHeSA7VQVj5ik6GPYzb&sz=w400" alt="やよい サムネイル">
       </a>
       <div class="card-body">
-        <div class="meta">3M / 25</div>
-        <div class="name" title="やよい">やよい</div>
+        <div class="title-row">
+          <span class="code">3M 25</span>
+          <span class="name" title="やよい">やよい</span>
+        </div>
+        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
       </div>
     </article>
   </div>
