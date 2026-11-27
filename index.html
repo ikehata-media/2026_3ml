@@ -1,894 +1,429 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3L・3M ゲームリンク集</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Black FFT & Strings</title>
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-    body {
-      font-family: sans-serif;
-      margin: 6px 8px;
-      background-color: #f9fafb;
-      color: #1f2937;
-    }
-    h1 {
-      font-size: 0.95rem;
-      margin: 0 0 6px;
-      color: #111827;
-    }
-    .columns {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-      align-items: start;
-    }
-    @media (max-width: 720px) {
-      .columns {
-        grid-template-columns: 1fr;
-      }
-    }
-    .class-section {
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
-      border-radius: 5px;
-      padding: 4px 6px 6px;
-    }
-    h2 {
-      font-size: 0.8rem;
-      margin: 0 0 4px;
-      padding-bottom: 2px;
-      border-bottom: 1px solid #e5e7eb;
-      color: #111827;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
-      gap: 4px;
-    }
-    .card {
-      background: #ffffff;
-      border: 1px solid #d1d5db;
-      border-radius: 4px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-    .thumb-link {
-      display: block;
-      aspect-ratio: 16 / 9;
-      background-color: #f3f4f6;
-      overflow: hidden;
-    }
-    .thumb-link img {
+    html, body {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      background: #000000;
+      overflow: hidden;
+      cursor: crosshair;
+    }
+    canvas {
       display: block;
-    }
-    .placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #4b5563;
-      font-size: 0.62rem;
-    }
-    .card-body {
-      padding: 3px 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-    }
-    .title-row {
-      display: flex;
-      align-items: baseline;
-      gap: 2px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .code {
-      font-size: 0.62rem;
-      color: #4b5563;
-      flex-shrink: 0;
-    }
-    .name {
-      font-weight: bold;
-      font-size: 0.65rem;
-      line-height: 1.2;
-      color: #111827;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .desc {
-      font-size: 0.62rem;
-      color: #4b5563;
-      line-height: 1.2;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .desc.ready {
-      color: #1f2937;
+      width: 100vw;
+      height: 100vh;
+      background: #000000;
     }
   </style>
 </head>
 <body>
-  <h1>3L・3M ゲームリンク集</h1>
+  <canvas id="canvas"></canvas>
 
-  <div class="columns">
-    <!-- 左カラム：3L -->
-    <section class="class-section">
-      <h2>3L</h2>
-      <div class="grid">
-        <!-- 3L 01 えりち -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l01asanome-game-01/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1dm_mJJ-fratGKgpzS7yqctK3HzDmWQDN&sz=w400" alt="えりち サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">01</span>
-              <span class="name" title="えりち">えりち</span>
-            </div>
-            <div class="desc ready">先輩たちとクイズ形式で楽しく勉強しよう！</div>
-          </div>
-        </article>
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
 
-        <!-- 3L 02 3M -->
-        <article class="card">
-          <a class="thumb-link" href="https://ikehata-media.github.io/2026_3ml/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=16YDHiWlmcAylN902Kq5hg44zdbOUgWsm&sz=w400" alt="3M サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">02</span>
-              <span class="name" title="3M">3M</span>
-            </div>
-            <div class="desc ready">3M3L2026年全ゲームリンク集</div>
-          </div>
-        </article>
+    const MIN_FREQ = 80;
+    const MAX_FREQ = 4000;
+    const LIFETIME_SEC = 10.0;
 
-        <!-- 3L 03 うめ -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l03umemoto/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1QzeV88Z7P2JB37G7-JGcn1jcGVd5e3u5&sz=w400" alt="うめ サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">03</span>
-              <span class="name" title="うめ">うめ</span>
-            </div>
-            <div class="desc ready">甘いお菓子の世界で遊んで学ぼう！お菓子のミニゲームがいっぱい！</div>
-          </div>
-        </article>
+    let audioCtx = null;
+    let analyser = null;
+    let freqData = null;
 
-        <!-- 3L 04 くし -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l04kushibe/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1A5O4o4UTJXnTAA78_GidCRVCDKhEldT2&sz=w400" alt="くし サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">04</span>
-              <span class="name" title="くし">くし</span>
-            </div>
-            <div class="desc ready">色彩検定リズムゲーム！タイミングよく回答をタッチしよう</div>
-          </div>
-        </article>
+    let anchorPoint = null;
+    const strings = [];
 
-        <!-- 3L 05 こい -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l05koizumi/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1448rebbmOCe0m7mcT1fEiQmNStoCS10g&sz=w400" alt="こい サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">05</span>
-              <span class="name" title="こい">こい</span>
-            </div>
-            <div class="desc ready">色んな国の特徴で国を当てよう！</div>
-          </div>
-        </article>
+    let fftAlpha = 0;
+    let hasPluckedInitialString = false;
+    let lastTime = performance.now();
 
-        <!-- 3L 06 さかちゃん -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l06sakamaki/" target="_blank" rel="noopener noreferrer">
-            <div class="placeholder">準備中</div>
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">06</span>
-              <span class="name" title="さかちゃん">さかちゃん</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+    function getLogicalSize() {
+      const w = Math.max(320, window.innerWidth || document.documentElement.clientWidth || 800);
+      const h = Math.max(240, window.innerHeight || document.documentElement.clientHeight || 600);
+      return { width: w, height: h };
+    }
 
-        <!-- 3L 07 しま -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l07shimazaki/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1N9Wp0osevBs6ZOUNRGjs6teoIb18Q3ee&sz=w400" alt="しま サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">07</span>
-              <span class="name" title="しま">しま</span>
-            </div>
-            <div class="desc ready">お客さんにヘアメイクをしながら、メイクについて勉強できるゲームです</div>
-          </div>
-        </article>
+    function resize() {
+      const dpr = window.devicePixelRatio || 1;
+      const { width, height } = getLogicalSize();
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
 
-        <!-- 3L 08 しん -->
-        <article class="card">
-          <div class="thumb-link">
-            <div class="placeholder">準備中</div>
-          </div>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">08</span>
-              <span class="name" title="しん">しん</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+    resize();
 
-        <!-- 3L 09 せい -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/ace/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank" rel="noopener noreferrer">
-            <div class="placeholder">準備中</div>
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">09</span>
-              <span class="name" title="せい">せい</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+    // 周波数 -> X座標（対数スケール）
+    function freqToX(freq, width) {
+      const clamped = Math.max(MIN_FREQ, Math.min(MAX_FREQ, freq));
+      const logMin = Math.log10(MIN_FREQ);
+      const logMax = Math.log10(MAX_FREQ);
+      return ((Math.log10(clamped) - logMin) / (logMax - logMin)) * width;
+    }
 
-        <!-- 3L 10 たな -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/kanjifighter/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1FEYC4iwmxJU22w9NURvTHIXbfzN6ghD-&sz=w400" alt="たな サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">10</span>
-              <span class="name" title="たな">たな</span>
-            </div>
-            <div class="desc ready">漢字の読みを入力して技を繰り出し漢字エネミーを倒せ！</div>
-          </div>
-        </article>
+    // X座標 -> 周波数（対数スケール）
+    function xToFreq(x, width) {
+      const ratio = Math.max(0, Math.min(1, x / Math.max(1, width)));
+      const logMin = Math.log10(MIN_FREQ);
+      const logMax = Math.log10(MAX_FREQ);
+      return Math.pow(10, logMin + ratio * (logMax - logMin));
+    }
 
-        <!-- 3L 11 ちょう -->
-        <article class="card">
-          <div class="thumb-link">
-            <div class="placeholder">準備中</div>
-          </div>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">11</span>
-              <span class="name" title="ちょう">ちょう</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+    // 水平・垂直の度合い（0 = 完全水平: 正弦波, 1 = 完全垂直: 矩形波）
+    function computeVerticalRatio(p1, p2) {
+      const dx = Math.abs(p2.x - p1.x);
+      const dy = Math.abs(p2.y - p1.y);
+      const len = Math.hypot(dx, dy);
+      if (len < 1) return 0;
+      const angle = Math.atan2(dy, dx);
+      return Math.min(1, Math.max(0, angle / (Math.PI / 2)));
+    }
 
-        <!-- 3L 12 の -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l12noya/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1tMHWjzTpDbcoVZfKsvglNMwQKwLgWrTH&sz=w400" alt="の サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">12</span>
-              <span class="name" title="の">の</span>
-            </div>
-            <div class="desc ready">マリオをプレイしながら数学が学べるゲーム</div>
-          </div>
-        </article>
+    // 弦の周波数計算
+    function computeStringFreq(p1, p2, width) {
+      const midX = (p1.x + p2.x) / 2;
+      const len = Math.max(24, Math.hypot(p2.x - p1.x, p2.y - p1.y));
+      const baseFreq = xToFreq(midX, width);
+      const lengthFactor = 180 / len;
+      return Math.max(MIN_FREQ, Math.min(MAX_FREQ, baseFreq * Math.pow(lengthFactor, 0.2)));
+    }
 
-        <!-- 3L 13 はぎ -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/jyoshikijyoshiki/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1hDerazBarCrGjJc3f-1Nybsj2hR4wq8D&sz=w400" alt="はぎ サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">13</span>
-              <span class="name" title="はぎ">はぎ</span>
-            </div>
-            <div class="desc ready">常識を学べるゲームとお城で迷路ができるゲーム</div>
-          </div>
-        </article>
+    function ensureAudio() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContextClass();
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 4096;
+        analyser.smoothingTimeConstant = 0.8;
+        freqData = new Uint8Array(analyser.frequencyBinCount);
+      }
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+    }
 
-        <!-- 3L 14 ひら -->
-        <article class="card">
-          <div class="thumb-link">
-            <div class="placeholder">準備中</div>
-          </div>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">14</span>
-              <span class="name" title="ひら">ひら</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+    // 正弦波（水平）と矩形波（垂直）をブレンドして発音
+    function playBlendedTone(freq, verticalRatio) {
+      ensureAudio();
+      const now = audioCtx.currentTime;
 
-        <!-- 3L 15 ふく -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l15fukuda01/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1H1sXJNtfp_QcTz6zonHx98DFe4G3DycA&sz=w400" alt="ふく サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">15</span>
-              <span class="name" title="ふく">ふく</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+      const sineOsc = audioCtx.createOscillator();
+      sineOsc.type = "sine";
+      sineOsc.frequency.setValueAtTime(freq, now);
 
-        <!-- 3L 16 ふじ -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l16fujita/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=16RkJdQQqK0pizPCGY2mc1ud7b8tQ8Qrk&sz=w400" alt="ふじ サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">16</span>
-              <span class="name" title="ふじ">ふじ</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+      const squareOsc = audioCtx.createOscillator();
+      squareOsc.type = "square";
+      squareOsc.frequency.setValueAtTime(freq, now);
 
-        <!-- 3L 17 ほづ -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l17hodumi0219/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1YTr3T_x78buzKW_7zepF6O3M-VT4cMpP&sz=w400" alt="ほづ サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">17</span>
-              <span class="name" title="ほづ">ほづ</span>
-            </div>
-            <div class="desc ready">音楽の基礎知識を身につけよう！わかるだけで音楽の見方が変わるかも…？</div>
-          </div>
-        </article>
+      const sineGain = audioCtx.createGain();
+      const squareGain = audioCtx.createGain();
+      const masterGain = audioCtx.createGain();
 
-        <!-- 3L 18 笹かま -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/18ho-ri-" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1o3TxpQdt1X-1Hls4acyzI4so8_TzX_wX&sz=w400" alt="笹かま サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">18</span>
-              <span class="name" title="笹かま">笹かま</span>
-            </div>
-            <div class="desc ready">中学生で習う問題を執事さんに応援されつつ解けます。もう一つ８番出口のような３Dの間違い探し脱出ゲームがあります。</div>
-          </div>
-        </article>
+      const sineWeight = 1 - verticalRatio;
+      const squareWeight = verticalRatio * 0.55;
 
-        <!-- 3L 19 まさ -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l19masauji/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=15MCYMdDEUUtJfaZUKBBZ-XVA37ymAFFc&sz=w400" alt="まさ サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">19</span>
-              <span class="name" title="まさ">まさ</span>
-            </div>
-            <div class="desc ready">日本舞踊を踊る宇宙人を倒しながら伝説の剣を探すRPG 魚を焼くおじさんと仲良くなれ！</div>
-          </div>
-        </article>
+      sineGain.gain.setValueAtTime(sineWeight, now);
+      squareGain.gain.setValueAtTime(squareWeight, now);
 
-        <!-- 3L 20 まつ -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/matsudatesite/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1AM3PNJjh6TPHQsZwEoawoNJ2jftq_bgc&sz=w400" alt="まつ サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">20</span>
-              <span class="name" title="まつ">まつ</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+      masterGain.gain.setValueAtTime(0.0001, now);
+      masterGain.gain.exponentialRampToValueAtTime(0.28, now + 0.012);
+      masterGain.gain.exponentialRampToValueAtTime(0.0001, now + 1.2);
 
-        <!-- 3L 21 みた -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l21mitani01/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1SbEuldFzFfLsrP6a_SspV7xkGL-J0S-f&sz=w400" alt="みた サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">21</span>
-              <span class="name" title="みた">みた</span>
-            </div>
-            <div class="desc ready">個性豊かなキャラクター達と楽しく学べる、4択クイズ式学習ゲーム！</div>
-          </div>
-        </article>
+      sineOsc.connect(sineGain);
+      squareOsc.connect(squareGain);
+      sineGain.connect(masterGain);
+      squareGain.connect(masterGain);
 
-        <!-- 3L 22 もり -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l22morikawamio?usp=sharing" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1MzvrtBRybv_mOPKZ5e08gNn_bt7aFs3M&sz=w400" alt="もり サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">22</span>
-              <span class="name" title="もり">もり</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+      masterGain.connect(analyser);
+      analyser.connect(audioCtx.destination);
 
-        <!-- 3L 23 もん -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l23monma/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1ar2bmn9Xm3TGeW42Hs5Cme7nyJGDvLGb&sz=w400" alt="もん サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">23</span>
-              <span class="name" title="もん">もん</span>
-            </div>
-            <div class="desc ready">師匠と一緒に漢字の修行をしよう！間違えると師匠からの鉄槌が…？</div>
-          </div>
-        </article>
+      sineOsc.start(now);
+      squareOsc.start(now);
+      sineOsc.stop(now + 1.22);
+      squareOsc.stop(now + 1.22);
 
-        <!-- 3L 24 夜麻田 -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l24yamadaa/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1mXOW-HSzIEIO39ghMKYVH4l8i1MpzWue&sz=w400" alt="夜麻田 サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">24</span>
-              <span class="name" title="夜麻田">夜麻田</span>
-            </div>
-            <div class="desc ready">相棒と動物クイズで謎を解き、旧校舎から脱出するホラーゲーム</div>
-          </div>
-        </article>
+      fftAlpha = 1.0;
+    }
 
-        <!-- 3L 25 ま -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l25mayu/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1WFDDNx8ku6iJ8JD9ynoa-DxRWC8LtTc7j&sz=w400" alt="ま サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">25</span>
-              <span class="name" title="ま">ま</span>
-            </div>
-            <div class="desc ready">たのしい日本史～同一問</div>
-          </div>
-        </article>
+    // 初期表示用に1本（440Hzの水平弦）を確実に張る
+    function setupInitialString() {
+      const { width, height } = getLogicalSize();
+      const targetX = freqToX(440, width);
+      const halfSpan = Math.min(150, Math.max(70, width * 0.16));
+      const cx = Math.max(halfSpan + 24, Math.min(width - halfSpan - 24, targetX));
+      const y = height * 0.42;
 
-        <!-- 3L 26 じゅ -->
-        <article class="card">
-          <div class="thumb-link">
-            <div class="placeholder">準備中</div>
-          </div>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">26</span>
-              <span class="name" title="じゅ">じゅ</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+      const p1 = { x: cx - halfSpan, y };
+      const p2 = { x: cx + halfSpan, y };
 
-        <!-- 3L 27 え -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l27yly01/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1JjfYt6Aly3YvOC0G3STOQwPJ3vZvHN1Ne&sz=w400" alt="え サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">27</span>
-              <span class="name" title="え">え</span>
-            </div>
-            <div class="desc ready">日本文化を学ぼう！</div>
-          </div>
-        </article>
+      strings.push({
+        p1,
+        p2,
+        centerX: cx,
+        centerY: y,
+        freq: 440,
+        hzText: "440",
+        verticalRatio: 0,
+        age: 0,
+        lifetime: LIFETIME_SEC,
+        pluckStrength: 10,
+        vibPhase: 0,
+        isInitial: true,
+      });
+    }
 
-        <!-- 3L 28 芳村 -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l28ririsann" target="_blank" rel="noopener noreferrer">
-            <div class="placeholder">準備中</div>
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">28</span>
-              <span class="name" title="芳村">芳村</span>
-            </div>
-            <div class="desc ready">可愛い猫たちと一緒にスパルタ英学習をしよう！</div>
-          </div>
-        </article>
-      </div>
-    </section>
+    setupInitialString();
 
-    <!-- 右カラム：3M -->
-    <section class="class-section">
-      <h2>3M</h2>
-      <div class="grid">
-        <!-- 3M 01 ガ -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m01ougaka-cafe/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=12QRfqzkqUG9zY0OHYct42elqUap5bcFI&sz=w400" alt="ガ サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">01</span>
-              <span class="name" title="ガ">ガ</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+    window.addEventListener("resize", () => {
+      resize();
+      // まだ操作前の初期弦だけ画面サイズに合わせて再配置
+      if (!hasPluckedInitialString && strings.length === 1 && strings[0].isInitial) {
+        strings.length = 0;
+        setupInitialString();
+      }
+    });
 
-        <!-- 3M 02 日 -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/d/1e6EjHguGp4-ltu1VYA5vdOD8cBxLHuF1/p/1RDCrEoOJIPUcuJ-CpkZ8DTzHyGgCkD2u/edit" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1cXWVspU6kbnKNeSInuT2dHeii8b7Waff&sz=w400" alt="日 サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">02</span>
-              <span class="name" title="日">日</span>
-            </div>
-            <div class="desc ready">ダンジョンの中で迷う、怪物から逃げながら三つの鍵をさがす 、ダンジョンを脱出頑張ろ！</div>
-          </div>
-        </article>
+    // 弦を生成・はじく
+    function createAndPluckString(p1, p2, width) {
+      const freq = computeStringFreq(p1, p2, width);
+      const verticalRatio = computeVerticalRatio(p1, p2);
+      const centerX = (p1.x + p2.x) / 2;
+      const centerY = (p1.y + p2.y) / 2;
 
-        <!-- 3M 03 はごころ -->
-        <article class="card">
-          <a class="thumb-link" href="https://wako0718.github.io/html/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1SpjsMM2OQLBQgJqC46sh2c2xuSLWN4K0&sz=w400" alt="はごころ サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">03</span>
-              <span class="name" title="はごころ">はごころ</span>
-            </div>
-            <div class="desc ready">FPSゲームです。モードは二種類あります。同じコードを使えば友達とも一緒にできる...はず...</div>
-          </div>
-        </article>
+      strings.push({
+        p1: { x: p1.x, y: p1.y },
+        p2: { x: p2.x, y: p2.y },
+        centerX,
+        centerY,
+        freq,
+        hzText: `${Math.round(freq)}`,
+        verticalRatio,
+        age: 0,
+        lifetime: LIFETIME_SEC,
+        pluckStrength: 28,
+        vibPhase: 0,
+        isInitial: false,
+      });
 
-        <!-- 3M 04 お -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m04ogata?usp=sharing" target="_blank" rel="noopener noreferrer">
-            <div class="placeholder">準備中</div>
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">04</span>
-              <span class="name" title="お">お</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+      playBlendedTone(freq, verticalRatio);
+    }
 
-        <!-- 3M 05 おちけい -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3mochiai00?usp=sharing" target="_blank" rel="noopener noreferrer">
-            <div class="placeholder">準備中</div>
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">05</span>
-              <span class="name" title="おちけい">おちけい</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+    function pointToSegmentDist(p, a, b) {
+      const vx = b.x - a.x;
+      const vy = b.y - a.y;
+      const wx = p.x - a.x;
+      const wy = p.y - a.y;
+      const c1 = vx * wx + vy * wy;
+      if (c1 <= 0) return Math.hypot(p.x - a.x, p.y - a.y);
+      const c2 = vx * vx + vy * vy;
+      if (c2 <= c1) return Math.hypot(p.x - b.x, p.y - b.y);
+      const t = c1 / c2;
+      return Math.hypot(p.x - (a.x + t * vx), p.y - (a.y + t * vy));
+    }
 
-        <!-- 3M 06 かねぴ -->
-        <article class="card">
-          <a class="thumb-link" href="https://e24049-commits.github.io/game/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1wVfJpxqVostbA2YhFYIiNuHpl8ITCDD8&sz=w400" alt="かねぴ サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">06</span>
-              <span class="name" title="かねぴ">かねぴ</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+    canvas.addEventListener("click", (evt) => {
+      const { width } = getLogicalSize();
+      const pt = { x: evt.clientX, y: evt.clientY };
 
-        <!-- 3M 07 ククク -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m07kubotaa/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1jR1VMRKGCKXHBprP1ZlaWiT8L3eLJBg1&sz=w400" alt="ククク サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">07</span>
-              <span class="name" title="ククク">ククク</span>
-            </div>
-            <div class="desc ready">悪夢を見ている人たちを救うゲーム｜</div>
-          </div>
-        </article>
+      if (!hasPluckedInitialString) {
+        hasPluckedInitialString = true;
+        const initial = strings.find((s) => s.isInitial);
+        if (initial) {
+          initial.age = 0;
+          initial.pluckStrength = 28;
+          playBlendedTone(initial.freq, initial.verticalRatio);
+          return;
+        }
+      }
 
-        <!-- 3M 08 鍵付き蔵 -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m-gamestock08" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1uvWaCu0PReO_lE0VDkalwMepAQVgEXej&sz=w400" alt="鍵付き蔵 サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">08</span>
-              <span class="name" title="鍵付き蔵">鍵付き蔵</span>
-            </div>
-            <div class="desc ready">ミニゲームが３つ入っています 電話交換手 怪盗脱出 儀式阻止</div>
-          </div>
-        </article>
+      if (!anchorPoint) {
+        const hit = strings.find((s) => pointToSegmentDist(pt, s.p1, s.p2) < 12);
+        if (hit) {
+          hit.age = 0;
+          hit.pluckStrength = 28;
+          playBlendedTone(hit.freq, hit.verticalRatio);
+          return;
+        }
+        anchorPoint = pt;
+        return;
+      }
 
-        <!-- 3M 08 鍵付きの薬局蔵 -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/apothecary-sort-000" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=11JPJKOGNTGt-_VPG3NWYFqX5ik6GPYzb&sz=w400" alt="鍵付きの薬局蔵 サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">08</span>
-              <span class="name" title="鍵付きの薬局蔵">鍵付きの薬局蔵</span>
-            </div>
-            <div class="desc ready">雨音と薬草の香りに包まれ、乳鉢で軟膏を練る癒やしの調剤室ライ</div>
-          </div>
-        </article>
+      createAndPluckString(anchorPoint, pt, width);
+      anchorPoint = pt;
+    });
 
-        <!-- 3M 09 さかちゃん -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m09sakaoka01/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1ejwjihtZ7wnF2jlowQS15YA3FwqBrt1J&sz=w400" alt="さかちゃん サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">09</span>
-              <span class="name" title="さかちゃん">さかちゃん</span>
-            </div>
-            <div class="desc ready">ただの漢字クイズだよー</div>
-          </div>
-        </article>
+    // FFT領域の境目がわかる描画
+    function drawLogFFT(width, height, alpha) {
+      if (alpha <= 0.01) return;
 
-        <!-- 3M 10 ささみ -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3msasaki01?usp=sharing" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=18551q8ONimaH_MRjhmZanXq6Emy_idIw&sz=w400" alt="ささみ サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">10</span>
-              <span class="name" title="ささみ">ささみ</span>
-            </div>
-            <div class="desc ready">ボイジャー1号で惑星の神話を巡り、レコードで宇宙人と心を通わせるRPGです。</div>
-          </div>
-        </article>
+      const baseY = height * 0.82;
+      const maxBarHeight = height * 0.34;
+      const bandTop = baseY - maxBarHeight - 16;
+      const bandBottom = height;
 
-        <!-- 3M 11 しぶたに -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m11shibuya01/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1p0CEvEPjFvTTiQTGoEBQi0Q8EO0uMyG_&sz=w400" alt="しぶたに サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">11</span>
-              <span class="name" title="しぶたに">しぶたに</span>
-            </div>
-            <div class="desc ready">2D横スクロールゲーム。しぶやをゴールに導こう！</div>
-          </div>
-        </article>
+      ctx.save();
+      ctx.globalAlpha = alpha;
 
-        <!-- 3M 12 るる -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m12shimada01/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=10ZSwpUqt_CEzTVRxD9us4_WDBwpP0kEK&sz=w400" alt="るる サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">12</span>
-              <span class="name" title="るる">るる</span>
-            </div>
-            <div class="desc ready">BLノベルゲームです。最初のやつは上司とイチャイチャできます。二</div>
-          </div>
-        </article>
+      // 1. FFT領域の背景色（黒背景との境目を明確にするディープネイビー〜スレート帯）
+      const bgGrad = ctx.createLinearGradient(0, bandTop, 0, bandBottom);
+      bgGrad.addColorStop(0, "rgba(15, 23, 42, 0.0)");
+      bgGrad.addColorStop(0.18, "rgba(15, 23, 42, 0.85)");
+      bgGrad.addColorStop(1, "rgba(9, 13, 24, 0.95)");
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, bandTop, width, bandBottom - bandTop);
 
-        <!-- 3M 13 み -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m-13sekiguchi/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=10WYgWHZ796UmUxRHhrs-DNZaTLNzsXlj3&sz=w400" alt="み サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">13</span>
-              <span class="name" title="み">み</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+      // 2. FFTベースライン（境界線）をシアン系で描画
+      ctx.strokeStyle = "rgba(56, 189, 248, 0.55)";
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(0, baseY);
+      ctx.lineTo(width, baseY);
+      ctx.stroke();
 
-        <!-- 3M 14 こも -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m14somekawa" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1XepYdmHLWYns__MenNxyQEuqy6zOX5k3&sz=w400" alt="こも サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">14</span>
-              <span class="name" title="こも">こも</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+      if (analyser && freqData && audioCtx) {
+        analyser.getByteFrequencyData(freqData);
+        const nyquist = audioCtx.sampleRate / 2;
+        const binHz = nyquist / freqData.length;
 
-        <!-- 3M 15 平ら -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m15taira/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1b7fPp5mRzi1_HrdAUtufmYp5La1fewGU&sz=w400" alt="平ら サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">15</span>
-              <span class="name" title="平ら">平ら</span>
-            </div>
-            <div class="desc ready">グラスを弾いてお客さんに届けよう</div>
-          </div>
-        </article>
+        const points = [];
+        for (let x = 0; x <= width; x += 2) {
+          const freq = xToFreq(x, width);
+          const bin = Math.min(freqData.length - 1, Math.max(0, Math.round(freq / binHz)));
+          const norm = freqData[bin] / 255;
+          const y = baseY - norm * maxBarHeight;
+          points.push({ x, y });
+        }
 
-        <!-- 3M 16 すずき -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/m16sss/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=10we8dZO0buyjk-wYBqna7OxfOhY5PePe&sz=w400" alt="すずき サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">16</span>
-              <span class="name" title="すずき">すずき</span>
-            </div>
-            <div class="desc ready">お肉を焼くゲーム。最高なお肉の状態になるように高得点を目指そう</div>
-          </div>
-        </article>
+        if (points.length > 1) {
+          // 3. 波形下のグラデーション塗りつぶし（境目の視認性アップ）
+          const fillGrad = ctx.createLinearGradient(0, baseY - maxBarHeight, 0, baseY);
+          fillGrad.addColorStop(0, "rgba(56, 189, 248, 0.42)");
+          fillGrad.addColorStop(1, "rgba(37, 99, 235, 0.05)");
 
-        <!-- 3M 17 たんじまーと -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3mtajima01/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1evweLUeTQLl1Eu2q6KPOnlsaUVaUNqPh&sz=w400" alt="たんじまーと サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">17</span>
-              <span class="name" title="たんじまーと">たんじまーと</span>
-            </div>
-            <div class="desc ready">馬を積み上げるゲームです。8頭全てにスキルがあり、曲者揃いで</div>
-          </div>
-        </article>
+          ctx.fillStyle = fillGrad;
+          ctx.beginPath();
+          ctx.moveTo(points[0].x, baseY);
+          for (const pt of points) {
+            ctx.lineTo(pt.x, pt.y);
+          }
+          ctx.lineTo(points[points.length - 1].x, baseY);
+          ctx.closePath();
+          ctx.fill();
 
-        <!-- 3M 18 ばーてぃー -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m18chiba/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1w1bLCQLYf9jPY76eHw3DhYx5xxC2k_z-&sz=w400" alt="ばーてぃー サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">18</span>
-              <span class="name" title="ばーてぃー">ばーてぃー</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+          // 4. FFTスペクトル線本体（明るいシアン〜ホワイト）
+          ctx.strokeStyle = "#7dd3fc";
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          points.forEach((pt, idx) => {
+            if (idx === 0) ctx.moveTo(pt.x, pt.y);
+            else ctx.lineTo(pt.x, pt.y);
+          });
+          ctx.stroke();
+        }
+      }
 
-        <!-- 3M 19 かずなり -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/ch1rush1v1/" target="_blank" rel="noopener noreferrer">
-            <div class="placeholder">準備中</div>
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">19</span>
-              <span class="name" title="かずなり">かずなり</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+      ctx.restore();
+    }
 
-        <!-- 3M 20 藤ねこ -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m20fujisawayu" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=13tXrKZa0c8WH2HGcxBHDY3A2tfkwiKRb&sz=w400" alt="藤ねこ サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">20</span>
-              <span class="name" title="藤ねこ">藤ねこ</span>
-            </div>
-            <div class="desc ready">タイピングゲーム、できました</div>
-          </div>
-        </article>
+    function drawStringsAndCenterNumbers(dt) {
+      for (let i = strings.length - 1; i >= 0; i--) {
+        const s = strings[i];
+        s.age += dt;
 
-        <!-- 3M 21 ま -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m21maeshiro01/" target="_blank" rel="noopener noreferrer">
-            <div class="placeholder">準備中</div>
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">21</span>
-              <span class="name" title="ま">ま</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+        const lifeRatio = Math.max(0, 1 - s.age / s.lifetime);
+        if (lifeRatio <= 0) {
+          strings.splice(i, 1);
+          continue;
+        }
 
-        <!-- 3M 22 も -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m22moriyakasumi22/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1g0EHgGhrULjLT6mYAqxRkMe0Ubs2sGCb&sz=w400" alt="も サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">22</span>
-              <span class="name" title="も">も</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+        const vibSpeed = 28 + Math.min(45, s.freq * 0.02);
+        s.vibPhase += vibSpeed * dt;
 
-        <!-- 3M 23 ダーヤマ -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/23yamada01?usp=sharing" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=19TB0vlXacTjo-Jq7z3CzbECQ1vJCmbnG&sz=w400" alt="ダーヤマ サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">23</span>
-              <span class="name" title="ダーヤマ">ダーヤマ</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+        const pluckDecay = Math.exp(-s.age * 1.4);
+        const currentAmp = s.pluckStrength * pluckDecay * lifeRatio;
 
-        <!-- 3M 24 Peroメ -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m25yokoyama01/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1bttQhnytCTu-zoF6_t7WsViNdvEt5Spt&sz=w400" alt="Peroメ サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">24</span>
-              <span class="name" title="Peroメ">Peroメ</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
+        const dx = s.p2.x - s.p1.x;
+        const dy = s.p2.y - s.p1.y;
+        const len = Math.max(1, Math.hypot(dx, dy));
+        const nx = -dy / len;
+        const ny = dx / len;
 
-        <!-- 3M 25 やよい -->
-        <article class="card">
-          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3myoshida/" target="_blank" rel="noopener noreferrer">
-            <img src="https://drive.google.com/thumbnail?id=1bb4kqx-Xb50NeSHeSA7VQVj5ik6GPYzb&sz=w400" alt="やよい サムネイル">
-          </a>
-          <div class="card-body">
-            <div class="title-row">
-              <span class="code">25</span>
-              <span class="name" title="やよい">やよい</span>
-            </div>
-            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-          </div>
-        </article>
-      </div>
-    </section>
-  </div>
+        // 初期の弦は最初の数秒間はしっかり見えるようにする
+        const fadeAlpha = s.isInitial && !hasPluckedInitialString
+          ? Math.max(0.35, lifeRatio)
+          : Math.pow(lifeRatio, 1.15);
+
+        const segments = 48;
+
+        ctx.save();
+        ctx.globalAlpha = fadeAlpha;
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+
+        for (let k = 0; k <= segments; k++) {
+          const t = k / segments;
+          const baseX = s.p1.x + dx * t;
+          const baseY = s.p1.y + dy * t;
+
+          const boundaryEnvelope = Math.sin(Math.PI * t);
+          const wave =
+            0.78 * Math.sin(Math.PI * t) * Math.sin(s.vibPhase) +
+            0.22 * Math.sin(2 * Math.PI * t) * Math.sin(s.vibPhase * 1.9 + 0.7);
+
+          const disp = wave * currentAmp * boundaryEnvelope;
+          const px = baseX + nx * disp;
+          const py = baseY + ny * disp;
+
+          if (k === 0) {
+            ctx.moveTo(px, py);
+          } else {
+            ctx.lineTo(px, py);
+          }
+        }
+
+        ctx.stroke();
+        ctx.restore();
+
+        const riseOffset = (1 - lifeRatio) * 18;
+        ctx.save();
+        ctx.globalAlpha = fadeAlpha;
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "300 24px system-ui, -apple-system, sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(s.hzText, s.centerX, s.centerY - riseOffset);
+        ctx.restore();
+      }
+    }
+
+    function loop(now) {
+      const dt = Math.min(0.05, Math.max(0.001, (now - lastTime) / 1000));
+      lastTime = now;
+
+      const { width, height } = getLogicalSize();
+      ctx.fillStyle = "#000000";
+      ctx.fillRect(0, 0, width, height);
+
+      drawStringsAndCenterNumbers(dt);
+      drawLogFFT(width, height, fftAlpha);
+
+      fftAlpha = Math.max(0, fftAlpha - dt * 0.45);
+
+      requestAnimationFrame(loop);
+    }
+
+    requestAnimationFrame(loop);
+  </script>
 </body>
 </html>
