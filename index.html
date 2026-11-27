@@ -5,33 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>3L・3M ゲームリンク集</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       font-family: sans-serif;
-      margin: 10px;
+      margin: 6px 8px;
       background-color: #f9fafb;
       color: #1f2937;
     }
     h1 {
-      font-size: 1.1rem;
-      margin: 0 0 10px;
+      font-size: 0.92rem;
+      margin: 0 0 6px;
+    }
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      align-items: start;
+    }
+    @media (max-width: 720px) {
+      .columns {
+        grid-template-columns: 1fr;
+      }
+    }
+    .class-section {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 5px;
+      padding: 4px 6px 6px;
     }
     h2 {
-      font-size: 0.95rem;
-      margin: 14px 0 8px;
-      padding-bottom: 3px;
+      font-size: 0.78rem;
+      margin: 0 0 4px;
+      padding-bottom: 2px;
       border-bottom: 1px solid #e5e7eb;
+      color: #111827;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
-      gap: 8px;
+      grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+      gap: 4px;
     }
     .card {
       background: #ffffff;
       border: 1px solid #e5e7eb;
-      border-radius: 6px;
+      border-radius: 4px;
       overflow: hidden;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
       display: flex;
       flex-direction: column;
     }
@@ -54,38 +74,42 @@
       align-items: center;
       justify-content: center;
       color: #5b6370;
-      font-size: 0.68rem;
+      font-size: 0.56rem;
     }
     .card-body {
-      padding: 6px 7px;
+      padding: 3px 4px;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 1px;
     }
     .title-row {
       display: flex;
       align-items: baseline;
-      gap: 4px;
+      gap: 2px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
     .code {
-      font-size: 0.68rem;
+      font-size: 0.54rem;
       color: #5b6370;
       flex-shrink: 0;
     }
     .name {
       font-weight: bold;
-      font-size: 0.78rem;
-      line-height: 1.3;
+      font-size: 0.62rem;
+      line-height: 1.15;
       overflow: hidden;
       text-overflow: ellipsis;
     }
     .desc {
-      font-size: 0.7rem;
+      font-size: 0.52rem;
       color: #737a86;
-      line-height: 1.35;
+      line-height: 1.18;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
     .desc.ready {
       color: #374151;
@@ -95,766 +119,774 @@
 <body>
   <h1>3L・3M ゲームリンク集</h1>
 
-  <h2>3L</h2>
-  <div class="grid">
-    <!-- 3L 01 えりち -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l01asanome-game-01/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1dm_mJJ-fratGKgpzS7yqctK3HzDmWQDN&sz=w400" alt="えりち サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 01</span>
-          <span class="name" title="えりち">えりち</span>
-        </div>
-        <div class="desc ready">先輩たちとクイズ形式で楽しく勉強しよう！</div>
-      </div>
-    </article>
+  <div class="columns">
+    <!-- 左カラム：3L -->
+    <section class="class-section">
+      <h2>3L</h2>
+      <div class="grid">
+        <!-- 3L 01 えりち -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l01asanome-game-01/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1dm_mJJ-fratGKgpzS7yqctK3HzDmWQDN&sz=w400" alt="えりち サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">01</span>
+              <span class="name" title="えりち">えりち</span>
+            </div>
+            <div class="desc ready">先輩たちとクイズ形式で楽しく勉強しよう！</div>
+          </div>
+        </article>
 
-    <!-- 3L 02 3M -->
-    <article class="card">
-      <a class="thumb-link" href="https://ikehata-media.github.io/2026_3ml/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=16YDHiWlmcAylN902Kq5hg44zdbOUgWsm&sz=w400" alt="3M サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 02</span>
-          <span class="name" title="3M">3M</span>
-        </div>
-        <div class="desc ready">3M3L2026年全ゲームリンク集</div>
-      </div>
-    </article>
+        <!-- 3L 02 3M -->
+        <article class="card">
+          <a class="thumb-link" href="https://ikehata-media.github.io/2026_3ml/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=16YDHiWlmcAylN902Kq5hg44zdbOUgWsm&sz=w400" alt="3M サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">02</span>
+              <span class="name" title="3M">3M</span>
+            </div>
+            <div class="desc ready">3M3L2026年全ゲームリンク集</div>
+          </div>
+        </article>
 
-    <!-- 3L 03 うめ -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l03umemoto/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1QzeV88Z7P2JB37G7-JGcn1jcGVd5e3u5&sz=w400" alt="うめ サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 03</span>
-          <span class="name" title="うめ">うめ</span>
-        </div>
-        <div class="desc ready">甘いお菓子の世界で遊んで学ぼう！お菓子のミニゲームがいっぱい！</div>
-      </div>
-    </article>
+        <!-- 3L 03 うめ -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l03umemoto/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1QzeV88Z7P2JB37G7-JGcn1jcGVd5e3u5&sz=w400" alt="うめ サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">03</span>
+              <span class="name" title="うめ">うめ</span>
+            </div>
+            <div class="desc ready">甘いお菓子の世界で遊んで学ぼう！お菓子のミニゲームがいっぱい！</div>
+          </div>
+        </article>
 
-    <!-- 3L 04 くし -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l04kushibe/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1A5O4o4UTJXnTAA78_GidCRVCDKhEldT2&sz=w400" alt="くし サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 04</span>
-          <span class="name" title="くし">くし</span>
-        </div>
-        <div class="desc ready">色彩検定リズムゲーム！タイミングよく回答をタッチしよう</div>
-      </div>
-    </article>
+        <!-- 3L 04 くし -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l04kushibe/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1A5O4o4UTJXnTAA78_GidCRVCDKhEldT2&sz=w400" alt="くし サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">04</span>
+              <span class="name" title="くし">くし</span>
+            </div>
+            <div class="desc ready">色彩検定リズムゲーム！タイミングよく回答をタッチしよう</div>
+          </div>
+        </article>
 
-    <!-- 3L 05 こい -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l05koizumi/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1448rebbmOCe0m7mcT1fEiQmNStoCS10g&sz=w400" alt="こい サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 05</span>
-          <span class="name" title="こい">こい</span>
-        </div>
-        <div class="desc ready">色んな国の特徴で国を当てよう！</div>
-      </div>
-    </article>
+        <!-- 3L 05 こい -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l05koizumi/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1448rebbmOCe0m7mcT1fEiQmNStoCS10g&sz=w400" alt="こい サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">05</span>
+              <span class="name" title="こい">こい</span>
+            </div>
+            <div class="desc ready">色んな国の特徴で国を当てよう！</div>
+          </div>
+        </article>
 
-    <!-- 3L 06 さかちゃん -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l06sakamaki/" target="_blank" rel="noopener noreferrer">
-        <div class="placeholder">準備中</div>
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 06</span>
-          <span class="name" title="さかちゃん">さかちゃん</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3L 06 さかちゃん -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l06sakamaki/" target="_blank" rel="noopener noreferrer">
+            <div class="placeholder">準備中</div>
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">06</span>
+              <span class="name" title="さかちゃん">さかちゃん</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3L 07 しま -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l07shimazaki/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1N9Wp0osevBs6ZOUNRGjs6teoIb18Q3ee&sz=w400" alt="しま サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 07</span>
-          <span class="name" title="しま">しま</span>
-        </div>
-        <div class="desc ready">お客さんにヘアメイクをしながら、メイクについて勉強できるゲームです</div>
-      </div>
-    </article>
+        <!-- 3L 07 しま -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l07shimazaki/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1N9Wp0osevBs6ZOUNRGjs6teoIb18Q3ee&sz=w400" alt="しま サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">07</span>
+              <span class="name" title="しま">しま</span>
+            </div>
+            <div class="desc ready">お客さんにヘアメイクをしながら、メイクについて勉強できるゲームです</div>
+          </div>
+        </article>
 
-    <!-- 3L 08 しん -->
-    <article class="card">
-      <div class="thumb-link">
-        <div class="placeholder">準備中</div>
-      </div>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 08</span>
-          <span class="name" title="しん">しん</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3L 08 しん -->
+        <article class="card">
+          <div class="thumb-link">
+            <div class="placeholder">準備中</div>
+          </div>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">08</span>
+              <span class="name" title="しん">しん</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3L 09 せい -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/ace/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank" rel="noopener noreferrer">
-        <div class="placeholder">準備中</div>
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 09</span>
-          <span class="name" title="せい">せい</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3L 09 せい -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/ace/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank" rel="noopener noreferrer">
+            <div class="placeholder">準備中</div>
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">09</span>
+              <span class="name" title="せい">せい</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3L 10 たな -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/kanjifighter/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1FEYC4iwmxJU22w9NURvTHIXbfzN6ghD-&sz=w400" alt="たな サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 10</span>
-          <span class="name" title="たな">たな</span>
-        </div>
-        <div class="desc ready">漢字の読みを入力して技を繰り出し漢字エネミーを倒せ！</div>
-      </div>
-    </article>
+        <!-- 3L 10 たな -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/kanjifighter/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1FEYC4iwmxJU22w9NURvTHIXbfzN6ghD-&sz=w400" alt="たな サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">10</span>
+              <span class="name" title="たな">たな</span>
+            </div>
+            <div class="desc ready">漢字の読みを入力して技を繰り出し漢字エネミーを倒せ！</div>
+          </div>
+        </article>
 
-    <!-- 3L 11 ちょう -->
-    <article class="card">
-      <div class="thumb-link">
-        <div class="placeholder">準備中</div>
-      </div>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 11</span>
-          <span class="name" title="ちょう">ちょう</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3L 11 ちょう -->
+        <article class="card">
+          <div class="thumb-link">
+            <div class="placeholder">準備中</div>
+          </div>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">11</span>
+              <span class="name" title="ちょう">ちょう</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3L 12 の -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l12noya/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1tMHWjzTpDbcoVZfKsvglNMwQKwLgWrTH&sz=w400" alt="の サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 12</span>
-          <span class="name" title="の">の</span>
-        </div>
-        <div class="desc ready">マリオをプレイしながら数学が学べるゲーム</div>
-      </div>
-    </article>
+        <!-- 3L 12 の -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l12noya/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1tMHWjzTpDbcoVZfKsvglNMwQKwLgWrTH&sz=w400" alt="の サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">12</span>
+              <span class="name" title="の">の</span>
+            </div>
+            <div class="desc ready">マリオをプレイしながら数学が学べるゲーム</div>
+          </div>
+        </article>
 
-    <!-- 3L 13 はぎ -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/jyoshikijyoshiki/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1hDerazBarCrGjJc3f-1Nybsj2hR4wq8D&sz=w400" alt="はぎ サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 13</span>
-          <span class="name" title="はぎ">はぎ</span>
-        </div>
-        <div class="desc ready">常識を学べるゲームとお城で迷路ができるゲーム</div>
-      </div>
-    </article>
+        <!-- 3L 13 はぎ -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/jyoshikijyoshiki/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1hDerazBarCrGjJc3f-1Nybsj2hR4wq8D&sz=w400" alt="はぎ サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">13</span>
+              <span class="name" title="はぎ">はぎ</span>
+            </div>
+            <div class="desc ready">常識を学べるゲームとお城で迷路ができるゲーム</div>
+          </div>
+        </article>
 
-    <!-- 3L 14 ひら -->
-    <article class="card">
-      <div class="thumb-link">
-        <div class="placeholder">準備中</div>
-      </div>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 14</span>
-          <span class="name" title="ひら">ひら</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3L 14 ひら -->
+        <article class="card">
+          <div class="thumb-link">
+            <div class="placeholder">準備中</div>
+          </div>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">14</span>
+              <span class="name" title="ひら">ひら</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3L 15 ふく -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l15fukuda01/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1H1sXJNtfp_QcTz6zonHx98DFe4G3DycA&sz=w400" alt="ふく サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 15</span>
-          <span class="name" title="ふく">ふく</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3L 15 ふく -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l15fukuda01/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1H1sXJNtfp_QcTz6zonHx98DFe4G3DycA&sz=w400" alt="ふく サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">15</span>
+              <span class="name" title="ふく">ふく</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3L 16 ふじ -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l16fujita/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=16RkJdQQqK0pizPCGY2mc1ud7b8tQ8Qrk&sz=w400" alt="ふじ サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 16</span>
-          <span class="name" title="ふじ">ふじ</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3L 16 ふじ -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l16fujita/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=16RkJdQQqK0pizPCGY2mc1ud7b8tQ8Qrk&sz=w400" alt="ふじ サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">16</span>
+              <span class="name" title="ふじ">ふじ</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3L 17 ほづ -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l17hodumi0219/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1YTr3T_x78buzKW_7zepF6O3M-VT4cMpP&sz=w400" alt="ほづ サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 17</span>
-          <span class="name" title="ほづ">ほづ</span>
-        </div>
-        <div class="desc ready">音楽の基礎知識を身につけよう！わかるだけで音楽の見方が変わるかも…？</div>
-      </div>
-    </article>
+        <!-- 3L 17 ほづ -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l17hodumi0219/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1YTr3T_x78buzKW_7zepF6O3M-VT4cMpP&sz=w400" alt="ほづ サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">17</span>
+              <span class="name" title="ほづ">ほづ</span>
+            </div>
+            <div class="desc ready">音楽の基礎知識を身につけよう！わかるだけで音楽の見方が変わるかも…？</div>
+          </div>
+        </article>
 
-    <!-- 3L 18 笹かま -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/18ho-ri-" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1o3TxpQdt1X-1Hls4acyzI4so8_TzX_wX&sz=w400" alt="笹かま サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 18</span>
-          <span class="name" title="笹かま">笹かま</span>
-        </div>
-        <div class="desc ready">中学生で習う問題を執事さんに応援されつつ解けます。もう一つ８番出口のような３Dの間違い探し脱出ゲームがあります。</div>
-      </div>
-    </article>
+        <!-- 3L 18 笹かま -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/18ho-ri-" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1o3TxpQdt1X-1Hls4acyzI4so8_TzX_wX&sz=w400" alt="笹かま サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">18</span>
+              <span class="name" title="笹かま">笹かま</span>
+            </div>
+            <div class="desc ready">中学生で習う問題を執事さんに応援されつつ解けます。もう一つ８番出口のような３Dの間違い探し脱出ゲームがあります。</div>
+          </div>
+        </article>
 
-    <!-- 3L 19 まさ -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l19masauji/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=15MCYMdDEUUtJfaZUKBBZ-XVA37ymAFFc&sz=w400" alt="まさ サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 19</span>
-          <span class="name" title="まさ">まさ</span>
-        </div>
-        <div class="desc ready">日本舞踊を踊る宇宙人を倒しながら伝説の剣を探すRPG 魚を焼くおじさんと仲良くなれ！</div>
-      </div>
-    </article>
+        <!-- 3L 19 まさ -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l19masauji/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=15MCYMdDEUUtJfaZUKBBZ-XVA37ymAFFc&sz=w400" alt="まさ サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">19</span>
+              <span class="name" title="まさ">まさ</span>
+            </div>
+            <div class="desc ready">日本舞踊を踊る宇宙人を倒しながら伝説の剣を探すRPG 魚を焼くおじさんと仲良くなれ！</div>
+          </div>
+        </article>
 
-    <!-- 3L 20 まつ -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/matsudatesite/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1AM3PNJjh6TPHQsZwEoawoNJ2jftq_bgc&sz=w400" alt="まつ サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 20</span>
-          <span class="name" title="まつ">まつ</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3L 20 まつ -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/matsudatesite/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1AM3PNJjh6TPHQsZwEoawoNJ2jftq_bgc&sz=w400" alt="まつ サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">20</span>
+              <span class="name" title="まつ">まつ</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3L 21 みた -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l21mitani01/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1SbEuldFzFfLsrP6a_SspV7xkGL-J0S-f&sz=w400" alt="みた サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 21</span>
-          <span class="name" title="みた">みた</span>
-        </div>
-        <div class="desc ready">個性豊かなキャラクター達と楽しく学べる、4択クイズ式学習ゲーム！</div>
-      </div>
-    </article>
+        <!-- 3L 21 みた -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l21mitani01/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1SbEuldFzFfLsrP6a_SspV7xkGL-J0S-f&sz=w400" alt="みた サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">21</span>
+              <span class="name" title="みた">みた</span>
+            </div>
+            <div class="desc ready">個性豊かなキャラクター達と楽しく学べる、4択クイズ式学習ゲーム！</div>
+          </div>
+        </article>
 
-    <!-- 3L 22 もり -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l22morikawamio?usp=sharing" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1MzvrtBRybv_mOPKZ5e08gNn_bt7aFs3M&sz=w400" alt="もり サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 22</span>
-          <span class="name" title="もり">もり</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3L 22 もり -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l22morikawamio?usp=sharing" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1MzvrtBRybv_mOPKZ5e08gNn_bt7aFs3M&sz=w400" alt="もり サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">22</span>
+              <span class="name" title="もり">もり</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3L 23 もん -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l23monma/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1ar2bmn9Xm3TGeW42Hs5Cme7nyJGDvLGb&sz=w400" alt="もん サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 23</span>
-          <span class="name" title="もん">もん</span>
-        </div>
-        <div class="desc ready">師匠と一緒に漢字の修行をしよう！間違えると師匠からの鉄槌が…？</div>
-      </div>
-    </article>
+        <!-- 3L 23 もん -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l23monma/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1ar2bmn9Xm3TGeW42Hs5Cme7nyJGDvLGb&sz=w400" alt="もん サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">23</span>
+              <span class="name" title="もん">もん</span>
+            </div>
+            <div class="desc ready">師匠と一緒に漢字の修行をしよう！間違えると師匠からの鉄槌が…？</div>
+          </div>
+        </article>
 
-    <!-- 3L 24 夜麻田 -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l24yamadaa/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1mXOW-HSzIEIO39ghMKYVH4l8i1MpzWue&sz=w400" alt="夜麻田 サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 24</span>
-          <span class="name" title="夜麻田">夜麻田</span>
-        </div>
-        <div class="desc ready">相棒と動物クイズで謎を解き、旧校舎から脱出するホラーゲーム</div>
-      </div>
-    </article>
+        <!-- 3L 24 夜麻田 -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l24yamadaa/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1mXOW-HSzIEIO39ghMKYVH4l8i1MpzWue&sz=w400" alt="夜麻田 サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">24</span>
+              <span class="name" title="夜麻田">夜麻田</span>
+            </div>
+            <div class="desc ready">相棒と動物クイズで謎を解き、旧校舎から脱出するホラーゲーム</div>
+          </div>
+        </article>
 
-    <!-- 3L 25 ま -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l25mayu/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1WFDDNx8ku6iJ8JD9ynoa-DxRWC8LtTc7j&sz=w400" alt="ま サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 25</span>
-          <span class="name" title="ま">ま</span>
-        </div>
-        <div class="desc ready">たのしい日本史～同一問</div>
-      </div>
-    </article>
+        <!-- 3L 25 ま -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l25mayu/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1WFDDNx8ku6iJ8JD9ynoa-DxRWC8LtTc7j&sz=w400" alt="ま サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">25</span>
+              <span class="name" title="ま">ま</span>
+            </div>
+            <div class="desc ready">たのしい日本史～同一問</div>
+          </div>
+        </article>
 
-    <!-- 3L 26 じゅ -->
-    <article class="card">
-      <div class="thumb-link">
-        <div class="placeholder">準備中</div>
-      </div>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 26</span>
-          <span class="name" title="じゅ">じゅ</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3L 26 じゅ -->
+        <article class="card">
+          <div class="thumb-link">
+            <div class="placeholder">準備中</div>
+          </div>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">26</span>
+              <span class="name" title="じゅ">じゅ</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3L 27 え -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l27yly01/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1JjfYt6Aly3YvOC0G3STOQwPJ3vZvHN1Ne&sz=w400" alt="え サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 27</span>
-          <span class="name" title="え">え</span>
-        </div>
-        <div class="desc ready">日本文化を学ぼう！</div>
-      </div>
-    </article>
+        <!-- 3L 27 え -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l27yly01/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1JjfYt6Aly3YvOC0G3STOQwPJ3vZvHN1Ne&sz=w400" alt="え サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">27</span>
+              <span class="name" title="え">え</span>
+            </div>
+            <div class="desc ready">日本文化を学ぼう！</div>
+          </div>
+        </article>
 
-    <!-- 3L 28 芳村 -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l28ririsann" target="_blank" rel="noopener noreferrer">
-        <div class="placeholder">準備中</div>
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3L 28</span>
-          <span class="name" title="芳村">芳村</span>
-        </div>
-        <div class="desc ready">可愛い猫たちと一緒にスパルタ英学習をしよう！</div>
+        <!-- 3L 28 芳村 -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3l28ririsann" target="_blank" rel="noopener noreferrer">
+            <div class="placeholder">準備中</div>
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">28</span>
+              <span class="name" title="芳村">芳村</span>
+            </div>
+            <div class="desc ready">可愛い猫たちと一緒にスパルタ英学習をしよう！</div>
+          </div>
+        </article>
       </div>
-    </article>
-  </div>
+    </section>
 
-  <h2>3M</h2>
-  <div class="grid">
-    <!-- 3M 01 ガ -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m01ougaka-cafe/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=12QRfqzkqUG9zY0OHYct42elqUap5bcFI&sz=w400" alt="ガ サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 01</span>
-          <span class="name" title="ガ">ガ</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+    <!-- 右カラム：3M -->
+    <section class="class-section">
+      <h2>3M</h2>
+      <div class="grid">
+        <!-- 3M 01 ガ -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m01ougaka-cafe/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=12QRfqzkqUG9zY0OHYct42elqUap5bcFI&sz=w400" alt="ガ サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">01</span>
+              <span class="name" title="ガ">ガ</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3M 02 日 -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/d/1e6EjHguGp4-ltu1VYA5vdOD8cBxLHuF1/p/1RDCrEoOJIPUcuJ-CpkZ8DTzHyGgCkD2u/edit" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1cXWVspU6kbnKNeSInuT2dHeii8b7Waff&sz=w400" alt="日 サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 02</span>
-          <span class="name" title="日">日</span>
-        </div>
-        <div class="desc ready">ダンジョンの中で迷う、怪物から逃げながら三つの鍵をさがす 、ダンジョンを脱出頑張ろ！</div>
-      </div>
-    </article>
+        <!-- 3M 02 日 -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/d/1e6EjHguGp4-ltu1VYA5vdOD8cBxLHuF1/p/1RDCrEoOJIPUcuJ-CpkZ8DTzHyGgCkD2u/edit" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1cXWVspU6kbnKNeSInuT2dHeii8b7Waff&sz=w400" alt="日 サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">02</span>
+              <span class="name" title="日">日</span>
+            </div>
+            <div class="desc ready">ダンジョンの中で迷う、怪物から逃げながら三つの鍵をさがす 、ダンジョンを脱出頑張ろ！</div>
+          </div>
+        </article>
 
-    <!-- 3M 03 はごころ -->
-    <article class="card">
-      <a class="thumb-link" href="https://wako0718.github.io/html/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1SpjsMM2OQLBQgJqC46sh2c2xuSLWN4K0&sz=w400" alt="はごころ サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 03</span>
-          <span class="name" title="はごころ">はごころ</span>
-        </div>
-        <div class="desc ready">FPSゲームです。モードは二種類あります。同じコードを使えば友達とも一緒にできる...はず...</div>
-      </div>
-    </article>
+        <!-- 3M 03 はごころ -->
+        <article class="card">
+          <a class="thumb-link" href="https://wako0718.github.io/html/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1SpjsMM2OQLBQgJqC46sh2c2xuSLWN4K0&sz=w400" alt="はごころ サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">03</span>
+              <span class="name" title="はごころ">はごころ</span>
+            </div>
+            <div class="desc ready">FPSゲームです。モードは二種類あります。同じコードを使えば友達とも一緒にできる...はず...</div>
+          </div>
+        </article>
 
-    <!-- 3M 04 お -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m04ogata?usp=sharing" target="_blank" rel="noopener noreferrer">
-        <div class="placeholder">準備中</div>
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 04</span>
-          <span class="name" title="お">お</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3M 04 お -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m04ogata?usp=sharing" target="_blank" rel="noopener noreferrer">
+            <div class="placeholder">準備中</div>
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">04</span>
+              <span class="name" title="お">お</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3M 05 おちけい -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3mochiai00?usp=sharing" target="_blank" rel="noopener noreferrer">
-        <div class="placeholder">準備中</div>
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 05</span>
-          <span class="name" title="おちけい">おちけい</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3M 05 おちけい -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3mochiai00?usp=sharing" target="_blank" rel="noopener noreferrer">
+            <div class="placeholder">準備中</div>
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">05</span>
+              <span class="name" title="おちけい">おちけい</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3M 06 かねぴ -->
-    <article class="card">
-      <a class="thumb-link" href="https://e24049-commits.github.io/game/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1wVfJpxqVostbA2YhFYIiNuHpl8ITCDD8&sz=w400" alt="かねぴ サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 06</span>
-          <span class="name" title="かねぴ">かねぴ</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3M 06 かねぴ -->
+        <article class="card">
+          <a class="thumb-link" href="https://e24049-commits.github.io/game/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1wVfJpxqVostbA2YhFYIiNuHpl8ITCDD8&sz=w400" alt="かねぴ サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">06</span>
+              <span class="name" title="かねぴ">かねぴ</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3M 07 ククク -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m07kubotaa/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1jR1VMRKGCKXHBprP1ZlaWiT8L3eLJBg1&sz=w400" alt="ククク サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 07</span>
-          <span class="name" title="ククク">ククク</span>
-        </div>
-        <div class="desc ready">悪夢を見ている人たちを救うゲーム｜</div>
-      </div>
-    </article>
+        <!-- 3M 07 ククク -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m07kubotaa/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1jR1VMRKGCKXHBprP1ZlaWiT8L3eLJBg1&sz=w400" alt="ククク サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">07</span>
+              <span class="name" title="ククク">ククク</span>
+            </div>
+            <div class="desc ready">悪夢を見ている人たちを救うゲーム｜</div>
+          </div>
+        </article>
 
-    <!-- 3M 08 鍵付き蔵 -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m-gamestock08" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1uvWaCu0PReO_lE0VDkalwMepAQVgEXej&sz=w400" alt="鍵付き蔵 サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 08</span>
-          <span class="name" title="鍵付き蔵">鍵付き蔵</span>
-        </div>
-        <div class="desc ready">ミニゲームが３つ入っています 電話交換手 怪盗脱出 儀式阻止</div>
-      </div>
-    </article>
+        <!-- 3M 08 鍵付き蔵 -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m-gamestock08" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1uvWaCu0PReO_lE0VDkalwMepAQVgEXej&sz=w400" alt="鍵付き蔵 サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">08</span>
+              <span class="name" title="鍵付き蔵">鍵付き蔵</span>
+            </div>
+            <div class="desc ready">ミニゲームが３つ入っています 電話交換手 怪盗脱出 儀式阻止</div>
+          </div>
+        </article>
 
-    <!-- 3M 08 鍵付きの薬局蔵 -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/apothecary-sort-000" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=11JPJKOGNTGt-_VPG3NWYFqX5ik6GPYzb&sz=w400" alt="鍵付きの薬局蔵 サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 08</span>
-          <span class="name" title="鍵付きの薬局蔵">鍵付きの薬局蔵</span>
-        </div>
-        <div class="desc ready">雨音と薬草の香りに包まれ、乳鉢で軟膏を練る癒やしの調剤室ライ</div>
-      </div>
-    </article>
+        <!-- 3M 08 鍵付きの薬局蔵 -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/apothecary-sort-000" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=11JPJKOGNTGt-_VPG3NWYFqX5ik6GPYzb&sz=w400" alt="鍵付きの薬局蔵 サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">08</span>
+              <span class="name" title="鍵付きの薬局蔵">鍵付きの薬局蔵</span>
+            </div>
+            <div class="desc ready">雨音と薬草の香りに包まれ、乳鉢で軟膏を練る癒やしの調剤室ライ</div>
+          </div>
+        </article>
 
-    <!-- 3M 09 さかちゃん -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m09sakaoka01/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1ejwjihtZ7wnF2jlowQS15YA3FwqBrt1J&sz=w400" alt="さかちゃん サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 09</span>
-          <span class="name" title="さかちゃん">さかちゃん</span>
-        </div>
-        <div class="desc ready">ただの漢字クイズだよー</div>
-      </div>
-    </article>
+        <!-- 3M 09 さかちゃん -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m09sakaoka01/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1ejwjihtZ7wnF2jlowQS15YA3FwqBrt1J&sz=w400" alt="さかちゃん サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">09</span>
+              <span class="name" title="さかちゃん">さかちゃん</span>
+            </div>
+            <div class="desc ready">ただの漢字クイズだよー</div>
+          </div>
+        </article>
 
-    <!-- 3M 10 ささみ -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3msasaki01?usp=sharing" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=18551q8ONimaH_MRjhmZanXq6Emy_idIw&sz=w400" alt="ささみ サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 10</span>
-          <span class="name" title="ささみ">ささみ</span>
-        </div>
-        <div class="desc ready">ボイジャー1号で惑星の神話を巡り、レコードで宇宙人と心を通わせるRPGです。</div>
-      </div>
-    </article>
+        <!-- 3M 10 ささみ -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3msasaki01?usp=sharing" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=18551q8ONimaH_MRjhmZanXq6Emy_idIw&sz=w400" alt="ささみ サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">10</span>
+              <span class="name" title="ささみ">ささみ</span>
+            </div>
+            <div class="desc ready">ボイジャー1号で惑星の神話を巡り、レコードで宇宙人と心を通わせるRPGです。</div>
+          </div>
+        </article>
 
-    <!-- 3M 11 しぶたに -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m11shibuya01/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1p0CEvEPjFvTTiQTGoEBQi0Q8EO0uMyG_&sz=w400" alt="しぶたに サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 11</span>
-          <span class="name" title="しぶたに">しぶたに</span>
-        </div>
-        <div class="desc ready">2D横スクロールゲーム。しぶやをゴールに導こう！</div>
-      </div>
-    </article>
+        <!-- 3M 11 しぶたに -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m11shibuya01/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1p0CEvEPjFvTTiQTGoEBQi0Q8EO0uMyG_&sz=w400" alt="しぶたに サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">11</span>
+              <span class="name" title="しぶたに">しぶたに</span>
+            </div>
+            <div class="desc ready">2D横スクロールゲーム。しぶやをゴールに導こう！</div>
+          </div>
+        </article>
 
-    <!-- 3M 12 るる -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m12shimada01/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=10ZSwpUqt_CEzTVRxD9us4_WDBwpP0kEK&sz=w400" alt="るる サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 12</span>
-          <span class="name" title="るる">るる</span>
-        </div>
-        <div class="desc ready">BLノベルゲームです。最初のやつは上司とイチャイチャできます。二</div>
-      </div>
-    </article>
+        <!-- 3M 12 るる -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m12shimada01/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=10ZSwpUqt_CEzTVRxD9us4_WDBwpP0kEK&sz=w400" alt="るる サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">12</span>
+              <span class="name" title="るる">るる</span>
+            </div>
+            <div class="desc ready">BLノベルゲームです。最初のやつは上司とイチャイチャできます。二</div>
+          </div>
+        </article>
 
-    <!-- 3M 13 み -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m-13sekiguchi/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=10WYgWHZ796UmUxRHhrs-DNZaTLNzsXlj3&sz=w400" alt="み サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 13</span>
-          <span class="name" title="み">み</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3M 13 み -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m-13sekiguchi/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=10WYgWHZ796UmUxRHhrs-DNZaTLNzsXlj3&sz=w400" alt="み サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">13</span>
+              <span class="name" title="み">み</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3M 14 こも -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m14somekawa" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1XepYdmHLWYns__MenNxyQEuqy6zOX5k3&sz=w400" alt="こも サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 14</span>
-          <span class="name" title="こも">こも</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3M 14 こも -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m14somekawa" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1XepYdmHLWYns__MenNxyQEuqy6zOX5k3&sz=w400" alt="こも サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">14</span>
+              <span class="name" title="こも">こも</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3M 15 平ら -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m15taira/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1b7fPp5mRzi1_HrdAUtufmYp5La1fewGU&sz=w400" alt="平ら サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 15</span>
-          <span class="name" title="平ら">平ら</span>
-        </div>
-        <div class="desc ready">グラスを弾いてお客さんに届けよう</div>
-      </div>
-    </article>
+        <!-- 3M 15 平ら -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m15taira/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1b7fPp5mRzi1_HrdAUtufmYp5La1fewGU&sz=w400" alt="平ら サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">15</span>
+              <span class="name" title="平ら">平ら</span>
+            </div>
+            <div class="desc ready">グラスを弾いてお客さんに届けよう</div>
+          </div>
+        </article>
 
-    <!-- 3M 16 すずき -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/m16sss/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=10we8dZO0buyjk-wYBqna7OxfOhY5PePe&sz=w400" alt="すずき サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 16</span>
-          <span class="name" title="すずき">すずき</span>
-        </div>
-        <div class="desc ready">お肉を焼くゲーム。最高なお肉の状態になるように高得点を目指そう</div>
-      </div>
-    </article>
+        <!-- 3M 16 すずき -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/m16sss/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=10we8dZO0buyjk-wYBqna7OxfOhY5PePe&sz=w400" alt="すずき サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">16</span>
+              <span class="name" title="すずき">すずき</span>
+            </div>
+            <div class="desc ready">お肉を焼くゲーム。最高なお肉の状態になるように高得点を目指そう</div>
+          </div>
+        </article>
 
-    <!-- 3M 17 たんじまーと -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3mtajima01/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1evweLUeTQLl1Eu2q6KPOnlsaUVaUNqPh&sz=w400" alt="たんじまーと サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 17</span>
-          <span class="name" title="たんじまーと">たんじまーと</span>
-        </div>
-        <div class="desc ready">馬を積み上げるゲームです。8頭全てにスキルがあり、曲者揃いで</div>
-      </div>
-    </article>
+        <!-- 3M 17 たんじまーと -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3mtajima01/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1evweLUeTQLl1Eu2q6KPOnlsaUVaUNqPh&sz=w400" alt="たんじまーと サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">17</span>
+              <span class="name" title="たんじまーと">たんじまーと</span>
+            </div>
+            <div class="desc ready">馬を積み上げるゲームです。8頭全てにスキルがあり、曲者揃いで</div>
+          </div>
+        </article>
 
-    <!-- 3M 18 ばーてぃー -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m18chiba/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1w1bLCQLYf9jPY76eHw3DhYx5xxC2k_z-&sz=w400" alt="ばーてぃー サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 18</span>
-          <span class="name" title="ばーてぃー">ばーてぃー</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3M 18 ばーてぃー -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m18chiba/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1w1bLCQLYf9jPY76eHw3DhYx5xxC2k_z-&sz=w400" alt="ばーてぃー サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">18</span>
+              <span class="name" title="ばーてぃー">ばーてぃー</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3M 19 かずなり -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/ch1rush1v1/" target="_blank" rel="noopener noreferrer">
-        <div class="placeholder">準備中</div>
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 19</span>
-          <span class="name" title="かずなり">かずなり</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3M 19 かずなり -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/ch1rush1v1/" target="_blank" rel="noopener noreferrer">
+            <div class="placeholder">準備中</div>
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">19</span>
+              <span class="name" title="かずなり">かずなり</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3M 20 藤ねこ -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m20fujisawayu" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=13tXrKZa0c8WH2HGcxBHDY3A2tfkwiKRb&sz=w400" alt="藤ねこ サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 20</span>
-          <span class="name" title="藤ねこ">藤ねこ</span>
-        </div>
-        <div class="desc ready">タイピングゲーム、できました</div>
-      </div>
-    </article>
+        <!-- 3M 20 藤ねこ -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m20fujisawayu" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=13tXrKZa0c8WH2HGcxBHDY3A2tfkwiKRb&sz=w400" alt="藤ねこ サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">20</span>
+              <span class="name" title="藤ねこ">藤ねこ</span>
+            </div>
+            <div class="desc ready">タイピングゲーム、できました</div>
+          </div>
+        </article>
 
-    <!-- 3M 21 ま -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m21maeshiro01/" target="_blank" rel="noopener noreferrer">
-        <div class="placeholder">準備中</div>
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 21</span>
-          <span class="name" title="ま">ま</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3M 21 ま -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m21maeshiro01/" target="_blank" rel="noopener noreferrer">
+            <div class="placeholder">準備中</div>
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">21</span>
+              <span class="name" title="ま">ま</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3M 22 も -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m22moriyakasumi22/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1g0EHgGhrULjLT6mYAqxRkMe0Ubs2sGCb&sz=w400" alt="も サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 22</span>
-          <span class="name" title="も">も</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3M 22 も -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m22moriyakasumi22/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1g0EHgGhrULjLT6mYAqxRkMe0Ubs2sGCb&sz=w400" alt="も サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">22</span>
+              <span class="name" title="も">も</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3M 23 ダーヤマ -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/23yamada01?usp=sharing" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=19TB0vlXacTjo-Jq7z3CzbECQ1vJCmbnG&sz=w400" alt="ダーヤマ サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 23</span>
-          <span class="name" title="ダーヤマ">ダーヤマ</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3M 23 ダーヤマ -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/23yamada01?usp=sharing" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=19TB0vlXacTjo-Jq7z3CzbECQ1vJCmbnG&sz=w400" alt="ダーヤマ サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">23</span>
+              <span class="name" title="ダーヤマ">ダーヤマ</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3M 24 Peroメ -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m25yokoyama01/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1bttQhnytCTu-zoF6_t7WsViNdvEt5Spt&sz=w400" alt="Peroメ サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 24</span>
-          <span class="name" title="Peroメ">Peroメ</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
-      </div>
-    </article>
+        <!-- 3M 24 Peroメ -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3m25yokoyama01/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1bttQhnytCTu-zoF6_t7WsViNdvEt5Spt&sz=w400" alt="Peroメ サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">24</span>
+              <span class="name" title="Peroメ">Peroメ</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
 
-    <!-- 3M 25 やよい -->
-    <article class="card">
-      <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3myoshida/" target="_blank" rel="noopener noreferrer">
-        <img src="https://drive.google.com/thumbnail?id=1bb4kqx-Xb50NeSHeSA7VQVj5ik6GPYzb&sz=w400" alt="やよい サムネイル">
-      </a>
-      <div class="card-body">
-        <div class="title-row">
-          <span class="code">3M 25</span>
-          <span class="name" title="やよい">やよい</span>
-        </div>
-        <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+        <!-- 3M 25 やよい -->
+        <article class="card">
+          <a class="thumb-link" href="https://sites.google.com/etoile.ed.jp/3myoshida/" target="_blank" rel="noopener noreferrer">
+            <img src="https://drive.google.com/thumbnail?id=1bb4kqx-Xb50NeSHeSA7VQVj5ik6GPYzb&sz=w400" alt="やよい サムネイル">
+          </a>
+          <div class="card-body">
+            <div class="title-row">
+              <span class="code">25</span>
+              <span class="name" title="やよい">やよい</span>
+            </div>
+            <div class="desc">ゲームの説明、プレイしたくなるような30字程度</div>
+          </div>
+        </article>
       </div>
-    </article>
+    </section>
   </div>
 </body>
 </html>
