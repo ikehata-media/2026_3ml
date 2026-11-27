@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Black FFT & Strings</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #000000;
+      overflow: hidden;
+      cursor: crosshair;
+    }
+    canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      background: #000000;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const MIN_FREQ = 80;
+    const MAX_FREQ = 4000;
+    const LIFETIME_SEC = 10.0; // 弦も周波数の数字も10秒で消える
+
+    let audioCtx = null;
+    let analyser = null;
+    let freqData = null;
+
+    let anchorPoint = null;
+    const strings = [];
+
+    // 浮かび上がるFFTの状態
+    let fftAlpha = 0;
+
+    let lastTime = performance.now();
+
+    function resize() {
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.floor(window.innerWidth * dpr);
+      canvas.height = Math.floor(window.innerHeight * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    function getLogicalSize() {
+      return {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
+    }
+
+    // 周波数 -> X座標（対数スケール）
+    function freqToX(freq, width) {
+      const clamped = Math.max(MIN_FREQ, Math.min(MAX_FREQ, freq));
+      const logMin = Math.log10(MIN_FREQ);
+      const logMax = Math.log10(MAX_FREQ);
+      return ((Math.log10(clamped) - logMin) / (logMax - logMin)) * width;
+    }
+
+    // X座標 -> 周波数（対数スケール）
+    function xToFreq(x, width) {
+      const ratio = Math.max(0, Math.min(1, x / Math.max(1, width)));
+      const logMin = Math.log10(MIN_FREQ);
+      const logMax = Math.log10(MAX_FREQ);
+      return Math.pow(10, logMin + ratio * (logMax - logMin));
+    }
+
+    // 水平・垂直の度合い（0 = 完全水平: 正弦波, 1 = 完全垂直: 矩形波）
+    function computeVerticalRatio(p1, p2) {
+      const dx = Math.abs(p2.x - p1.x);
+      const dy = Math.abs(p2.y - p1.y);
+      const len = Math.hypot(dx, dy);
+      if (len < 1) return 0;
+      const angle = Math.atan2(dy, dx);
+      return Math.min(1, Math.max(0, angle / (Math.PI / 2)));
+    }
+
+    // 弦の周波数計算
+    function computeStringFreq(p1, p2, width) {
+      const midX = (p1.x + p2.x) / 2;
+      const len = Math.max(24, Math.hypot(p2.x - p1.x, p2.y - p1.y));
+      const baseFreq = xToFreq(midX, width);
+      const lengthFactor = 180 / len;
+      return Math.max(MIN_FREQ, Math.min(MAX_FREQ, baseFreq * Math.pow(lengthFactor, 0.2)));
+    }
+
+    function ensureAudio() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContextClass();
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 4096;
+        analyser.smoothingTimeConstant = 0.8;
+        freqData = new Uint8Array(analyser.frequencyBinCount);
+      }
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+    }
+
+    // 正弦波（水平）と矩形波（垂直）をブレンドして発音
+    function playBlendedTone(freq, verticalRatio) {
+      ensureAudio();
+      const now = audioCtx.currentTime;
+
+      const sineOsc = audioCtx.createOscillator();
+      sineOsc.type = "sine";
+      sineOsc.frequency.setValueAtTime(freq, now);
+
+      const squareOsc = audioCtx.createOscillator();
+      squareOsc.type = "square";
+      squareOsc.frequency.setValueAtTime(freq, now);
+
+      const sineGain = audioCtx.createGain();
+      const squareGain = audioCtx.createGain();
+      const masterGain = audioCtx.createGain();
+
+      const sineWeight = 1 - verticalRatio;
+      const squareWeight = verticalRatio * 0.55;
+
+      sineGain.gain.setValueAtTime(sineWeight, now);
+      squareGain.gain.setValueAtTime(squareWeight, now);
+
+      masterGain.gain.setValueAtTime(0.0001, now);
+      masterGain.gain.exponentialRampToValueAtTime(0.28, now + 0.012);
+      masterGain.gain.exponentialRampToValueAtTime(0.0001, now + 1.2);
+
+      sineOsc.connect(sineGain);
+      squareOsc.connect(squareGain);
+      sineGain.connect(masterGain);
+      squareGain.connect(masterGain);
+
+      masterGain.connect(analyser);
+      analyser.connect(audioCtx.destination);
+
+      sineOsc.start(now);
+      squareOsc.start(now);
+      sineOsc.stop(now + 1.22);
+      squareOsc.stop(now + 1.22);
+
+      fftAlpha = 1.0;
+    }
+
+    // 弦を生成・はじく
+    function createAndPluckString(p1, p2, width) {
+      const freq = computeStringFreq(p1, p2, width);
+      const verticalRatio = computeVerticalRatio(p1, p2);
+      const centerX = (p1.x + p2.x) / 2;
+      const centerY = (p1.y + p2.y) / 2;
+
+      strings.push({
+        p1: { x: p1.x, y: p1.y },
+        p2: { x: p2.x, y: p2.y },
+        centerX,
+        centerY,
+        freq,
+        hzText: `${Math.round(freq)}`,
+        verticalRatio,
+        age: 0,
+        lifetime: LIFETIME_SEC,
+        pluckStrength: 28,
+        vibPhase: 0,
+      });
+
+      playBlendedTone(freq, verticalRatio);
+    }
+
+    function pointToSegmentDist(p, a, b) {
+      const vx = b.x - a.x;
+      const vy = b.y - a.y;
+      const wx = p.x - a.x;
+      const wy = p.y - a.y;
+      const c1 = vx * wx + vy * wy;
+      if (c1 <= 0) return Math.hypot(p.x - a.x, p.y - a.y);
+      const c2 = vx * vx + vy * vy;
+      if (c2 <= c1) return Math.hypot(p.x - b.x, p.y - b.y);
+      const t = c1 / c2;
+      return Math.hypot(p.x - (a.x + t * vx), p.y - (a.y + t * vy));
+    }
+
+    canvas.addEventListener("click", (evt) => {
+      const { width } = getLogicalSize();
+      const pt = { x: evt.clientX, y: evt.clientY };
+
+      if (!anchorPoint) {
+        const hit = strings.find((s) => pointToSegmentDist(pt, s.p1, s.p2) < 12);
+        if (hit) {
+          hit.age = 0;
+          hit.pluckStrength = 28;
+          playBlendedTone(hit.freq, hit.verticalRatio);
+          return;
+        }
+        anchorPoint = pt;
+        return;
+      }
+
+      createAndPluckString(anchorPoint, pt, width);
+      anchorPoint = pt;
+    });
+
+    function drawLogFFT(width, height, alpha) {
+      if (!analyser || !freqData || !audioCtx || alpha <= 0.01) return;
+
+      analyser.getByteFrequencyData(freqData);
+      const nyquist = audioCtx.sampleRate / 2;
+      const binHz = nyquist / freqData.length;
+
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+
+      let started = false;
+      const baseY = height * 0.78;
+      const maxBarHeight = height * 0.36;
+
+      for (let x = 0; x < width; x += 2) {
+        const freq = xToFreq(x, width);
+        const bin = Math.min(freqData.length - 1, Math.max(0, Math.round(freq / binHz)));
+        const norm = freqData[bin] / 255;
+        const y = baseY - norm * maxBarHeight;
+
+        if (!started) {
+          ctx.moveTo(x, y);
+          started = true;
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawStringsAndCenterNumbers(dt) {
+      for (let i = strings.length - 1; i >= 0; i--) {
+        const s = strings[i];
+        s.age += dt;
+
+        const lifeRatio = Math.max(0, 1 - s.age / s.lifetime);
+        if (lifeRatio <= 0) {
+          strings.splice(i, 1);
+          continue;
+        }
+
+        const vibSpeed = 28 + Math.min(45, s.freq * 0.02);
+        s.vibPhase += vibSpeed * dt;
+
+        const pluckDecay = Math.exp(-s.age * 1.4);
+        const currentAmp = s.pluckStrength * pluckDecay * lifeRatio;
+
+        const dx = s.p2.x - s.p1.x;
+        const dy = s.p2.y - s.p1.y;
+        const len = Math.max(1, Math.hypot(dx, dy));
+        const nx = -dy / len;
+        const ny = dx / len;
+
+        const fadeAlpha = Math.pow(lifeRatio, 1.15);
+        const segments = 48;
+
+        // 1. 弦の描画
+        ctx.save();
+        ctx.globalAlpha = fadeAlpha;
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+
+        for (let k = 0; k <= segments; k++) {
+          const t = k / segments;
+          const baseX = s.p1.x + dx * t;
+          const baseY = s.p1.y + dy * t;
+
+          const boundaryEnvelope = Math.sin(Math.PI * t);
+          const wave =
+            0.78 * Math.sin(Math.PI * t) * Math.sin(s.vibPhase) +
+            0.22 * Math.sin(2 * Math.PI * t) * Math.sin(s.vibPhase * 1.9 + 0.7);
+
+          const disp = wave * currentAmp * boundaryEnvelope;
+          const px = baseX + nx * disp;
+          const py = baseY + ny * disp;
+
+          if (k === 0) {
+            ctx.moveTo(px, py);
+          } else {
+            ctx.lineTo(px, py);
+          }
+        }
+
+        ctx.stroke();
+        ctx.restore();
+
+        // 2. 弦の中心から生まれて10秒で消える周波数の数字
+        // 誕生直後は中心からわずかに浮き上がりながら10秒かけて消えていく
+        const riseOffset = (1 - lifeRatio) * 18;
+        ctx.save();
+        ctx.globalAlpha = fadeAlpha;
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "300 24px system-ui, -apple-system, sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(s.hzText, s.centerX, s.centerY - riseOffset);
+        ctx.restore();
+      }
+    }
+
+    function loop(now) {
+      const dt = Math.min(0.05, Math.max(0.001, (now - lastTime) / 1000));
+      lastTime = now;
+
+      const { width, height } = getLogicalSize();
+      ctx.fillStyle = "#000000";
+      ctx.fillRect(0, 0, width, height);
+
+      drawStringsAndCenterNumbers(dt);
+      drawLogFFT(width, height, fftAlpha);
+
+      fftAlpha = Math.max(0, fftAlpha - dt * 0.45);
+
+      requestAnimationFrame(loop);
+    }
+
+    requestAnimationFrame(loop);
+  </script>
+</body>
+</html>
