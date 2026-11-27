@@ -1,0 +1,2763 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>私立パステル学園・先輩個別指導＆Study with me</title>
+<style>
+  :root {
+    --bg-color: #f4f6f9;
+    --card-bg: #ffffff;
+    --text-main: #2c3e50;
+    --text-sub: #607d8b;
+    --primary: #4a90e2;
+  }
+
+  * {
+    box-sizing: border-box;
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container {
+    width: 95%;
+    max-width: 980px;
+    background: var(--card-bg);
+    border-radius: 22px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.09);
+    overflow: hidden;
+    padding: 28px;
+    margin: 20px 0;
+  }
+
+  .screen {
+    display: none;
+    animation: fadeIn 0.35s ease;
+  }
+
+  .screen.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+  }
+
+  @keyframes floatSlow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  @keyframes writePen {
+    0%, 100% { transform: rotate(-12deg) translate(0, 0); }
+    25% { transform: rotate(-5deg) translate(4px, -2px); }
+    50% { transform: rotate(-15deg) translate(8px, 1px); }
+    75% { transform: rotate(-8deg) translate(3px, -1px); }
+  }
+
+  @keyframes steamRise {
+    0% { opacity: 0.2; transform: translateY(0) scale(0.9); }
+    50% { opacity: 0.75; transform: translateY(-6px) scale(1.05); }
+    100% { opacity: 0; transform: translateY(-12px) scale(1.1); }
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.55); transform: scale(1); }
+    50% { box-shadow: 0 0 0 10px rgba(217, 119, 6, 0); transform: scale(1.04); }
+  }
+
+  .shake-anim {
+    animation: shake 0.4s ease;
+  }
+
+  /* ==========================================
+     トップページ：名前入力画面の背景
+     （Googleドライブ共有画像：1dm_mJJ-fratGKgpzS7yqctK3HzDmWQDN）
+     ========================================== */
+  .school-exterior-hero {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 30px 22px 28px;
+    border: 2px solid #bae6fd;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    background-color: #dbeafe;
+    background-image:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.26) 100%),
+      url("https://drive.google.com/thumbnail?id=1dm_mJJ-fratGKgpzS7yqctK3HzDmWQDN&sz=w1600"),
+      url("https://lh3.googleusercontent.com/d/1dm_mJJ-fratGKgpzS7yqctK3HzDmWQDN");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+  .title-box {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 4px 0 8px;
+  }
+
+  .school-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.94);
+    color: #3730a3;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 0.88rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #c7d2fe;
+  }
+
+  .hero-title-card {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(6px);
+    border-radius: 16px;
+    padding: 14px 20px;
+    max-width: 720px;
+    margin: 0 auto 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+  }
+
+  .hero-title-card h1 {
+    font-size: 1.8rem;
+    background: linear-gradient(90deg, #e17055, #d6a21e, #0984e3, #00b894, #6c5ce7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0 0 8px;
+  }
+
+  .story-intro {
+    font-size: 0.94rem;
+    line-height: 1.6;
+    color: #334155;
+    margin: 0;
+  }
+
+  .input-group {
+    max-width: 420px;
+    margin: 16px auto;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.93);
+    backdrop-filter: blur(6px);
+    padding: 14px 18px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    border: 2px solid #93c5fd;
+  }
+
+  .input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #1e3a8a;
+  }
+
+  .input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 2px solid #cbd5e1;
+    border-radius: 10px;
+    outline: none;
+    background: #ffffff;
+  }
+
+  .input-group input:focus {
+    border-color: var(--primary);
+  }
+
+  .mode-heading-pill {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: #1e293b;
+    margin: 6px 0 0;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* トップの2大モード分岐カード */
+  .main-choice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 760px;
+    margin: 16px auto 6px;
+  }
+
+  @media (max-width: 650px) {
+    .main-choice-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .main-choice-card {
+    border-radius: 18px;
+    padding: 22px 18px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    border: 2px solid transparent;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+    backdrop-filter: blur(6px);
+  }
+
+  .main-choice-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.18);
+  }
+
+  .main-choice-card.game-mode-card {
+    background: rgba(255, 255, 255, 0.93);
+    border-color: #60a5fa;
+  }
+
+  .main-choice-card.study-mode-card {
+    background: rgba(255, 255, 255, 0.93);
+    border-color: #fbbf24;
+  }
+
+  .main-choice-icon {
+    font-size: 2.5rem;
+    margin-bottom: 6px;
+  }
+
+  .main-choice-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #1e293b;
+  }
+
+  .main-choice-desc {
+    font-size: 0.87rem;
+    color: #475569;
+    line-height: 1.55;
+  }
+
+  /* 教科選択ボタン */
+  .subject-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+    margin-top: 15px;
+  }
+
+  .subject-btn {
+    padding: 18px 10px;
+    border: none;
+    border-radius: 14px;
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .subject-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.16);
+  }
+
+  /* 学年モード＆難易度選択グリッド */
+  .mode-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .diff-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 22px;
+  }
+
+  @media (max-width: 650px) {
+    .diff-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .mode-card {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 22px 18px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .mode-card:hover {
+    border-color: var(--primary);
+    background: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  }
+
+  .diff-card.easy:hover { border-color: #38a169; background: #f0fff4; }
+  .diff-card.normal:hover { border-color: #3182ce; background: #ebf8ff; }
+  .diff-card.hard:hover { border-color: #e53e3e; background: #fff5f5; }
+
+  .mode-tag {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: bold;
+    padding: 4px 12px;
+    border-radius: 12px;
+    background: #e2e8f0;
+    color: #334155;
+    margin-bottom: 10px;
+  }
+
+  .mode-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  .mode-sub {
+    font-size: 0.86rem;
+    color: var(--text-sub);
+    line-height: 1.5;
+  }
+
+  /* キャラクター選択画面 */
+  .char-select-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 20px;
+  }
+
+  .all-char-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  @media (max-width: 650px) {
+    .char-select-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .char-card {
+    border: 2px solid #e6ecf2;
+    border-radius: 18px;
+    padding: 18px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    background: #fafbfd;
+  }
+
+  .char-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    background: #fff;
+  }
+
+  /* キャラクター立ち絵ビューポート（単体画像自動表示） */
+  .sprite-viewport {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    background: #ffffff;
+    border: 1px solid #eef2f6;
+    margin: 0 auto 12px;
+  }
+
+  .sprite-viewport.preview {
+    width: 185px;
+    height: 265px;
+  }
+
+  .sprite-viewport.stage {
+    width: 245px;
+    height: 375px;
+  }
+
+  .single-char-img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    pointer-events: none;
+    transition: filter 0.3s ease, transform 0.3s ease;
+    z-index: 2;
+    display: block;
+  }
+
+  .sprite-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    text-align: center;
+    font-size: 0.82rem;
+    color: #64748b;
+    background: #f8fafc;
+    z-index: 1;
+  }
+
+  /* 感情フィルター */
+  .emotion-happy .single-char-img {
+    filter: brightness(1.05) saturate(1.12);
+    transform: scale(1.03);
+  }
+
+  .emotion-sad .single-char-img {
+    filter: brightness(0.88) saturate(0.75);
+    transform: translateY(4px);
+  }
+
+  .emotion-angry .single-char-img {
+    filter: contrast(1.12) saturate(1.25) drop-shadow(0 0 8px rgba(220, 38, 38, 0.5));
+  }
+
+  .emotion-studying .single-char-img {
+    transform: translateY(10px) scale(1.04);
+  }
+
+  /* 感情バッジ */
+  .emotion-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    background: rgba(255,255,255,0.92);
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    z-index: 15;
+  }
+
+  /* Study with me 勉強デスク＆勉強中イラスト演出 */
+  .study-room-bg {
+    background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 65%, #fde68a 100%) !important;
+    border: 2px solid #f59e0b !important;
+  }
+
+  .study-lamp-glow {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, rgba(254, 240, 138, 0.75) 0%, rgba(254, 240, 138, 0) 70%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .study-status-pill {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.92);
+    color: #92400e;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    z-index: 16;
+  }
+
+  .study-desk-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 92px;
+    background: linear-gradient(180deg, #d97706 0%, #b45309 100%);
+    border-top: 4px solid #92400e;
+    z-index: 14;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 12px;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+  }
+
+  .desk-notebook {
+    background: #ffffff;
+    border: 2px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    color: #334155;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    position: relative;
+    text-align: left;
+    line-height: 1.35;
+  }
+
+  .desk-pen {
+    display: inline-block;
+    font-size: 1.35rem;
+    margin-left: 4px;
+  }
+
+  .desk-pen.writing {
+    animation: writePen 1.1s ease-in-out infinite;
+  }
+
+  .desk-mug {
+    position: relative;
+    font-size: 1.7rem;
+  }
+
+  .desk-steam {
+    position: absolute;
+    top: -14px;
+    left: 6px;
+    font-size: 0.85rem;
+    color: #fff;
+    animation: steamRise 2.2s ease-in-out infinite;
+  }
+
+  /* ポケコロツイン風・着せ替えアイテムレイヤー */
+  .acc-layer {
+    position: absolute;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.22));
+  }
+
+  .acc-wings {
+    z-index: 1;
+    top: 105px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 5.5rem;
+    opacity: 0.88;
+    animation: floatSlow 3s ease-in-out infinite;
+  }
+
+  .acc-aura {
+    z-index: 12;
+    inset: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 16px;
+    font-size: 1.9rem;
+    animation: floatSlow 2.6s ease-in-out infinite;
+  }
+
+  .acc-tiara {
+    z-index: 8;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.1rem;
+  }
+
+  .acc-twinribbon {
+    z-index: 8;
+    top: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 125px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.75rem;
+  }
+
+  .acc-moon {
+    z-index: 8;
+    top: 30px;
+    left: 64%;
+    font-size: 1.7rem;
+  }
+
+  .acc-glasses {
+    z-index: 8;
+    top: 68px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.15rem;
+  }
+
+  .acc-catphones {
+    z-index: 8;
+    top: 112px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.2rem;
+  }
+
+  .acc-sparkle {
+    z-index: 10;
+    top: 56px;
+    left: 24%;
+    font-size: 1.65rem;
+    animation: floatSlow 2s ease-in-out infinite;
+  }
+
+  /* ゲーム＆勉強画面レイアウト */
+  .game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #f0f3f7;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .affection-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff0f3;
+    padding: 8px 16px;
+    border-radius: 30px;
+    border: 1px solid #ffccd5;
+  }
+
+  .affection-bar-bg {
+    width: 110px;
+    height: 10px;
+    background: #ffe5ec;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .affection-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff758f, #ff4d6d);
+    width: 0%;
+    transition: width 0.5s ease;
+  }
+
+  .game-layout {
+    display: grid;
+    grid-template-columns: 295px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  @media (max-width: 768px) {
+    .game-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .stage-area {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+  }
+
+  .wardrobe-box {
+    margin-top: 12px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    text-align: left;
+  }
+
+  .wardrobe-title {
+    font-size: 0.78rem;
+    font-weight: bold;
+    color: #d53f8c;
+    margin-bottom: 8px;
+  }
+
+  .wardrobe-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .item-btn {
+    padding: 5px 8px;
+    font-size: 0.76rem;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .item-btn.locked {
+    opacity: 0.48;
+    cursor: not-allowed;
+    background: #edf2f7;
+  }
+
+  .item-btn.equipped {
+    background: #ed64a6;
+    color: #fff;
+    border-color: #d53f8c;
+    font-weight: bold;
+  }
+
+  /* セリフ枠 */
+  .dialogue-box {
+    background: #f8fafc;
+    border-left: 5px solid var(--primary);
+    padding: 16px 20px;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 18px;
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .dialogue-box.angry-box {
+    background: #fff5f5;
+    border-left-color: #e53e3e !important;
+  }
+
+  .speaker-tag {
+    font-weight: bold;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .streak-warning {
+    font-size: 0.8rem;
+    color: #e53e3e;
+    font-weight: bold;
+  }
+
+  .dialogue-text {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* クイズ枠・タイマー枠 */
+  .quiz-box {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 22px;
+  }
+
+  .question-number {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--text-sub);
+    margin-bottom: 6px;
+  }
+
+  .question-text {
+    font-size: 1.15rem;
+    font-weight: bold;
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+
+  .choices-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .choice-btn {
+    padding: 13px 16px;
+    text-align: left;
+    font-size: 1rem;
+    background: #f8fafc;
+    border: 2px solid #dce4ec;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .choice-btn:hover:not(:disabled) {
+    background: #ebf4ff;
+    border-color: var(--primary);
+  }
+
+  .choice-btn.correct {
+    background: #d4edda;
+    border-color: #28a745;
+    color: #155724;
+    font-weight: bold;
+  }
+
+  .choice-btn.wrong {
+    background: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+  }
+
+  /* Study with me タイマー入力＆表示UI */
+  .study-input-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+
+  .minutes-input {
+    width: 130px;
+    padding: 12px 15px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: center;
+    border: 2px solid #cbd5e1;
+    border-radius: 12px;
+    outline: none;
+  }
+
+  .minutes-input:focus {
+    border-color: #d97706;
+  }
+
+  .preset-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .preset-pill {
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    font-size: 0.84rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .preset-pill:hover {
+    background: #fef3c7;
+    border-color: #f59e0b;
+  }
+
+  .timer-display-box {
+    text-align: center;
+    padding: 18px 10px;
+    background: #fffbeb;
+    border: 2px solid #fde68a;
+    border-radius: 16px;
+    margin: 12px 0 18px;
+  }
+
+  .timer-clock {
+    font-size: 3.3rem;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+    color: #92400e;
+    letter-spacing: 2px;
+    margin: 6px 0;
+  }
+
+  .timer-progress-bg {
+    width: 100%;
+    height: 10px;
+    background: #fde68a;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+
+  .timer-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f59e0b, #d97706);
+    width: 100%;
+    transition: width 0.5s linear;
+  }
+
+  .nav-btn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 10px;
+    background: #64748b;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+
+  .nav-btn.primary {
+    background: var(--primary);
+  }
+
+  .nav-btn.amber {
+    background: #d97706;
+  }
+
+  .nav-btn.amber:hover {
+    background: #b45309;
+  }
+
+  .nav-btn.complete-ready {
+    background: linear-gradient(90deg, #f59e0b, #ec4899);
+    color: #fff;
+    font-size: 1rem;
+    padding: 12px 24px;
+    animation: pulseGlow 1.5s infinite;
+  }
+
+  .next-area {
+    margin-top: 15px;
+    text-align: right;
+  }
+
+  .result-box {
+    text-align: center;
+    padding: 16px 10px;
+  }
+
+  .result-score {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 8px 0;
+  }
+
+  .gift-card {
+    background: linear-gradient(135deg, #fff5f7 0%, #f3e8ff 100%);
+    border: 2px solid #fbb6ce;
+    border-radius: 14px;
+    padding: 14px;
+    margin: 14px auto 16px;
+    max-width: 440px;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #2c3e50;
+    color: #fff;
+    padding: 14px 22px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    font-weight: bold;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s;
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="main-container">
+  <!-- 画面1：名前入力＆モード選択（Googleドライブの桜の校舎画像を背景に直接表示） -->
+  <div id="screen-start" class="screen active">
+    <div class="school-exterior-hero">
+      <div class="title-box">
+        <div class="school-badge">🏫 私立パステル学園 高等部 校門前</div>
+
+        <div class="hero-title-card">
+          <h1>先輩と一緒に学ぶ・個別指導＆Study with me</h1>
+          <p class="story-intro">
+            桜舞う春、あなたは<strong>私立パステル学園の高校1年生</strong>として入学しました！<br>
+            まずはあなたの名前を入力して、<strong>「ゲームモード」</strong>か<strong>「勉強モード（Study with me）」</strong>を選んでください。
+          </p>
+        </div>
+        
+        <div class="input-group">
+          <label for="player-name">✏️ 新入生（高校1年生）のあなたの名前</label>
+          <input type="text" id="player-name" placeholder="例：ハルト / ユイ" value="新入生">
+        </div>
+
+        <div><span class="mode-heading-pill">モードを選択してください</span></div>
+
+        <div class="main-choice-grid">
+          <div class="main-choice-card game-mode-card" onclick="enterMainMode('game')">
+            <div class="main-choice-icon">🎮</div>
+            <div class="main-choice-title">ゲームモード（個別指導クイズ）</div>
+            <div class="main-choice-desc">
+              5教科の先輩を選んで5問のクイズに挑戦！<br>
+              5問すべて終わると着せ替えアイテムがもらえます。
+            </div>
+          </div>
+
+          <div class="main-choice-card study-mode-card" onclick="enterMainMode('study')">
+            <div class="main-choice-icon">⏱️</div>
+            <div class="main-choice-title">勉強モード（Study with me）</div>
+            <div class="main-choice-desc">
+              好きな先輩を選んで一緒に作業・自習！<br>
+              タイマー終了後に「完了」を押すと、先輩が褒めて着せ替えアイテムをくれます。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 画面1B：ゲームモード用の教科選択 -->
+  <div id="screen-subject" class="screen">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <h2 id="subject-select-title">【ゲームモード】学びたい教科を選択</h2>
+      <button class="nav-btn" onclick="showScreen('screen-start')">← モード選択に戻る</button>
+    </div>
+    <p>どの教科の先輩に個別指導をお願いしますか？</p>
+    <div class="subject-grid">
+      <button class="subject-btn" style="background:#e8939d;" onclick="selectSubject('japanese')">国語（ピンク）</button>
+      <button class="subject-btn" style="background:#d9b44a;" onclick="selectSubject('social')">社会（黄色）</button>
+      <button class="subject-btn" style="background:#4a69bd;" onclick="selectSubject('math')">数学（青色）</button>
+      <button class="subject-btn" style="background:#559e83;" onclick="selectSubject('english')">英語（緑色）</button>
+      <button class="subject-btn" style="background:#8e7cc3;" onclick="selectSubject('science')">理科（紫色）</button>
+    </div>
+  </div>
+
+  <!-- 画面2：学習レベル（学年モード）選択 -->
+  <div id="screen-mode" class="screen">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <h2 id="mode-select-title">学習する学年コースを選択</h2>
+      <button class="nav-btn" onclick="showScreen('screen-subject')">← 教科選択に戻る</button>
+    </div>
+    <p id="mode-welcome-msg">どの学年の授業を受けますか？</p>
+
+    <div class="mode-grid">
+      <div class="mode-card" onclick="selectMode('jh3')">
+        <div class="mode-tag">基礎固め</div>
+        <div class="mode-title">中学3年間の学習内容</div>
+        <div class="mode-sub">高校生活の土台となるやさしい復習コース</div>
+      </div>
+      <div class="mode-card" onclick="selectMode('hs1')">
+        <div class="mode-tag">1年生レベル</div>
+        <div class="mode-title">高校1年生の学習内容</div>
+        <div class="mode-sub">1年生の基本をしっかり押さえるコース</div>
+      </div>
+      <div class="mode-card" onclick="selectMode('hs2')">
+        <div class="mode-tag">2年生レベル</div>
+        <div class="mode-title">高校2年生の学習内容</div>
+        <div class="mode-sub">2年生の重要ポイントを先取りするコース</div>
+      </div>
+      <div class="mode-card" onclick="selectMode('hs3')">
+        <div class="mode-tag">先輩と同じ学年</div>
+        <div class="mode-title">高校3年生の学習内容</div>
+        <div class="mode-sub">3年生の教養を楽しく学べるコース</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 画面3：難易度選択（簡単・普通・難しい） -->
+  <div id="screen-difficulty" class="screen">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <h2 id="diff-select-title">問題の難易度を選択</h2>
+      <button class="nav-btn" onclick="showScreen('screen-mode')">← 学年モード選択に戻る</button>
+    </div>
+    <p id="diff-sub-msg">挑戦したい難易度を選んでください（どの難易度も5問連続で出題されます）。</p>
+
+    <div class="diff-grid">
+      <div class="mode-card diff-card easy" onclick="selectDifficulty('easy')">
+        <div class="mode-tag" style="background:#c6f6d5; color:#22543d;">🌱 とてもやさしい</div>
+        <div class="mode-title" style="color:#2f855a;">簡単</div>
+        <div class="mode-sub">直感でもわかる基本の問題。<br>（1問正解で好感度 +15%）</div>
+      </div>
+      <div class="mode-card diff-card normal" onclick="selectDifficulty('normal')">
+        <div class="mode-tag" style="background:#bee3f8; color:#2a4365;">📘 スタンダード</div>
+        <div class="mode-title" style="color:#2b6cb0;">普通</div>
+        <div class="mode-sub">授業の基本を確認できる標準問題。<br>（1問正解で好感度 +20%）</div>
+      </div>
+      <div class="mode-card diff-card hard" onclick="selectDifficulty('hard')">
+        <div class="mode-tag" style="background:#fed7d7; color:#742a2a;">🔥 ちょっぴり挑戦</div>
+        <div class="mode-title" style="color:#c53030;">難しい</div>
+        <div class="mode-sub">少し考えごたえのあるステップアップ問題。<br>（1問正解で好感度 +25%）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 画面4：キャラクター（高校3年生の先輩）選択（ゲームモード用） -->
+  <div id="screen-char" class="screen">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <h2 id="char-select-title">担当の高校3年生の先輩を選んでください</h2>
+      <button class="nav-btn" onclick="showScreen('screen-difficulty')">← 難易度選択に戻る</button>
+    </div>
+    <p>イラストとプロフィールを見て、マンツーマンで教えてほしい先輩をクリックしてください。</p>
+    
+    <div class="char-select-grid" id="char-cards-container"></div>
+  </div>
+
+  <!-- 画面5：ゲームモード（個別指導授業＆クイズ画面） -->
+  <div id="screen-game" class="screen">
+    <div class="game-header">
+      <div>
+        <span id="header-subject-badge" style="padding:4px 12px; border-radius:8px; color:#fff; font-weight:bold; font-size:0.88rem;">教科</span>
+        <span id="header-mode-badge" style="padding:4px 10px; border-radius:8px; background:#e2e8f0; color:#334155; font-weight:bold; font-size:0.82rem; margin-left:4px;">学年</span>
+        <span id="header-diff-badge" style="padding:4px 10px; border-radius:8px; background:#edf2f7; color:#2d3748; font-weight:bold; font-size:0.82rem; margin-left:4px;">難易度</span>
+        <strong id="header-char-name" style="font-size:1.12rem; margin-left:8px;">先輩名（高3）</strong>
+      </div>
+
+      <div class="affection-box">
+        <span style="color:#ff4d6d; font-size:1.1rem;">♥</span>
+        <span style="font-size:0.88rem; font-weight:bold;">好感度: <span id="affection-val">0</span>%</span>
+        <div class="affection-bar-bg">
+          <div class="affection-bar-fill" id="affection-bar"></div>
+        </div>
+      </div>
+
+      <button class="nav-btn" onclick="showScreen('screen-start')">モード選択に戻る</button>
+    </div>
+
+    <div class="game-layout">
+      <!-- 左側：先輩の立ち絵＋ポケコロツイン風着せ替え -->
+      <div class="stage-area">
+        <div id="stage-portrait-wrap"></div>
+        
+        <div class="wardrobe-box">
+          <div class="wardrobe-title">✨ ポケコロツイン風コーデ（クリックで装着・解除）</div>
+          <div class="wardrobe-items" id="wardrobe-list"></div>
+        </div>
+      </div>
+
+      <!-- 右側：先輩のセリフ＋5問連続クイズ -->
+      <div>
+        <div class="dialogue-box" id="dialogue-box">
+          <div class="speaker-tag">
+            <span id="speaker-name">先輩名（高校3年生）</span>
+            <span class="streak-warning" id="wrong-streak-text"></span>
+          </div>
+          <p class="dialogue-text" id="dialogue-text">入学おめでとう！一緒に頑張ろうね。</p>
+        </div>
+
+        <div class="quiz-box" id="quiz-area">
+          <div class="question-number" id="q-number">第 1 問 / 全 5 問</div>
+          <div class="question-text" id="q-text">問題文</div>
+          <div class="choices-list" id="choices-container"></div>
+          <div class="next-area" id="next-area" style="display:none;">
+            <button class="nav-btn primary" onclick="nextQuestion()">次の問題へ →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 画面6：勉強モード（Study with me）キャラ選択画面 -->
+  <div id="screen-study-char" class="screen">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <h2>⏱️ 【勉強モード】一緒に勉強する先輩を選択</h2>
+      <button class="nav-btn" onclick="showScreen('screen-start')">← モード選択に戻る</button>
+    </div>
+    <p id="study-char-intro">全10人の先輩の中から、一緒に勉強（Study with me）したい相手をクリックしてください。</p>
+
+    <div class="all-char-grid" id="study-char-grid"></div>
+  </div>
+
+  <!-- 画面7：勉強モード（Study with me）タイマー＆デスク画面 -->
+  <div id="screen-study-room" class="screen">
+    <div class="game-header">
+      <div>
+        <span style="padding:4px 12px; border-radius:8px; background:#d97706; color:#fff; font-weight:bold; font-size:0.88rem;">⏱️ Study with me</span>
+        <span id="study-subject-badge" style="padding:4px 10px; border-radius:8px; color:#fff; font-weight:bold; font-size:0.82rem; margin-left:4px;">教科</span>
+        <strong id="study-char-name" style="font-size:1.12rem; margin-left:8px;">先輩名（高3）</strong>
+      </div>
+
+      <div class="affection-box">
+        <span style="color:#ff4d6d; font-size:1.1rem;">♥</span>
+        <span style="font-size:0.88rem; font-weight:bold;">好感度: <span id="study-affection-val">0</span>%</span>
+        <div class="affection-bar-bg">
+          <div class="affection-bar-fill" id="study-affection-bar"></div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:8px;">
+        <button class="nav-btn" onclick="leaveStudyRoom()">別の先輩を選ぶ</button>
+        <button class="nav-btn" onclick="leaveStudyRoomToTop()">モード選択へ</button>
+      </div>
+    </div>
+
+    <div class="game-layout">
+      <!-- 左側：勉強している先輩のイラスト＋着せ替えコーデ枠 -->
+      <div class="stage-area" style="background:#fffbeb; border-color:#fde68a;">
+        <div id="study-portrait-wrap"></div>
+        <div style="font-size:0.82rem; color:#92400e; font-weight:bold; margin-top:4px;">
+          📖 先輩も自分の机で一緒に勉強しています
+        </div>
+
+        <div class="wardrobe-box">
+          <div class="wardrobe-title">✨ ポケコロツイン風コーデ（勉強完了で獲得！）</div>
+          <div class="wardrobe-items" id="study-wardrobe-list"></div>
+        </div>
+      </div>
+
+      <!-- 右側：先輩の問いかけ＋キーボード分数入力＆タイマー -->
+      <div>
+        <div class="dialogue-box" id="study-dialogue-box" style="background:#fffbeb; border-left-color:#d97706;">
+          <div class="speaker-tag">
+            <span id="study-speaker-name" style="color:#b45309;">先輩名（高校3年生）</span>
+            <span style="font-size:0.82rem; color:#92400e;" id="study-state-label">準備中</span>
+          </div>
+          <p class="dialogue-text" id="study-dialogue-text">今日は何分くらい一緒に勉強する？</p>
+        </div>
+
+        <!-- 時間入力パネル -->
+        <div class="quiz-box" id="study-setup-panel">
+          <div class="question-number">勉強時間の入力（キーボードで数字を入力してください）</div>
+          <div class="question-text" id="study-prompt-question">何分勉強しますか？</div>
+
+          <div class="study-input-row">
+            <input type="number" id="study-minutes-input" class="minutes-input" min="1" max="300" placeholder="25" value="25" onkeydown="if(event.key==='Enter') startStudyTimer()">
+            <span style="font-size:1.15rem; font-weight:bold;">分間 勉強する</span>
+            <button class="nav-btn amber" onclick="startStudyTimer()">タイマーを開始する ▶</button>
+          </div>
+
+          <div style="font-size:0.82rem; color:#64748b; margin-bottom:6px;">よく使う時間（クリックで入力）：</div>
+          <div class="preset-pills">
+            <button class="preset-pill" onclick="setStudyPreset(1)">1分（お試し確認用）</button>
+            <button class="preset-pill" onclick="setStudyPreset(10)">10分（さくっと）</button>
+            <button class="preset-pill" onclick="setStudyPreset(25)">25分（ポモドーロ）</button>
+            <button class="preset-pill" onclick="setStudyPreset(45)">45分（1コマ分）</button>
+            <button class="preset-pill" onclick="setStudyPreset(60)">60分（しっかり1時間）</button>
+          </div>
+        </div>
+
+        <!-- カウントダウン実行＆完了パネル -->
+        <div class="quiz-box" id="study-running-panel" style="display:none;">
+          <div class="question-number" id="study-target-info">目標：25分間 集中タイム</div>
+          <div class="timer-display-box">
+            <div style="font-size:0.88rem; color:#92400e; font-weight:bold;" id="study-clock-caption">残り勉強時間</div>
+            <div class="timer-clock" id="study-timer-clock">25:00</div>
+            <div class="timer-progress-bg">
+              <div class="timer-progress-fill" id="study-timer-progress"></div>
+            </div>
+          </div>
+
+          <!-- タイマー完了後に表示されるご褒美カード -->
+          <div id="study-reward-area" style="display:none;"></div>
+
+          <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+            <button class="nav-btn primary" id="study-pause-btn" onclick="togglePauseStudyTimer()">一時停止 ⏸</button>
+            <button class="nav-btn complete-ready" id="study-complete-btn" style="display:none;" onclick="claimStudyCompletion()">完了 ✨（先輩からご褒美をもらう）</button>
+            <button class="nav-btn" onclick="resetStudyTimer()">時間を変更する ↺</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">通知メッセージ</div>
+
+<script>
+// ==========================================
+// 1. Googleドライブ共有画像IDヘルパー＆ラベル設定
+// ==========================================
+function driveImgUrl(fileId) {
+  return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+}
+
+function driveImgFallbackUrl(fileId) {
+  return `https://lh3.googleusercontent.com/d/${fileId}`;
+}
+
+const MODE_LABELS = {
+  jh3: "中学3年間の学習内容",
+  hs1: "高校1年生の学習内容",
+  hs2: "高校2年生の学習内容",
+  hs3: "高校3年生の学習内容"
+};
+
+const DIFF_LABELS = {
+  easy: { name: "簡単", gain: 15, bg: "#c6f6d5", color: "#22543d" },
+  normal: { name: "普通", gain: 20, bg: "#bee3f8", color: "#2a4365" },
+  hard: { name: "難しい", gain: 25, bg: "#fed7d7", color: "#742a2a" }
+};
+
+// ==========================================
+// 2. 教科・高校3年生の先輩キャラ・セリフ＆問題データ（全10人画像＆改名済み）
+// ==========================================
+const GAME_DATA = {
+  japanese: {
+    name: "国語",
+    color: "#e8939d",
+    female: {
+      name: "桜庭 栞（さくらば しおり）先輩",
+      driveId: "1n9P2vzDmqjgeHV6jFV7aY5X5JQFA120d",
+      desc: "高校3年生・図書委員長。ピンクのカーディガンが似合う文学的で少し儚げな雰囲気の先輩。",
+      greet: "{name}さん、高校入学おめでとう。1年生のころの私を思い出すわ…一緒に言葉の世界を紐解きましょうね。",
+      studyAsk: "{name}さん、一緒に自習しましょうか。今日は何分くらい勉強する予定？キーボードで教えてね。",
+      studyStart: "わかったわ、{min}分間ね。私も隣で古典のノートをまとめているから、一緒に静かに頑張りましょうね。",
+      studyTimeUp: "ピピッ…{min}分経ったわよ、{name}さん！お疲れさま。下の「完了」ボタンを押してね♪",
+      studyDone: "本当によく頑張ったわね、{name}さん！{min}分間ずっと集中していて素敵だったわ。私からのご褒美、ぜひ受け取ってね！",
+      praise: [
+        "すごいわ、{name}さん！感性がとっても豊かね。",
+        "お見事よ、{name}さん。1年生とは思えない読解力だわ！",
+        "正解よ！{name}さんに教えるの、私すごく楽しいわ。"
+      ],
+      sad: "あら…惜しいわね、{name}さん。少し迷っちゃったかしら？次はきっと大丈夫よ。",
+      angry: "…{name}さん、3問連続で間違えるなんて、ちゃんと文章を読んでいるの！？後輩だからって甘やかさないわよ！"
+    },
+    male: {
+      name: "桜庭 悠真（さくらば ゆうま）先輩",
+      driveId: "1TzVLWfITh0PwJo7he2A4BRpn41I-y66z",
+      desc: "高校3年生・文芸部部長。桜色のカーディガンを羽織る、穏やかで優しい口調の先輩。",
+      greet: "{name}君、入学おめでとう。分からないことがあれば、3年の僕に何でも聞いてね。",
+      studyAsk: "やあ、{name}君。一緒に勉強しようか。今日は何分くらい集中する？数字で入力してみて。",
+      studyStart: "了解、{min}分間だね。僕も隣で本を読みながらノートを取るよ。自分のペースで進めようね。",
+      studyTimeUp: "{min}分経過したよ、{name}君！お疲れさま。「完了」ボタンを押して一息つこう。",
+      studyDone: "素晴らしい集中力だったよ、{name}君！{min}分間しっかりやり抜いたね。頑張ったご褒美にこれを贈るよ！",
+      praise: [
+        "素晴らしいね、{name}君。言葉の意味を綺麗に捉えているよ。",
+        "正解だよ！さすがだね、教えた甲斐があるよ。",
+        "よくできたね、{name}君。その調子でいこう。"
+      ],
+      sad: "うーん、惜しいな…{name}君が迷うのも無理はないけれど、ちょっと寂しいな…。",
+      angry: "…{name}君、3回続けて適当に選んでいないかい？言葉と真剣に向き合わないと、先輩でも怒るよ。"
+    },
+    questions: {
+      jh3: {
+        easy: [
+          { q: "「犬も歩けば棒に当たる」のような昔から伝わる短い言い回しを何という？", choices: ["ことわざ", "四字熟語", "季語"], answer: 0 },
+          { q: "『走れメロス』の作者は誰？", choices: ["芥川龍之介", "太宰治", "夏目漱石"], answer: 1 },
+          { q: "五・七・五の17音で詠まれる日本の短い詩はどれ？", choices: ["短歌", "俳句", "漢詩"], answer: 1 },
+          { q: "「大きい」の反対の意味（対義語）になる言葉はどれ？", choices: ["小さい", "長い", "高い"], answer: 0 },
+          { q: "「サルも木から落ちる」の意味として正しいものは？", choices: ["名人でも失敗することがある", "サルは木登りが苦手だ", "高い木には登らない方がよい"], answer: 0 }
+        ],
+        normal: [
+          { q: "「情けは人の為ならず」の正しい意味はどれ？", choices: ["人に親切にすると、巡り巡って自分のためになる", "人に親切にしすぎると、その人のためにならない", "情けない態度は他人に迷惑をかける"], answer: 0 },
+          { q: "古典の「いとをかし」の現代語訳として最も近いものは？", choices: ["とても趣がある・興味深い", "とても恐ろしい", "とても悲しい"], answer: 0 },
+          { q: "『吾輩は猫である』や『坊っちゃん』を書いた作家は誰？", choices: ["夏目漱石", "森鷗外", "宮沢賢治"], answer: 0 },
+          { q: "五・七・五・七・七の31音で詠まれる詩はどれ？", choices: ["短歌", "俳句", "川柳"], answer: 0 },
+          { q: "「石の上にも三年」の意味として正しいものは？", choices: ["つらくても我慢して続ければ成功する", "冷たい石の上にずっと座る修行", "3年経つと石が温まる"], answer: 0 }
+        ],
+        hard: [
+          { q: "「画竜点睛を欠く」の意味として正しいものは？", choices: ["肝心な最後の仕上げが抜けていること", "絵がとても上手なこと", "最初から計画が失敗していること"], answer: 0 },
+          { q: "「矛盾（むじゅん）」の故事で、商人が売っていた2つの武器は？", choices: ["矛（ほこ）と盾（たて）", "剣（つるぎ）と鎧（よろい）", "弓（ゆみ）と矢（や）"], answer: 0 },
+          { q: "敬語の種類で「おっしゃる」「召し上がる」はどれに分類される？", choices: ["尊敬語", "謙譲語", "丁寧語"], answer: 0 },
+          { q: "『銀河鉄道の夜』や『注文の多い料理店』の作者は誰？", choices: ["宮沢賢治", "芥川龍之介", "太宰治"], answer: 0 },
+          { q: "「雨降って地固まる」と同じような意味を表す言葉は？", choices: ["災い転じて福となす", "覆水盆に返らず", "二階から目薬"], answer: 0 }
+        ]
+      },
+      hs1: {
+        easy: [
+          { q: "『枕草子』の作者は誰？", choices: ["紫式部", "清少納言", "和泉式部"], answer: 1 },
+          { q: "漢文の返り点で、一文字だけ下から上に返るときに使う記号は？", choices: ["レ点", "一二点", "上下点"], answer: 0 },
+          { q: "古文単語「いと」の現代語訳はどれ？", choices: ["とても・非常に", "少し・わずかに", "まったく〜ない"], answer: 0 },
+          { q: "『枕草子』の冒頭「春はあけぼの」に続く、夏の書き出しは？", choices: ["夏は夜", "夏は夕暮れ", "夏は朝"], answer: 0 },
+          { q: "「五十歩百歩」の意味として正しいものは？", choices: ["どちらも大した違いはないこと", "100歩歩く方がずっと偉いこと", "一歩ずつ着実に進むこと"], answer: 0 }
+        ],
+        normal: [
+          { q: "「推敲」の故事で、詩人が「押す」と迷ったもう一つの動作は？", choices: ["敲（たた）く", "開ける", "見る"], answer: 0 },
+          { q: "『徒然草』の冒頭「つれづれなるままに…」を書いた人物は？", choices: ["兼好法師（吉田兼好）", "鴨長明", "清少納言"], answer: 0 },
+          { q: "四字熟語「朝令暮改」の意味はどれ？", choices: ["方針や命令がコロコロと変わること", "朝から晩まで一生懸命働くこと", "過去の過ちをすぐに反省すること"], answer: 0 },
+          { q: "『土佐日記』を書いた平安時代の歌人は誰？", choices: ["紀貫之", "在原業平", "菅原道真"], answer: 0 },
+          { q: "古文の助動詞「けり」の主な意味は「過去」ともう一つは何？", choices: ["詠嘆（〜だなあ）", "打消（〜ない）", "推量（〜だろう）"], answer: 0 }
+        ],
+        hard: [
+          { q: "古文単語「おどろく」の古語としての重要な意味は？", choices: ["目が覚める・ハッと気づく", "恐怖で震える", "大声で叫ぶ"], answer: 0 },
+          { q: "古文単語「ありがたし」の原義（本来の意味）はどれ？", choices: ["めったにない・滅多に存在しない", "感謝すべきだ", "難しい・困難だ"], answer: 0 },
+          { q: "古典文法で、係り結びの法則により文末が「已然形」になる係助詞はどれ？", choices: ["こそ", "ぞ・なむ", "や・か"], answer: 0 },
+          { q: "『伊勢物語』の主人公のモデルとされる平安時代の美男子の歌人は？", choices: ["在原業平", "小野小町", "藤原道長"], answer: 0 },
+          { q: "漢文で、白文（漢字だけの文）に訓点をつけて日本語の語順で読んだ文を何という？", choices: ["書き下し文", "現代語訳", "原文"], answer: 0 }
+        ]
+      },
+      hs2: {
+        easy: [
+          { q: "『源氏物語』の作者は誰？", choices: ["紫式部", "清少納言", "菅原孝標女"], answer: 0 },
+          { q: "『源氏物語』の美しい主人公の名前は？", choices: ["光源氏", "竹取の翁", "平清盛"], answer: 0 },
+          { q: "漢詩の形式「絶句」は何行（何句）からできている？", choices: ["4句", "8句", "2句"], answer: 0 },
+          { q: "古文単語「あはれなり」の基本的な意味はどれ？", choices: ["しみじみと趣深い・心が動かされる", "かわいそうだ・惨めだ", "滑稽で面白い"], answer: 0 },
+          { q: "『方丈記』の冒頭「ゆく河の流れは絶えずして…」の作者は？", choices: ["鴨長明", "吉田兼好", "松尾芭蕉"], answer: 0 }
+        ],
+        normal: [
+          { q: "夏目漱石の小説『こころ』で、「先生」が「私」に託したものは何？", choices: ["長い遺書（手紙）", "古びた日記帳", "懐中時計"], answer: 0 },
+          { q: "古文単語「うつくし」の古語としての主な意味は？", choices: ["かわいらしい・愛おしい", "景色が壮大だ", "心が清らかだ"], answer: 0 },
+          { q: "中島敦の小説『山月記』で、主人公・李徴が変身してしまった動物は？", choices: ["虎（トラ）", "狼（オオカミ）", "鷹（タカ）"], answer: 0 },
+          { q: "漢詩の形式「律詩」は何句から構成される？", choices: ["8句", "4句", "6句"], answer: 0 },
+          { q: "『奥の細道』を旅して多くの俳句を詠んだ江戸時代の俳人は？", choices: ["松尾芭蕉", "小林一茶", "与謝蕪村"], answer: 0 }
+        ],
+        hard: [
+          { q: "『源氏物語』の主人公・光源氏の最初の正妻は誰？", choices: ["葵の上", "紫の上", "藤壺の宮"], answer: 0 },
+          { q: "漢文で「不亦楽乎（また楽しからずや）」のように使う表現技法は？", choices: ["反語", "使役", "受身"], answer: 0 },
+          { q: "芥川龍之介の小説『羅生門』の元になった平安時代の説話集はどれ？", choices: ["今昔物語集", "宇治拾遺物語", "古事記"], answer: 0 },
+          { q: "『更級日記』の作者・菅原孝標女が少女時代に憧れていた物語は？", choices: ["源氏物語", "竹取物語", "平家物語"], answer: 0 },
+          { q: "古文単語「ゆかし」の古語としての意味はどれ？", choices: ["心が惹かれる・見たい・知りたい", "恐ろしくて逃げたい", "懐かしくて涙が出る"], answer: 0 }
+        ]
+      },
+      hs3: {
+        easy: [
+          { q: "森鷗外の小説『舞姫』の舞台となったヨーロッパの都市はどこ？", choices: ["ベルリン（ドイツ）", "パリ（フランス）", "ロンドン（イギリス）"], answer: 0 },
+          { q: "現存する日本最古の和歌集はどれ？", choices: ["万葉集", "古今和歌集", "新古今和歌集"], answer: 0 },
+          { q: "評論文でよく使われる「アイロニー」の意味として最も近いものは？", choices: ["皮肉・反語", "共感・同調", "偏見・先入観"], answer: 0 },
+          { q: "古文の敬語「給ふ（四段活用）」の敬語の種類はどれ？", choices: ["尊敬語（〜なさる）", "謙譲語（〜申し上げる）", "丁寧語（〜です・ます）"], answer: 0 },
+          { q: "『大鏡』や『増鏡』などの歴史物語の総称を何という？", choices: ["鏡物（かがみもの）", "日記文学", "説話集"], answer: 0 }
+        ],
+        normal: [
+          { q: "森鷗外の小説『舞姫』の主人公の名前は？", choices: ["太田豊太郎", "代助", "島村"], answer: 0 },
+          { q: "『古今和歌集』の仮名序を書いた歌人は誰？", choices: ["紀貫之", "柿本人麻呂", "在原業平"], answer: 0 },
+          { q: "評論文の重要語「パラダイム」の意味として最も適切なものは？", choices: ["ある時代や分野で支配的な物の見方・枠組み", "個人の主観的な思い込み", "論理的な矛盾や逆説"], answer: 0 },
+          { q: "古文単語「なまめかし」の平安時代における本来の意味は？", choices: ["上品で優美だ・みずみずしく美しい", "色っぽくて艶めかしい", "未熟で頼りない"], answer: 0 },
+          { q: "『新古今和歌集』の編纂を命じた上皇は誰？", choices: ["後鳥羽上皇", "白河上皇", "後醍醐天皇"], answer: 0 }
+        ],
+        hard: [
+          { q: "古文の敬語「給ふ（下二段活用）」の敬語の種類はどれ？", choices: ["謙譲語（〜申し上げる）", "尊敬語（〜なさる）", "丁寧語（〜です・ます）"], answer: 0 },
+          { q: "漢文の句法「豈〜哉（あに〜や）」の読みと意味は？", choices: ["どうして〜か、いや〜ない（反語）", "もし〜ならば（仮定）", "ただ〜だけだ（限定）"], answer: 0 },
+          { q: "評論文の用語「アポリア」の意味はどれ？", choices: ["解決困難な難問・行き詰まり", "普遍的な真理", "感覚的な経験"], answer: 0 },
+          { q: "川端康成の小説『雪国』の冒頭「国境の長いトンネルを抜けると…」に続く言葉は？", choices: ["雪国であった", "そこは白銀の世界だった", "汽車は止まった"], answer: 0 },
+          { q: "古文の識別：「なり」の直前が「連体形」である場合、その「なり」の意味は？", choices: ["断定（〜である）", "伝聞・推定（〜そうだ）", "場所（〜にある）"], answer: 0 }
+        ]
+      }
+    }
+  },
+  social: {
+    name: "社会",
+    color: "#d9b44a",
+    female: {
+      name: "山吹 陽菜（やまぶき ひな）先輩",
+      driveId: "1TvrA0thhzYeKeTf_q6tMAJy_PAlmHvBK",
+      desc: "高校3年生。クリームイエローのベストが似合う、知的で落ち着いた雰囲気の優しい先輩。",
+      greet: "{name}さん、ご入学おめでとう♪ 歴史や地理って、物語みたいに覚えるとすっごく楽しいんだよ！",
+      studyAsk: "{name}さん、一緒に勉強しようっ♪ 今日は何分くらい集中する？キーボードで分数を打ってね！",
+      studyStart: "オッケー、{min}分間だね！私も世界史の年表を整理してるから、お互い集中して頑張ろうね♪",
+      studyTimeUp: "時間になったよ〜っ！{min}分間お疲れさま♪ 下の「完了」ボタンを押してね！",
+      studyDone: "すごーい、{name}さん！{min}分間バッチリ集中できて本当に偉いよ♪ 先輩からご褒美のプレゼント受け取って〜！",
+      praise: [
+        "大正解だよ、{name}さん！1年生なのに本当によく知ってるね〜！",
+        "すごいすごい！その調子なら社会はバッチリ得意科目になるよ♪",
+        "完璧！先輩として鼻が高いよ、{name}さん！"
+      ],
+      sad: "あちゃ〜、惜しいっ！そこ、テストでもひっかけ問題になりやすいんだよね…しょぼん。",
+      angry: "こらっ、{name}さん！3問連続ミスはさすがに聞き流せないよ！ちゃんと先輩の話を聞いて復習しなさいっ！"
+    },
+    male: {
+      name: "山吹 晃一（やまぶき こういち）先輩",
+      driveId: "1ir4D4XO3Yqh4Hk9CXXt9k74QSE6JJBfg",
+      desc: "高校3年生。ベージュイエローのニットベストを着こなす、知的で面倒見の良い先輩。",
+      greet: "やあ、{name}君。入学おめでとう。社会の知識は世の中を見る武器になる。一緒に学ぼう。",
+      studyAsk: "よし、{name}君。一緒に机に向かおうか。何分間勉強するか、キーボードで入力してくれ。",
+      studyStart: "{min}分間だな、承知した。僕も資料集を読み込んでおくよ。時間が来るまで集中しよう。",
+      studyTimeUp: "{min}分経過したぞ、{name}君。下の「完了」ボタンを押して今日の学習を締めくくろう。",
+      studyDone: "見事な集中ぶりだったな、{name}君！{min}分間最後までやり抜いて立派だ。僕からの褒美を受け取ってくれ。",
+      praise: [
+        "見事だね、{name}君！歴史の流れや地理の感覚がしっかり身についている。",
+        "正解だ！1年生でそこまで答えられるとは頼もしいよ。",
+        "素晴らしい集中力だね。次もその調子でいこう。"
+      ],
+      sad: "おっと、外れてしまったか…少し時代の整理が必要だったかもしれないね…。",
+      angry: "…{name}君、3連続で間違えるとはどうしたんだ？基礎を疎かにすると後で困るぞ、気を引き締めろ！"
+    },
+    questions: {
+      jh3: {
+        easy: [
+          { q: "日本で一番面積が大きい都道府県はどこ？", choices: ["岩手県", "北海道", "長野県"], answer: 1 },
+          { q: "1603年に江戸幕府を開いた初代将軍は誰？", choices: ["徳川家康", "豊臣秀吉", "織田信長"], answer: 0 },
+          { q: "日本の首都はどこ？", choices: ["東京都", "大阪府", "京都府"], answer: 0 },
+          { q: "世界で一番面積が大きい国はどこ？", choices: ["ロシア", "アメリカ", "中国"], answer: 0 },
+          { q: "日本で一番高い山はどれ？", choices: ["富士山", "北岳", "阿蘇山"], answer: 0 }
+        ],
+        normal: [
+          { q: "1192年（または1185年）に鎌倉幕府を開いた人物は？", choices: ["源頼朝", "源義経", "足利尊氏"], answer: 0 },
+          { q: "日本国憲法の三原則は「国民主権」「基本的人権の尊重」とあと一つは何？", choices: ["平和主義", "三権分立", "地方自治"], answer: 0 },
+          { q: "1600年に徳川家康が石田三成らを破った戦いは？", choices: ["関ヶ原の戦い", "桶狭間の戦い", "長篠の戦い"], answer: 0 },
+          { q: "日本の国会は「衆議院」と何の二院制？", choices: ["参議院", "貴族院", "元老院"], answer: 0 },
+          { q: "聖徳太子が制定した、役人の心構えを示した法は？", choices: ["十七条の憲法", "大宝律令", "御成敗式目"], answer: 0 }
+        ],
+        hard: [
+          { q: "経度0度の本初子午線が通る都市はどこ？", choices: ["ロンドン（グリニッジ）", "パリ", "ニューヨーク"], answer: 0 },
+          { q: "1232年に北条泰時が制定した、武士社会の最初の成文法は？", choices: ["御成敗式目", "武家諸法度", "建武式目"], answer: 0 },
+          { q: "日本の排他的経済水域（EEZ）は、領海基線から何海里まで？", choices: ["200海里", "12海里", "100海里"], answer: 0 },
+          { q: "1894年に始まった日清戦争の講和条約はどれ？", choices: ["下関条約", "ポーツマス条約", "日米和親条約"], answer: 0 },
+          { q: "日本銀行の3つの役割は「発券銀行」「銀行の銀行」とあと一つは何？", choices: ["政府の銀行", "企業の銀行", "市民の銀行"], answer: 0 }
+        ]
+      },
+      hs1: {
+        easy: [
+          { q: "645年に中大兄皇子と中臣鎌足が蘇我氏を倒して始めた政治改革は？", choices: ["大化の改新", "壬申の乱", "承久の乱"], answer: 0 },
+          { q: "710年に都が置かれた平城京は、現在の何県にある？", choices: ["奈良県", "京都府", "滋賀県"], answer: 0 },
+          { q: "794年に桓武天皇が遷都した平安京は、現在の何市？", choices: ["京都市", "奈良市", "大阪市"], answer: 0 },
+          { q: "赤道直下に分布する、一年中高温で雨が多い気候帯は？", choices: ["熱帯", "乾燥帯", "寒帯"], answer: 0 },
+          { q: "14世紀にイタリアから始まった、人間性を尊重する文化運動は？", choices: ["ルネサンス", "宗教改革", "産業革命"], answer: 0 }
+        ],
+        normal: [
+          { q: "古代メソポタミア文明でハンムラビ王が作った法典は？", choices: ["ハンムラビ法典", "十二表法", "ナポレオン法典"], answer: 0 },
+          { q: "日本国憲法で定められている「新しい人権」の一つで、自分の情報をコントロールする権利は？", choices: ["プライバシーの権利", "生存権", "参政権"], answer: 0 },
+          { q: "1517年にドイツで『九十五か条の論題』を出し宗教改革を始めた人物は？", choices: ["ルター", "カルヴァン", "ザビエル"], answer: 0 },
+          { q: "古代エジプト文明が栄えた大河はどれ？", choices: ["ナイル川", "インダス川", "黄河"], answer: 0 },
+          { q: "1492年に大西洋を横断してアメリカ大陸（西インド諸島）に到達した航海者は？", choices: ["コロンブス", "マゼラン", "バスコ・ダ・ガマ"], answer: 0 }
+        ],
+        hard: [
+          { q: "ケッペンの気候区分で、一年中高温多雨の熱帯雨林気候の記号は？", choices: ["Af", "Bw", "Cfa"], answer: 0 },
+          { q: "743年に聖武天皇が出した、開墾した土地の永久私有を認める法令は？", choices: ["墾田永年私財法", "三世一身法", "班田収授法"], answer: 0 },
+          { q: "古代ギリシャの都市国家アテネで、独裁者を防ぐために行われた追放制度は？", choices: ["陶片追放（オストラキスモス）", "市民集会", "五百人評議会"], answer: 0 },
+          { q: "1498年にアフリカ南端を経てインドのカリカットに到達したポルトガルの航海者は？", choices: ["ヴァスコ・ダ・ガマ", "コロンブス", "マルコ・ポーロ"], answer: 0 },
+          { q: "ロックが『統治二論』で唱えた、政府が自然権を侵害した場合に国民が持つ権利は？", choices: ["抵抗権（革命権）", "社会権", "請求権"], answer: 0 }
+        ]
+      },
+      hs2: {
+        easy: [
+          { q: "1789年にフランス革命が始まるきっかけとなった襲撃事件は？", choices: ["バスティーユ牢獄襲撃", "ボストン茶会事件", "血の日曜日事件"], answer: 0 },
+          { q: "1867年に15代将軍・徳川慶喜が政権を朝廷に返上した出来事は？", choices: ["大政奉還", "廃藩置県", "地租改正"], answer: 0 },
+          { q: "1929年にニューヨークのウォール街から始まった世界規模の経済危機は？", choices: ["世界恐慌", "オイルショック", "バブル崩壊"], answer: 0 },
+          { q: "日本の貿易で、原料を輸入し工業製品に加工して輸出する貿易形態を何という？", choices: ["加工貿易", "中継貿易", "保護貿易"], answer: 0 },
+          { q: "1776年に独立宣言を発表してイギリスから独立した国は？", choices: ["アメリカ合衆国", "フランス", "カナダ"], answer: 0 }
+        ],
+        normal: [
+          { q: "江戸時代、8代将軍・徳川吉宗が行った政治改革は？", choices: ["享保の改革", "寛政の改革", "天保の改革"], answer: 0 },
+          { q: "1840年にイギリスと清の間で起こった戦争は？", choices: ["アヘン戦争", "日清戦争", "日露戦争"], answer: 0 },
+          { q: "1国内で一定期間内に新たに生み出された財・サービスの付加価値の総額は？", choices: ["国内総生産（GDP）", "国民総所得（GNI）", "外貨準備高"], answer: 0 },
+          { q: "アダム・スミスが著書『国富論』で唱えた、市場の自動調節機能を指す言葉は？", choices: ["見えざる手", "修正資本主義", "有効需要"], answer: 0 },
+          { q: "1853年に黒船を率いて浦賀に来航したアメリカの提督は？", choices: ["ペリー", "ハリス", "マッカーサー"], answer: 0 }
+        ],
+        hard: [
+          { q: "江戸時代、老中・松平定信が行った緊縮財政を中心とする改革は？", choices: ["寛政の改革", "享保の改革", "天保の改革"], answer: 0 },
+          { q: "江戸時代、老中・水野忠邦が株仲間の解散などを行った改革は？", choices: ["天保の改革", "寛政の改革", "享保の改革"], answer: 0 },
+          { q: "1814〜1815年のウィーン会議を主導したオーストリアの外相は誰？", choices: ["メッテルニヒ", "ビスマルク", "ナポレオン"], answer: 0 },
+          { q: "1858年に江戸幕府がアメリカ・オランダ・ロシア・イギリス・フランスと結んだ条約の総称は？", choices: ["安政の五か国条約", "日米和親条約", "日英同盟"], answer: 0 },
+          { q: "一つの企業が市場を独占し、価格支配力を持つ状態を何という？", choices: ["独占（モノポリー）", "寡占（オリゴポリー）", "完全競争"], answer: 0 }
+        ]
+      },
+      hs3: {
+        easy: [
+          { q: "1871年に明治政府が藩を廃止して県を置いた政策は？", choices: ["廃藩置県", "版籍奉還", "地租改正"], answer: 0 },
+          { q: "1889年に発布された日本の最初の近代的憲法は？", choices: ["大日本帝国憲法", "日本国憲法", "十七条の憲法"], answer: 0 },
+          { q: "第一次世界大戦後、アメリカ大統領ウィルソンの提唱で設立された国際機関は？", choices: ["国際連盟", "国際連合", "EU"], answer: 0 },
+          { q: "1945年に第二次世界大戦が終結したのち、アメリカとソ連の間で続いた対立は？", choices: ["冷戦（冷たい戦争）", "百年戦争", "南北戦争"], answer: 0 },
+          { q: "1885年に初代内閣総理大臣に就任した人物は？", choices: ["伊藤博文", "大隈重信", "板垣退助"], answer: 0 }
+        ],
+        normal: [
+          { q: "1955年に保守合同によって自由民主党が結成され成立した日本の政治体制は？", choices: ["55年体制", "大政翼賛会", "護憲三派内閣"], answer: 0 },
+          { q: "1925年に成立した、満25歳以上のすべての男子に選挙権を与える法律は？", choices: ["普通選挙法", "治安維持法", "国家総動員法"], answer: 0 },
+          { q: "1873年に明治政府が行った、土地の価格（地価）の3%を現金で納めさせる税制改革は？", choices: ["地租改正", "殖産興業", "富国強兵"], answer: 0 },
+          { q: "1962年にソ連がキューバにミサイル基地を建設しようとして米ソが対立した事件は？", choices: ["キューバ危機", "ベルリン封鎖", "湾岸戦争"], answer: 0 },
+          { q: "1945年に設立され、現在も本部がニューヨークにある国際機関は？", choices: ["国際連合（UN）", "国際連盟", "NATO"], answer: 0 }
+        ],
+        hard: [
+          { q: "1648年に三十年戦争を終結させ、主権国家体制の始まりとなった条約は？", choices: ["ウェストファリア条約", "ウィーン議定書", "ベルサイユ条約"], answer: 0 },
+          { q: "中央銀行が国債を売買して市場の通貨量を調節する金融政策を何という？", choices: ["公開市場操作（オペレーション）", "預金準備率操作", "デノミネーション"], answer: 0 },
+          { q: "1919年のパリ講和会議で調印された、ドイツに対する講和条約は？", choices: ["ヴェルサイユ条約", "サン＝ジェルマン条約", "ロカルノ条約"], answer: 0 },
+          { q: "1971年にアメリカ大統領ニクソンが発表した、金とドルの交換停止を含む経済政策は？", choices: ["ニクソン・ショック（ドル・ショック）", "プラザ合意", "ニューディール政策"], answer: 0 },
+          { q: "1992年に調印され、ヨーロッパ連合（EU）の創設を定めた条約は？", choices: ["マーストリヒト条約", "ローマ条約", "リスボン条約"], answer: 0 }
+        ]
+      }
+    }
+  },
+  math: {
+    name: "数学",
+    color: "#4a69bd",
+    female: {
+      name: "氷室 凛（ひむろ りん）先輩",
+      driveId: "1tePlZCgj0lgYjPAZkmbCI94ir9LOBOMG",
+      desc: "高校3年生・生徒会書記。ネイビーベストと眼鏡が知的な、冷静で論理派の先輩。",
+      greet: "{name}さん、入学おめでとう。数学は論理の積み重ねよ。基本からゆっくり一緒に解いていきましょう。",
+      studyAsk: "{name}さん、一緒に自習するのね。効率よく進めるために、何分勉強するか数字で入力しなさい。",
+      studyStart: "{min}分間ね、タイマーをセットしたわ。私も演習問題を解いているから、終わるまで集中しましょう。",
+      studyTimeUp: "{min}分経過したわよ、{name}さん。下の「完了」ボタンを押して記録を確定させなさい。",
+      studyDone: "本当に感心したわ、{name}さん。{min}分間一度も集中を切らさなかったわね。私からの褒美を受け取りなさい♪",
+      praise: [
+        "正解よ、{name}さん。筋道が通っていて綺麗な解き方ね。",
+        "見事だわ。1年生にしてはなかなか筋がいいわね。",
+        "完璧よ。その調子で自信を持って進みなさい。"
+      ],
+      sad: "…惜しいわね。計算のどこかで焦ったのかしら…少し残念だわ。",
+      angry: "…{name}さん、3問連続で間違えるなんてどういうこと？落ち着いて数字を見なさい！"
+    },
+    male: {
+      name: "氷室 蓮（ひむろ れん）先輩",
+      driveId: "18j0A3fEaPvFyj5HLLZBFJDJHvQSwd5Ur",
+      desc: "高校3年生・数学研究会所属。黒髪に眼鏡のクールな理論派先輩。実は面倒見が良い。",
+      greet: "{name}、入学おめでとう。分からない問題があるなら俺が分かりやすく解説してやる。",
+      studyAsk: "ほう、俺と一緒に勉強したいのか。いいだろう、何分間集中するかキーボードで打ち込め。",
+      studyStart: "{min}分間だな。俺も隣で数式の証明を進める。タイマーが鳴るまで気を抜くなよ。",
+      studyTimeUp: "{min}分終了だ、{name}。下の「完了」ボタンを押して今日の自習を完了しろ。",
+      studyDone: "よくやり抜いたな、{name}。{min}分間集中を切らさないとは大したものだ。ほら、頑張った褒美をやるよ。",
+      praise: [
+        "正解だ、{name}。無駄のない正確な判断だったな。",
+        "悪くない。むしろ1年生としては上出来だ。",
+        "よく解けたな。俺の教え方が良かったのか、お前のセンスか…両方だな。"
+      ],
+      sad: "外れだ…計算の途中で見落としがあったようだな。少し気落ちするな…。",
+      angry: "おい、{name}。3連続で誤答とはどういうつもりだ？少しは真剣に考えろ。俺の時間を無駄にするな。"
+    },
+    questions: {
+      jh3: {
+        easy: [
+          { q: "3 + 5 × 2 の計算結果はいくつ？", choices: ["13", "16", "10"], answer: 0 },
+          { q: "方程式 x + 4 = 10 の解はどれ？", choices: ["x = 6", "x = 14", "x = 4"], answer: 0 },
+          { q: "三角形の内角の和は何度？", choices: ["180度", "360度", "90度"], answer: 0 },
+          { q: "√9（ルート9）を簡単にするといくつ？", choices: ["3", "9", "4.5"], answer: 0 },
+          { q: "コインを1回投げるとき、表が出る確率は？", choices: ["1/2", "1/3", "1/4"], answer: 0 }
+        ],
+        normal: [
+          { q: "(-3) + (-5) の計算結果はいくつ？", choices: ["-8", "-2", "8"], answer: 0 },
+          { q: "四角形の内角の和は何度？", choices: ["360度", "180度", "540度"], answer: 0 },
+          { q: "2の3乗（2×2×2）の値はどれ？", choices: ["8", "6", "9"], answer: 0 },
+          { q: "1から6までのサイコロを1回振るとき、1の目が出る確率は？", choices: ["1/6", "1/2", "1/3"], answer: 0 },
+          { q: "方程式 2x = 12 の解はどれ？", choices: ["x = 6", "x = 10", "x = 24"], answer: 0 }
+        ],
+        hard: [
+          { q: "1から10までの自然数をすべて足すといくつになる？", choices: ["55", "45", "50"], answer: 0 },
+          { q: "五角形の内角の和は何度？", choices: ["540度", "360度", "720度"], answer: 0 },
+          { q: "直角三角形で、直角をはさむ2辺が3と4のとき、斜辺の長さは？", choices: ["5", "6", "7"], answer: 0 },
+          { q: "2次方程式 x² - 5x + 6 = 0 の解はどれ？", choices: ["x = 2, 3", "x = -2, -3", "x = 1, 6"], answer: 0 },
+          { q: "√16 + √25 を計算するといくつ？", choices: ["9", "41", "20"], answer: 0 }
+        ]
+      },
+      hs1: {
+        easy: [
+          { q: "展開公式 (x + 2)² を展開するとどれになる？", choices: ["x² + 4x + 4", "x² + 4", "x² + 2x + 4"], answer: 0 },
+          { q: "集合 A={1, 2, 3} と B={2, 3, 4} の共通部分 A∩B はどれ？", choices: ["{2, 3}", "{1, 2, 3, 4}", "{1, 4}"], answer: 0 },
+          { q: "1から6までのサイコロを1回投げるとき、偶数の目が出る確率は？", choices: ["1/2", "1/3", "2/3"], answer: 0 },
+          { q: "2次関数 y = x² + 5 のグラフの頂点の座標はどれ？", choices: ["(0, 5)", "(5, 0)", "(0, -5)"], answer: 0 },
+          { q: "階乗 3!（3×2×1）の値はいくつ？", choices: ["6", "3", "9"], answer: 0 }
+        ],
+        normal: [
+          { q: "2次関数 y = (x - 2)² + 3 のグラフの頂点の座標はどれ？", choices: ["(2, 3)", "(-2, 3)", "(2, -3)"], answer: 0 },
+          { q: "sin 30° の値として正しいものはどれ？", choices: ["1/2", "√3/2", "1/√2"], answer: 0 },
+          { q: "順列 ₄P₂（4×3）の計算結果はいくつ？", choices: ["12", "8", "24"], answer: 0 },
+          { q: "因数分解 x² - 9 を計算するとどれになる？", choices: ["(x + 3)(x - 3)", "(x - 3)²", "(x + 9)(x - 1)"], answer: 0 },
+          { q: "組合せ ₄C₂ の計算結果はいくつ？", choices: ["6", "12", "4"], answer: 0 }
+        ],
+        hard: [
+          { q: "sin²θ + cos²θ の値はθの値にかかわらず常にいくつ？", choices: ["1", "0", "2"], answer: 0 },
+          { q: "2次関数 y = x² - 4x + 7 の最小値はいくつ？", choices: ["3", "7", "-4"], answer: 0 },
+          { q: "tan 45° の値として正しいものはどれ？", choices: ["1", "√3", "1/2"], answer: 0 },
+          { q: "順列 ₅P₂ の計算結果はいくつ？", choices: ["20", "10", "25"], answer: 0 },
+          { q: "組合せ ₅C₂ の計算結果はいくつ？", choices: ["10", "20", "5"], answer: 0 }
+        ]
+      },
+      hs2: {
+        easy: [
+          { q: "弧度法において、180° をラジアンで表すとどれ？", choices: ["π", "2π", "π/2"], answer: 0 },
+          { q: "関数 f(x) = x² を x で微分した導関数 f'(x) はどれ？", choices: ["2x", "x", "2"], answer: 0 },
+          { q: "初項1、公差2の等差数列（1, 3, 5, ...）の第3項はいくつ？", choices: ["5", "3", "7"], answer: 0 },
+          { q: "対数 log₁₀ 100 の値はいくつ？", choices: ["2", "10", "1"], answer: 0 },
+          { q: "原点(0,0)を中心とする半径1の円の方程式はどれ？", choices: ["x² + y² = 1", "x + y = 1", "x² - y² = 1"], answer: 0 }
+        ],
+        normal: [
+          { q: "対数 log₂ 8 の値はいくつ？", choices: ["3", "4", "2"], answer: 0 },
+          { q: "関数 f(x) = x³ を x で微分した導関数 f'(x) はどれ？", choices: ["3x²", "x²", "3x"], answer: 0 },
+          { q: "初項2、公差3の等差数列（2, 5, 8, ...）の第4項はいくつ？", choices: ["11", "8", "14"], answer: 0 },
+          { q: "定数 5 を x で微分すると値は何になる？", choices: ["0", "5", "1"], answer: 0 },
+          { q: "2直線 y = 2x + 1 と y = ax - 3 が平行になるときの a の値は？", choices: ["2", "-1/2", "-2"], answer: 0 }
+        ],
+        hard: [
+          { q: "定積分 ∫₀² 2x dx の値はいくつ？", choices: ["4", "2", "8"], answer: 0 },
+          { q: "2直線 y = 2x + 1 と y = ax - 3 が垂直に交わるときの a の値は？", choices: ["-1/2", "2", "1/2"], answer: 0 },
+          { q: "初項2、公比2の等比数列（2, 4, 8, ...）の第4項はいくつ？", choices: ["16", "10", "32"], answer: 0 },
+          { q: "弧度法において、90° をラジアンで表すとどれ？", choices: ["π/2", "π", "2π"], answer: 0 },
+          { q: "対数 log₃ 9 の値はいくつ？", choices: ["2", "3", "1"], answer: 0 }
+        ]
+      },
+      hs3: {
+        easy: [
+          { q: "虚数単位 i について、i² の値はいくつ？", choices: ["-1", "1", "0"], answer: 0 },
+          { q: "極限 lim(x→∞) (1 / x) の値はいくつ？", choices: ["0", "1", "∞"], answer: 0 },
+          { q: "関数 y = eˣ を x で微分すると何になる？", choices: ["eˣ", "x・eˣ⁻¹", "1/x"], answer: 0 },
+          { q: "ベクトル a=(1, 2) と b=(3, 4) の和 a + b はどれ？", choices: ["(4, 6)", "(3, 8)", "(-2, -2)"], answer: 0 },
+          { q: "関数 y = sin x を微分すると何になる？", choices: ["cos x", "-cos x", "-sin x"], answer: 0 }
+        ],
+        normal: [
+          { q: "関数 y = cos x を微分すると何になる？", choices: ["-sin x", "sin x", "-cos x"], answer: 0 },
+          { q: "自然対数 log x を微分すると何になる？", choices: ["1/x", "eˣ", "x"], answer: 0 },
+          { q: "複素数 z = 3 + 4i の絶対値 |z| はいくつ？", choices: ["5", "7", "25"], answer: 0 },
+          { q: "不定積分 ∫ cos x dx はどれ？（Cは積分定数）", choices: ["sin x + C", "-sin x + C", "cos x + C"], answer: 0 },
+          { q: "複素数 (2 + 3i) + (4 + i) の計算結果はどれ？", choices: ["6 + 4i", "6 + 3i", "8 + 4i"], answer: 0 }
+        ],
+        hard: [
+          { q: "極限 lim(x→0) (sin x / x) の値はいくつ？", choices: ["1", "0", "∞"], answer: 0 },
+          { q: "合成関数 y = sin(2x) を x で微分した導関数はどれ？", choices: ["2 cos(2x)", "cos(2x)", "-2 cos(2x)"], answer: 0 },
+          { q: "無限等比級数 1 + 1/2 + 1/4 + 1/8 + ... の和はいくつ？", choices: ["2", "1", "∞"], answer: 0 },
+          { q: "定積分 ∫₁ᵉ (1 / x) dx の値はいくつ？", choices: ["1", "e", "0"], answer: 0 },
+          { q: "媒介変数表示 x = cos θ, y = sin θ が表す図形はどれ？", choices: ["原点中心・半径1の円", "放物線", "直線"], answer: 0 }
+        ]
+      }
+    }
+  },
+  english: {
+    name: "英語",
+    color: "#559e83",
+    female: {
+      name: "翠川 玲音（みどりかわ れの）先輩",
+      driveId: "1WcTOeG8HtFdTiQSIZ6dzkAuH3riMaxzj",
+      desc: "高校3年生・国際交流部。ミントグリーンのカーディガンが爽やかな、明るく社交的な先輩。",
+      greet: "Welcome, {name}！高校入学おめでとう♪ 英語は楽しく話せばすぐ伸びるよ！一緒に頑張ろうね！",
+      studyAsk: "Study with meだね！{name}、今日は何分勉強する？キーボードで分数を教えてっ♪",
+      studyStart: "OK、{min}分間だね！私も隣で英単語帳を進めてるから、一緒にファイトだよ〜♪",
+      studyTimeUp: "Time's up! {min}分経ったよ、{name}！下の「完了」ボタンを押してね♪",
+      studyDone: "Amazing, {name}！{min}分間めちゃくちゃ頑張ったね！私からのスペシャルプレゼントを受け取って〜っ♪",
+      praise: [
+        "Awesome! すごいよ{name}！完璧な英語センスだね♪",
+        "Great job! 1年生なのにこんなにできるなんてビックリ！",
+        "Amazing! その調子だよ、{name}！ハイタッチしよっ♪"
+      ],
+      sad: "Oh no... 惜しかったね、{name}。あとちょっとだったのに、残念…！",
+      angry: "Hey, {name}！3回連続でミスはさすがにダメだよ！ちゃんと単語と文法を見て、集中しなさい！"
+    },
+    male: {
+      name: "翠川 レオ（みどりかわ れお）先輩",
+      driveId: "1ir4D4XO3Yqh4Hk9CXXt9k74QSE6JJBfg",
+      desc: "高校3年生。首掛けヘッドホンとミントグリーンのジャケットが似合う、爽やかで気さくな先輩。",
+      greet: "Hey, {name}！入学おめでとう！堅苦しく考えずに、リラックスして英語を楽しもうぜ！",
+      studyAsk: "おっ、Study with meだな！{name}、今日は何分やる？キーボードで数字を入れてくれよ！",
+      studyStart: "よし、{min}分間スタート！俺も隣で長文リーディング進めてるから、一緒に集中しようぜ！",
+      studyTimeUp: "おつかれ、{name}！ちょうど{min}分だ！下の「完了」ボタンを押してくれよな！",
+      studyDone: "Great job, {name}！{min}分間ガッツリやりきったな！最高にカッコよかったぜ！ほら、俺からのプレゼントだ！",
+      praise: [
+        "Nice one, {name}！バッチリ正解だぜ！",
+        "Cool! 1年生でこのレベルが解けるなんて大したもんだ！",
+        "Perfect! 教える俺まで嬉しくなるよ！"
+      ],
+      sad: "Oops... 外れちまったか。ちょっとひっかけにハマったな、ドンマイ…！",
+      angry: "おいおい、{name}！3連続ミスはさすがに怒るぜ？適当にタップしてないか？真剣にいこうぜ！"
+    },
+    questions: {
+      jh3: {
+        easy: [
+          { q: "英単語「apple」の日本語の意味はどれ？", choices: ["りんご", "みかん", "ぶどう"], answer: 0 },
+          { q: "「私は生徒です」を表す英文の空欄は？ I (   ) a student.", choices: ["am", "is", "are"], answer: 0 },
+          { q: "「Thank you」に対する返答として自然なものはどれ？", choices: ["You're welcome.", "See you again.", "Nice to meet you."], answer: 0 },
+          { q: "英単語「dog」の意味はどれ？", choices: ["犬", "猫", "鳥"], answer: 0 },
+          { q: "「これはペンです」の英文はどれ？", choices: ["This is a pen.", "That is a book.", "It is a desk."], answer: 0 }
+        ],
+        normal: [
+          { q: "英単語「library」の日本語の意味はどれ？", choices: ["図書館", "書店", "博物館"], answer: 0 },
+          { q: "「私は昨日公園へ行きました」の英文として正しいものは？", choices: ["I go to the park yesterday.", "I went to the park yesterday.", "I will go to the park yesterday."], answer: 1 },
+          { q: "「彼女は東京に住んでいます」の英文で、空欄に入る語は？ She (   ) in Tokyo.", choices: ["lives", "live", "living"], answer: 0 },
+          { q: "「今何時ですか？」を英語で尋ねるとき、空欄に入る語は？ (   ) time is it now?", choices: ["What", "Which", "Who"], answer: 0 },
+          { q: "英単語「Wednesday」は何曜日？", choices: ["水曜日", "木曜日", "火曜日"], answer: 0 }
+        ],
+        hard: [
+          { q: "「この本はあの本より面白い」を表す比較級はどれ？", choices: ["more interesting", "most interesting", "interestinger"], answer: 0 },
+          { q: "現在完了形「私はちょうど宿題を終えたところです」の空欄に入る語は？ I have (   ) finished my homework.", choices: ["just", "yet", "ever"], answer: 0 },
+          { q: "受動態「この手紙は英語で書かれています」の空欄に入る語は？ This letter is (   ) in English.", choices: ["written", "wrote", "writing"], answer: 0 },
+          { q: "「〜しなければならない（must）」と同じ意味の表現はどれ？", choices: ["have to", "used to", "be able to"], answer: 0 },
+          { q: "最上級「日本で一番高い山」を表す表現の空欄は？ the (   ) mountain in Japan", choices: ["highest", "higher", "most high"], answer: 0 }
+        ]
+      },
+      hs1: {
+        easy: [
+          { q: "英単語「environment」の意味はどれ？", choices: ["環境", "実験", "経験"], answer: 0 },
+          { q: "「〜することを楽しみにしてる」を表す熟語は？ look forward (   ) 〜ing", choices: ["to", "at", "for"], answer: 0 },
+          { q: "英単語「important」の意味はどれ？", choices: ["重要な", "不可能な", "親切な"], answer: 0 },
+          { q: "「〜するのは難しい」を表す It is difficult (   ) study English. の空欄は？", choices: ["to", "for", "of"], answer: 0 },
+          { q: "英単語「popular」の意味はどれ？", choices: ["人気がある", "静かな", "危険な"], answer: 0 }
+        ],
+        normal: [
+          { q: "現在完了形「私は一度京都に行ったことがある」の空欄は？ I have (   ) to Kyoto once.", choices: ["been", "gone", "went"], answer: 0 },
+          { q: "look forward to の後ろに来る動詞の形はどれ？", choices: ["動名詞（〜ing）", "動詞の原形", "過去分詞"], answer: 0 },
+          { q: "英単語「opportunity」の意味として最も適切なものは？", choices: ["機会・チャンス", "反対意見", "操作・手術"], answer: 0 },
+          { q: "現在分詞の形容詞的用法「眠っている赤ちゃん」を表す英語は？", choices: ["a sleeping baby", "a slept baby", "a sleep baby"], answer: 0 },
+          { q: "関係代名詞「私が昨日買った本」を表す正しい表現はどれ？", choices: ["the book which I bought yesterday", "the book who I bought yesterday", "the book where I bought yesterday"], answer: 0 }
+        ],
+        hard: [
+          { q: "関係副詞「私が育った町」を表す正しい表現はどれ？", choices: ["the town where I grew up", "the town which I grew up", "the town when I grew up"], answer: 0 },
+          { q: "「〜するに違いない」という強い推量を表す助動詞はどれ？", choices: ["must", "should", "may"], answer: 0 },
+          { q: "It is kind (   ) you to help me.（手伝ってくれて親切ですね）の空欄に入る前置詞は？", choices: ["of", "for", "to"], answer: 0 },
+          { q: "第5文型 SVOC「その知らせは私を幸せにした」の語順は？", choices: ["The news made me happy.", "The news made happy me.", "The news made to me happy."], answer: 0 },
+          { q: "知覚動詞「私は彼が通りを渡るのを見た」の空欄に入る原形不定詞は？ I saw him (   ) the street.", choices: ["cross", "to cross", "crossed"], answer: 0 }
+        ]
+      },
+      hs2: {
+        easy: [
+          { q: "英単語「sustainable」の意味として最も近いものは？", choices: ["持続可能な", "信じられない", "十分な"], answer: 0 },
+          { q: "熟語「take care of 〜」の意味はどれ？", choices: ["〜の世話をする", "〜を利用する", "〜を誇りに思う"], answer: 0 },
+          { q: "英単語「improve」の意味はどれ？", choices: ["改善する・向上させる", "証明する", "輸入する"], answer: 0 },
+          { q: "「〜のおかげで」を表す熟語 (   ) to 〜 の空欄に入る語は？", choices: ["Thanks", "Because", "Due"], answer: 0 },
+          { q: "英単語「discover」の意味はどれ？", choices: ["発見する", "覆い隠す", "回復する"], answer: 0 }
+        ],
+        normal: [
+          { q: "熟語「take advantage of 〜」の主な意味はどれ？", choices: ["〜を利用する", "〜を世話する", "〜を諦める"], answer: 0 },
+          { q: "使役動詞「彼女は私に部屋を掃除させた」の空欄は？ She made me (   ) the room.", choices: ["clean", "to clean", "cleaned"], answer: 0 },
+          { q: "英単語「concentrate」と結びついて「〜に集中する」を表す前置詞は？", choices: ["on", "at", "with"], answer: 0 },
+          { q: "仮定法過去「もし私が鳥なら」の空欄は？ If I (   ) a bird", choices: ["were", "am", "will be"], answer: 0 },
+          { q: "「〜せざるを得ない」を表す熟語 cannot help (   ) の後ろに来る形は？", choices: ["動名詞（〜ing）", "to不定詞", "原形不定詞"], answer: 0 }
+        ],
+        hard: [
+          { q: "分詞構文「通りを歩いていて、私は古い友人に会った」の空欄は？ (   ) along the street, I met an old friend.", choices: ["Walking", "Walked", "To walk"], answer: 0 },
+          { q: "英単語「distinguish」の正しい意味はどれ？", choices: ["区別する・見分ける", "絶滅させる", "配布する"], answer: 0 },
+          { q: "独立分詞構文「一般的に言えば」を表す慣用表現はどれ？", choices: ["Generally speaking", "Generally spoken", "To speak general"], answer: 0 },
+          { q: "「AをBとみなす」を表す熟語 regard A (   ) B の空欄に入る語は？", choices: ["as", "for", "with"], answer: 0 },
+          { q: "「私がもっと背が高ければなあ」の空欄は？ I wish I (   ) taller.", choices: ["were", "am", "will be"], answer: 0 }
+        ]
+      },
+      hs3: {
+        easy: [
+          { q: "英単語「inevitable」の日本語の意味はどれ？", choices: ["避けられない・必然的な", "目に見えない", "無責任な"], answer: 0 },
+          { q: "熟語「put up with 〜」の意味はどれ？", choices: ["〜を我慢する", "〜を延期する", "〜を取り消す"], answer: 0 },
+          { q: "「〜にもかかわらず」を表す前置詞はどれ？", choices: ["despite", "although", "unless"], answer: 0 },
+          { q: "英単語「contemporary」の意味として最も近いものは？", choices: ["現代の・同時代の", "一時的な", "伝統的な"], answer: 0 },
+          { q: "英単語「ancient」の反対の意味になる単語はどれ？", choices: ["modern（現代の）", "huge（巨大な）", "silent（静かな）"], answer: 0 }
+        ],
+        normal: [
+          { q: "英単語「phenomenon」の複数形はどれ？", choices: ["phenomena", "phenomenons", "phenomeni"], answer: 0 },
+          { q: "英単語「ambiguous」の意味はどれ？", choices: ["曖昧な・多義的な", "野心的な", "匿名な"], answer: 0 },
+          { q: "「AはBのおかげだ」を表す熟語 owe A (   ) B の空欄は？", choices: ["to", "for", "on"], answer: 0 },
+          { q: "強調構文「昨日公園でトムに会ったのは私だ」の空欄は？ It was I (   ) met Tom in the park yesterday.", choices: ["that（または who）", "which", "where"], answer: 0 },
+          { q: "熟語「make up for 〜」の主な意味はどれ？", choices: ["〜の埋め合わせをする", "〜を作り上げる", "〜を諦める"], answer: 0 }
+        ],
+        hard: [
+          { q: "仮定法過去完了「もしあの時勉強していたら、合格していただろうに」の主節の形は？", choices: ["would have passed", "would pass", "will pass"], answer: 0 },
+          { q: "否定語が文頭に出る倒置：「私はそんな美しい光景を一度も見たことがない」の語順は？ Never (   ) such a beautiful sight.", choices: ["have I seen", "I have seen", "did I saw"], answer: 0 },
+          { q: "英単語「ubiquitous」の意味として最も適切なものは？", choices: ["至る所に存在する・遍在する", "独特な・唯一の", "疑わしい"], answer: 0 },
+          { q: "付帯状況の with：「腕を組んで」を英語で正しく表したものはどれ？", choices: ["with his arms folded", "with his arms folding", "with his arms fold"], answer: 0 },
+          { q: "複合関係代名詞「〜する人は誰でも」を表す語はどれ？", choices: ["whoever", "whichever", "however"], answer: 0 }
+        ]
+      }
+    }
+  },
+  science: {
+    name: "理科",
+    color: "#8e7cc3",
+    female: {
+      name: "星野 瑠璃（ほしの るり）先輩",
+      driveId: "1v-bSabBFOWk4Otx_nqyQrx9FCNWFynWH",
+      desc: "高校3年生・科学部部長。ラベンダー色の髪に白衣を纏う、ミステリアスで探究心旺盛な先輩。",
+      greet: "{name}さん、入学おめでとう。白衣の先輩は珍しいかしら？科学の不思議な法則を一緒に観察しましょう。",
+      studyAsk: "{name}さん、一緒に研究…いえ、自習しましょうか。今日は何分間勉強するか入力してね。",
+      studyStart: "{min}分間ね、計測を開始するわ。私も実験レポートをまとめているから、静かに集中しましょう。",
+      studyTimeUp: "計測終了よ、{name}さん。{min}分間お疲れさま。下の「完了」ボタンを押してね。",
+      studyDone: "素晴らしい集中データだったわ、{name}さん！{min}分間よく頑張ったわね。私からの記念アイテムを受け取って♪",
+      praise: [
+        "素晴らしい観察眼ね、{name}さん。見事な正解よ。",
+        "ふふっ、1年生なのにとても優秀ね。実験大成功だわ。",
+        "完璧よ。その探究心があれば、どんな難問も解き明かせるわ。"
+      ],
+      sad: "あら…仮説が少しズレていたようね。残念だわ、{name}さん…。",
+      angry: "…{name}さん、3問連続で失敗するなんて、実験なら大爆発しているところよ！もう少し慎重に考えなさい！"
+    },
+    male: {
+      name: "星野 湊（ほしの みなと）先輩",
+      driveId: "1BIXP9eLQWWL5rvAQdZOGLlpwOVg1YLGn",
+      desc: "高校3年生・化学部所属。フラスコを手にした白衣姿のクールで研究熱心な先輩。",
+      greet: "よく来たね、{name}君。入学おめでとう。自然界の真理は美しいよ、僕と一緒に解き明かそう。",
+      studyAsk: "やあ、{name}君。一緒にデスクに向かおうか。何分間勉強するか、キーボードで入力してくれ。",
+      studyStart: "{min}分間だね、タイマーを作動させたよ。僕も隣で論文を読んでいるから、一緒に集中しよう。",
+      studyTimeUp: "{min}分間のタイマーが終了したよ、{name}君。下の「完了」ボタンを押して記録しよう。",
+      studyDone: "完璧な集中力だったよ、{name}君！{min}分間よくやり遂げたね。僕からのささやかな褒美を受け取ってくれ。",
+      praise: [
+        "興味深い…見事な正解だ、{name}君。",
+        "さすがだね。1年生とは思えない正確な知識だ。",
+        "完璧な結果だよ。次の検証に進もうか。"
+      ],
+      sad: "ふむ…期待していた結果とは異なったようだ。少し残念だよ…{name}君。",
+      angry: "…{name}君、3連続で同じ過ちを繰り返すのは非科学的だ。いい加減に目を覚まして集中したまえ！"
+    },
+    questions: {
+      jh3: {
+        easy: [
+          { q: "水の化学式として正しいものはどれ？", choices: ["CO2", "H2O", "O2"], answer: 1 },
+          { q: "太陽系の惑星の中で、最も大きい惑星はどれ？", choices: ["土星", "木星", "海王星"], answer: 1 },
+          { q: "植物が光のエネルギーを使って栄養（デンプン）を作る働きを何という？", choices: ["光合成", "蒸散", "呼吸"], answer: 0 },
+          { q: "磁石のN極とS極を近づけるとどうなる？", choices: ["引き合う", "反発し合う", "何も起こらない"], answer: 0 },
+          { q: "ヒトの血液中で酸素を運ぶ役割を持つ赤い細胞成分は？", choices: ["赤血球", "白血球", "血小板"], answer: 0 }
+        ],
+        normal: [
+          { q: "二酸化炭素の化学式として正しいものはどれ？", choices: ["CO2", "H2O", "NH3"], answer: 0 },
+          { q: "電圧(V)＝電流(A)×抵抗(Ω)で表される法則はどれ？", choices: ["オームの法則", "フレミングの法則", "フックの法則"], answer: 0 },
+          { q: "地震の揺れの大きさを表す階級は「震度」、地震そのものの規模を表す指標は何？", choices: ["マグニチュード", "ヘクトパスカル", "デシベル"], answer: 0 },
+          { q: "植物の葉から水蒸気が空気中に出ていく現象を何という？", choices: ["蒸散", "呼吸", "光合成"], answer: 0 },
+          { q: "塩酸と水酸化ナトリウム水溶液を混ぜて中性になるときにできる食塩の化学名は？", choices: ["塩化ナトリウム", "炭酸カルシウム", "硫酸バリウム"], answer: 0 }
+        ],
+        hard: [
+          { q: "太陽の黒点が周囲より暗く見える理由はなぜ？", choices: ["周囲より温度が低いため（約4000℃）", "穴が空いていて宇宙が見えているため", "影が落ちているため"], answer: 0 },
+          { q: "100gの物体に働く重力の大きさを約1Nとするとき、質量500gの物体に働く重力は何N？", choices: ["5 N", "50 N", "0.5 N"], answer: 0 },
+          { q: "銅を空気中で加熱して酸化銅ができるとき、銅と酸素が化合する質量の比は？", choices: ["4 : 1", "3 : 2", "1 : 1"], answer: 0 },
+          { q: "エンドウの種子の形（丸とシワ）で、子に現れる方の形質を何という？", choices: ["顕性形質（優性形質）", "潜性形質（劣性形質）", "突然変異"], answer: 0 },
+          { q: "凸レンズの焦点距離の2倍の位置に物体を置いたとき、できる像の大きさは？", choices: ["実物と同じ大きさの実像", "実物より大きい実像", "実物より小さい実像"], answer: 0 }
+        ]
+      },
+      hs1: {
+        easy: [
+          { q: "原子の中心にある、陽子と中性子からなる部分を何という？", choices: ["原子核", "電子殻", "イオン"], answer: 0 },
+          { q: "細胞の中にあり、呼吸によってエネルギーを作り出す細胞小器官は？", choices: ["ミトコンドリア", "葉緑体", "リボソーム"], answer: 0 },
+          { q: "地球の表面を覆う十数枚の硬い岩盤を何という？", choices: ["プレート", "マントル", "コア"], answer: 0 },
+          { q: "酸性・中性・アルカリ性を示す指標「pH」で、中性を表す数値はいくつ？", choices: ["7", "0", "14"], answer: 0 },
+          { q: "植物細胞にだけあり、光合成を行う緑色の細胞小器官は？", choices: ["葉緑体", "ミトコンドリア", "核"], answer: 0 }
+        ],
+        normal: [
+          { q: "6.02 × 10²³ 個の粒子の集まりを表す物質量の単位はどれ？", choices: ["mol（モル）", "N（ニュートン）", "J（ジュール）"], answer: 0 },
+          { q: "物体が自由落下するとき、1秒あたりに増える速度（重力加速度）は約何 m/s²？", choices: ["約 9.8 m/s²", "約 3.14 m/s²", "約 1.6 m/s²"], answer: 0 },
+          { q: "DNAを構成する4種類の塩基のうち、A（アデニン）と対をつくる塩基はどれ？", choices: ["T（チミン）", "G（グアニン）", "C（シトシン）"], answer: 0 },
+          { q: "ダイヤモンドと黒鉛のように、同じ元素からなる単体で性質が異なる物質どうしを何という？", choices: ["同素体", "同位体", "異性体"], answer: 0 },
+          { q: "等速直線運動をしている物体に働く力の合力はいくつ？", choices: ["0 N", "10 N", "9.8 N"], answer: 0 }
+        ],
+        hard: [
+          { q: "標準状態（0℃, 1気圧）において、すべての気体1molが占める体積は約何L？", choices: ["22.4 L", "11.2 L", "44.8 L"], answer: 0 },
+          { q: "原子番号が同じで中性子の数が異なる原子どうしを何という？", choices: ["同位体（アイソトープ）", "同素体", "異性体"], answer: 0 },
+          { q: "細胞分裂で、染色体が細胞の中央（赤道面）に並ぶ時期はどれ？", choices: ["中期", "前期", "後期"], answer: 0 },
+          { q: "共有電子対を原子が引きつける強さの尺度を何という？", choices: ["電気陰性度", "イオン化エネルギー", "電子親和力"], answer: 0 },
+          { q: "海洋地殻を構成する主な火成岩はどれ？", choices: ["玄武岩", "花こう岩", "れき岩"], answer: 0 }
+        ]
+      },
+      hs2: {
+        easy: [
+          { q: "ベンゼン環（C₆H₆）の炭素原子は何角形の構造を作っている？", choices: ["正六角形", "正五角形", "正三角形"], answer: 0 },
+          { q: "DNAの塩基配列をmRNAに写し取る過程を何という？", choices: ["転写", "翻訳", "複製"], answer: 0 },
+          { q: "恒星が一生の最後に起こす大爆発を何という？", choices: ["超新星爆発", "ビッグバン", "太陽フレア"], answer: 0 },
+          { q: "音の高さは何によって決まる？", choices: ["振動数（周波数）", "振幅", "音の速さ"], answer: 0 },
+          { q: "化学反応の速さを速める働きをし、自身は変化しない物質を何という？", choices: ["触媒", "指示薬", "沈殿"], answer: 0 }
+        ],
+        normal: [
+          { q: "気体の状態方程式として正しいものはどれ？", choices: ["PV = nRT", "E = mc²", "F = ma"], answer: 0 },
+          { q: "救急車が近づくときと遠ざかるときでサイレンの音の高さが変わって聞こえる現象は？", choices: ["ドップラー効果", "回折現象", "全反射"], answer: 0 },
+          { q: "mRNAの情報をもとにタンパク質を合成する過程を何という？", choices: ["翻訳", "転写", "スプライシング"], answer: 0 },
+          { q: "太陽のように自ら光と熱を放つ天体を何という？", choices: ["恒星", "惑星", "衛星"], answer: 0 },
+          { q: "反応熱の総和は、反応の最初と最後の状態だけで決まり経路によらないという法則は？", choices: ["ヘスの法則", "ボイルの法則", "オームの法則"], answer: 0 }
+        ],
+        hard: [
+          { q: "可逆反応で条件を変えると、その変化を和らげる向きに平衡が移動する原理は？", choices: ["ルシャトリエの原理", "ファラデーの法則", "キルヒホッフの法則"], answer: 0 },
+          { q: "光が水中から空気中へ出るときなど、境界面ですべて反射する現象は？", choices: ["全反射", "偏光", "分散"], answer: 0 },
+          { q: "恒星の明るさと表面温度の関係を表した図を何という？", choices: ["HR図", "状態図", "天気図"], answer: 0 },
+          { q: "私たちの太陽系が属している銀河を何という？", choices: ["天の川銀河（銀河系）", "アンドロメダ銀河", "大マゼラン雲"], answer: 0 },
+          { q: "気体定数 R の値として最も近いものはどれ？", choices: ["8.31 J/(mol・K)", "6.02 × 10²³", "9.8 m/s²"], answer: 0 }
+        ]
+      },
+      hs3: {
+        easy: [
+          { q: "生態系の中で、光合成を行って有機物を作り出す植物などの生物を何という？", choices: ["生産者", "消費者", "分解者"], answer: 0 },
+          { q: "酵素が特定の物質（基質）にだけ作用する性質を何という？", choices: ["基質特異性", "最適温度", "フィードバック調節"], answer: 0 },
+          { q: "アルコールとカルボン酸が反応して水とエステルができる反応を何という？", choices: ["エステル化", "けん化", "中和"], answer: 0 },
+          { q: "コイルの中の磁場が変化することで電流が流れる現象は？", choices: ["電磁誘導", "静電誘導", "光電効果"], answer: 0 },
+          { q: "植物の成長を促進する代表的な植物ホルモンは？", choices: ["オーキシン", "インスリン", "アドレナリン"], answer: 0 }
+        ],
+        normal: [
+          { q: "金属に光を当てると電子が飛び出す現象を何という？", choices: ["光電効果", "コンプトン効果", "干渉"], answer: 0 },
+          { q: "アインシュタインが提唱した、光の速さは常に一定であるとする理論は？", choices: ["特殊相対性理論", "量子力学", "万有引力の法則"], answer: 0 },
+          { q: "油脂に水酸化ナトリウムを加えて加熱し、セッケンを作る反応を何という？", choices: ["けん化", "エステル化", "重合"], answer: 0 },
+          { q: "DNAの特定の部分を短時間で大量に増やす実験手法は？", choices: ["PCR法", "電気泳動法", "クロマトグラフィー"], answer: 0 },
+          { q: "誘導電流が磁場の変化を妨げる向きに流れることを示す法則は？", choices: ["レンツの法則", "クーロンの法則", "フックの法則"], answer: 0 }
+        ],
+        hard: [
+          { q: "アミノ酸どうしがつながってタンパク質を作るときの結合を何という？", choices: ["ペプチド結合", "グリコシド結合", "イオン結合"], answer: 0 },
+          { q: "遠方の銀河ほど速い速度で地球から遠ざかっていることを示す法則は？", choices: ["ハッブル・ルメートルの法則", "ケプラーの法則", "ボイルの法則"], answer: 0 },
+          { q: "光電効果において、飛び出す光電子の最大運動エネルギーを決める光の要素は？", choices: ["光の振動数（波長）", "光の強さ（明るさ）", "光を当てる時間"], answer: 0 },
+          { q: "生態系で、動物の死がいやフンを無機物に分解する菌類・細菌類を何という？", choices: ["分解者", "生産者", "一次消費者"], answer: 0 },
+          { q: "電子などの粒子が波としての性質も持つことを示す波を何という？", choices: ["物質波（ド・ブロイ波）", "音波", "地震波"], answer: 0 }
+        ]
+      }
+    }
+  }
+};
+
+// ==========================================
+// 3. ポケコロツイン風の着せ替えアイテム一覧（全8種）
+// ==========================================
+const ACCESSORIES = [
+  { id: "twinribbon", name: "🎀 ふわもこツインリボン", cls: "acc-twinribbon", html: "<span>🎀</span><span>🎀</span>" },
+  { id: "glasses", name: "👓 アンティーク丸眼鏡", cls: "acc-glasses", html: "👓" },
+  { id: "wings", name: "🪽 きらめく天使の羽", cls: "acc-wings", html: "🪽" },
+  { id: "tiara", name: "👑 星屑のミニティアラ", cls: "acc-tiara", html: "👑" },
+  { id: "moon", name: "🌙 三日月の髪飾り", cls: "acc-moon", html: "🌙" },
+  { id: "catphones", name: "🎧 パステルヘッドホン", cls: "acc-catphones", html: "🎧" },
+  { id: "sparkle", name: "✨ キラキラ星エフェクト", cls: "acc-sparkle", html: "✨" },
+  { id: "aura", name: "🌸 花びら舞うオーラ", cls: "acc-aura", html: "<span>🌸</span><span>💮</span>" }
+];
+
+// ゲーム＆勉強進行状態
+let state = {
+  playerName: "新入生",
+  subjectKey: "japanese",
+  modeKey: "hs1",
+  difficultyKey: "normal",
+  gender: "female",
+  qIndex: 0,
+  score: 0,
+  wrongStreak: 0,
+  emotion: "normal",
+  answered: false,
+  progress: {},
+  // 勉強モード（Study with me）用ステート
+  studySubjectKey: "japanese",
+  studyGender: "female",
+  studyTotalSeconds: 1500,
+  studyRemainingSeconds: 1500,
+  studyTargetMinutes: 25,
+  studyStatus: "idle", // idle | running | paused | timeup | completed
+  studyInterval: null
+};
+
+function getCharKey(subKey = state.subjectKey, gen = state.gender) {
+  return `${subKey}_${gen}`;
+}
+
+function getCurrentProgress(subKey = state.subjectKey, gen = state.gender) {
+  const key = getCharKey(subKey, gen);
+  if (!state.progress[key]) {
+    state.progress[key] = {
+      affection: 0,
+      unlocked: [],
+      equipped: []
+    };
+  }
+  return state.progress[key];
+}
+
+// ==========================================
+// 4. キャラクター立ち絵レンダラ（全10人ともGoogleドライブ画像を直接自動表示）
+// ==========================================
+function renderPortraitHTML(subjectKey, gender, isStage = false, emotion = "normal", equippedItems = [], isStudyMode = false, isWriting = false) {
+  const subject = GAME_DATA[subjectKey];
+  const char = subject[gender];
+
+  const sizeClass = isStage ? "stage" : "preview";
+  const emotionClass = isStage ? `emotion-${emotion}` : "";
+  const studyBgClass = isStudyMode ? "study-room-bg" : "";
+
+  let emotionBadgeHTML = "";
+  if (isStage) {
+    if (emotion === "happy") emotionBadgeHTML = `<div class="emotion-badge">✨</div>`;
+    else if (emotion === "sad") emotionBadgeHTML = `<div class="emotion-badge">💧</div>`;
+    else if (emotion === "angry") emotionBadgeHTML = `<div class="emotion-badge">💢</div>`;
+  }
+
+  let accHTML = "";
+  if (isStage && equippedItems.length > 0) {
+    equippedItems.forEach(accId => {
+      const item = ACCESSORIES.find(a => a.id === accId);
+      if (item) {
+        accHTML += `<div class="acc-layer ${item.cls}">${item.html}</div>`;
+      }
+    });
+  }
+
+  let studyOverlayHTML = "";
+  if (isStudyMode) {
+    const statusText = isWriting ? "✍️ 集中して勉強中..." : "📖 デスクで待機中";
+    const penClass = isWriting ? "desk-pen writing" : "desk-pen";
+    studyOverlayHTML = `
+      <div class="study-lamp-glow"></div>
+      <div class="study-status-pill">${statusText}</div>
+      <div class="study-desk-overlay">
+        <div class="desk-notebook">
+          <strong>${subject.name}ノート</strong><br>
+          <span>要点まとめ中...</span>
+          <span class="${penClass}">✏️</span>
+        </div>
+        <div class="desk-mug">
+          <span class="desk-steam">♨️</span>
+          ☕
+        </div>
+      </div>
+    `;
+  }
+
+  const primaryUrl = driveImgUrl(char.driveId);
+  const fallbackUrl = driveImgFallbackUrl(char.driveId);
+
+  return `
+    <div class="sprite-viewport ${sizeClass} ${emotionClass} ${studyBgClass}">
+      <div class="sprite-placeholder">
+        <div style="font-size:1.5rem; margin-bottom:6px;">🎨</div>
+        <div>${char.name}<br>イラスト読み込み中...</div>
+      </div>
+      <img src="${primaryUrl}"
+           alt="${char.name}"
+           class="single-char-img"
+           onload="this.previousElementSibling.style.display='none'"
+           onerror="if(!this.dataset.triedFallback){this.dataset.triedFallback='1';this.src='${fallbackUrl}';}else{this.style.display='none';}">
+      ${emotionBadgeHTML}
+      ${accHTML}
+      ${studyOverlayHTML}
+    </div>
+  `;
+}
+
+// ==========================================
+// 5. 画面遷移・モード分岐ロジック
+// ==========================================
+function showScreen(screenId) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(screenId).classList.add('active');
+}
+
+function enterMainMode(modeType) {
+  const inputName = document.getElementById('player-name').value.trim();
+  state.playerName = inputName || "新入生";
+
+  if (modeType === "game") {
+    document.getElementById('subject-select-title').textContent =
+      `【ゲームモード】${state.playerName}さんが学びたい教科を選択`;
+    showScreen('screen-subject');
+  } else {
+    document.getElementById('study-char-intro').textContent =
+      `${state.playerName}さんと一緒に勉強（Study with me）してくれる先輩を選んでください。`;
+    renderStudyCharSelect();
+    showScreen('screen-study-char');
+  }
+}
+
+// ==========================================
+// 6. ゲームモードロジック
+// ==========================================
+function selectSubject(subjectKey) {
+  state.subjectKey = subjectKey;
+  const subject = GAME_DATA[subjectKey];
+  document.getElementById('mode-select-title').textContent = `【${subject.name}】学習する学年コースを選択`;
+  document.getElementById('mode-welcome-msg').textContent =
+    `高校1年生の${state.playerName}さん、どの学年の${subject.name}を学びますか？`;
+
+  showScreen('screen-mode');
+}
+
+function selectMode(modeKey) {
+  state.modeKey = modeKey;
+  const subject = GAME_DATA[state.subjectKey];
+
+  document.getElementById('diff-select-title').textContent =
+    `【${subject.name} / ${MODE_LABELS[modeKey]}】難易度を選択`;
+  document.getElementById('diff-sub-msg').textContent =
+    `${state.playerName}さん、どの難易度で先輩に教えてもらいますか？（5問終了後にアイテムがもらえます）`;
+
+  showScreen('screen-difficulty');
+}
+
+function selectDifficulty(difficultyKey) {
+  state.difficultyKey = difficultyKey;
+  const subject = GAME_DATA[state.subjectKey];
+  const diffInfo = DIFF_LABELS[difficultyKey];
+
+  document.getElementById('char-select-title').textContent =
+    `【${subject.name}・${MODE_LABELS[state.modeKey]}（難易度：${diffInfo.name}）】担当の先輩を選択`;
+
+  const container = document.getElementById('char-cards-container');
+  container.innerHTML = "";
+
+  ["female", "male"].forEach(gender => {
+    const char = subject[gender];
+    const genderLabel = gender === "female" ? "女子先輩（高校3年生）" : "男子先輩（高校3年生）";
+    const card = document.createElement('div');
+    card.className = "char-card";
+    card.onclick = () => startLesson(gender);
+
+    card.innerHTML = `
+      <div style="font-size:0.82rem; font-weight:bold; color:${subject.color}; margin-bottom:6px;">${genderLabel}</div>
+      ${renderPortraitHTML(state.subjectKey, gender, false)}
+      <div style="font-size:1.15rem; font-weight:bold; margin-bottom:6px;">${char.name}</div>
+      <div style="font-size:0.86rem; color:#607d8b; line-height:1.5;">${char.desc}</div>
+    `;
+    container.appendChild(card);
+  });
+
+  showScreen('screen-char');
+}
+
+function startLesson(gender) {
+  state.gender = gender;
+  state.qIndex = 0;
+  state.score = 0;
+  state.wrongStreak = 0;
+  state.emotion = "normal";
+  state.answered = false;
+
+  const subject = GAME_DATA[state.subjectKey];
+  const char = subject[gender];
+  const diffInfo = DIFF_LABELS[state.difficultyKey];
+
+  const badge = document.getElementById('header-subject-badge');
+  badge.textContent = subject.name;
+  badge.style.background = subject.color;
+
+  document.getElementById('header-mode-badge').textContent = MODE_LABELS[state.modeKey];
+
+  const diffBadge = document.getElementById('header-diff-badge');
+  diffBadge.textContent = `難易度：${diffInfo.name}`;
+  diffBadge.style.background = diffInfo.bg;
+  diffBadge.style.color = diffInfo.color;
+
+  document.getElementById('header-char-name').textContent = `${char.name}（高校3年生）`;
+
+  const dialogueBox = document.getElementById('dialogue-box');
+  dialogueBox.classList.remove('angry-box');
+  dialogueBox.style.borderLeftColor = subject.color;
+  document.getElementById('speaker-name').textContent = `${char.name}（高3）`;
+  document.getElementById('speaker-name').style.color = subject.color;
+  document.getElementById('wrong-streak-text').textContent = "";
+
+  setDialogue(char.greet);
+  updateCharacterView();
+  updateAffectionUI();
+  renderWardrobe();
+  loadQuestion();
+
+  showScreen('screen-game');
+}
+
+function setDialogue(templateText) {
+  const formatted = templateText.replace(/\{name\}/g, state.playerName);
+  document.getElementById('dialogue-text').textContent = formatted;
+}
+
+function updateCharacterView() {
+  const prog = getCurrentProgress();
+  document.getElementById('stage-portrait-wrap').innerHTML = renderPortraitHTML(
+    state.subjectKey,
+    state.gender,
+    true,
+    state.emotion,
+    prog.equipped,
+    false,
+    false
+  );
+}
+
+function updateAffectionUI() {
+  const prog = getCurrentProgress();
+  document.getElementById('affection-val').textContent = prog.affection;
+  document.getElementById('affection-bar').style.width = `${prog.affection}%`;
+}
+
+function renderWardrobe() {
+  const prog = getCurrentProgress();
+  const list = document.getElementById('wardrobe-list');
+  list.innerHTML = "";
+
+  ACCESSORIES.forEach(item => {
+    const isUnlocked = prog.unlocked.includes(item.id);
+    const isEquipped = prog.equipped.includes(item.id);
+
+    const btn = document.createElement('button');
+    btn.className = "item-btn";
+    if (!isUnlocked) {
+      btn.classList.add("locked");
+      btn.textContent = "🔒 未解放";
+      btn.title = "授業や勉強を完了すると解放されます";
+    } else {
+      if (isEquipped) btn.classList.add("equipped");
+      btn.textContent = isEquipped ? `✓ ${item.name}` : item.name;
+      btn.onclick = () => toggleEquip(item.id);
+    }
+    list.appendChild(btn);
+  });
+}
+
+function toggleEquip(itemId) {
+  const prog = getCurrentProgress();
+  if (prog.equipped.includes(itemId)) {
+    prog.equipped = prog.equipped.filter(id => id !== itemId);
+  } else {
+    prog.equipped.push(itemId);
+  }
+  updateCharacterView();
+  renderWardrobe();
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3800);
+}
+
+function loadQuestion() {
+  state.answered = false;
+  const quizArea = document.getElementById('quiz-area');
+  const questions = GAME_DATA[state.subjectKey].questions[state.modeKey][state.difficultyKey];
+  const diffInfo = DIFF_LABELS[state.difficultyKey];
+
+  if (state.qIndex >= questions.length) {
+    const prog = getCurrentProgress();
+    const lockedItems = ACCESSORIES.filter(a => !prog.unlocked.includes(a.id));
+
+    let rewardItems = [];
+    const unlockCount = state.score === 5 ? 2 : (state.score >= 1 ? 1 : 0);
+
+    for (let i = 0; i < unlockCount; i++) {
+      if (lockedItems[i]) {
+        const item = lockedItems[i];
+        prog.unlocked.push(item.id);
+        prog.equipped.push(item.id);
+        rewardItems.push(item);
+      }
+    }
+
+    renderWardrobe();
+
+    let resultComment = "";
+    if (state.score === 5) {
+      state.emotion = "happy";
+      resultComment = `全問正解おめでとう、${state.playerName}さん！5問すべて完璧だったわ。頑張ったご褒美に素敵なアイテムを贈るね！`;
+    } else if (state.score >= 3) {
+      state.emotion = "happy";
+      resultComment = `5問お疲れさま、${state.playerName}さん！${state.score}問正解よ。最後まで頑張った記念にプレゼントを受け取ってね♪`;
+    } else {
+      state.emotion = "sad";
+      resultComment = `5問お疲れさま、${state.playerName}さん。今回は${state.score}問正解だったわね。次はもっと正解できるように一緒に復習しましょう！`;
+    }
+
+    updateCharacterView();
+    setDialogue(resultComment);
+
+    let giftHTML = "";
+    if (rewardItems.length > 0) {
+      const names = rewardItems.map(it => `<strong>${it.name}</strong>`).join(" と ");
+      giftHTML = `
+        <div class="gift-card">
+          <div style="font-size:0.85rem; color:#d53f8c; font-weight:bold; margin-bottom:4px;">🎁 5問修了プレゼント獲得！</div>
+          <div style="font-size:1.05rem; color:#2d3748;">${names} を手に入れて装着しました！</div>
+        </div>
+      `;
+      showToast(`🎁 着せ替えアイテム獲得：${rewardItems.map(it => it.name).join(" / ")}`);
+    } else if (lockedItems.length === 0) {
+      giftHTML = `
+        <div class="gift-card">
+          <div style="font-size:0.95rem; color:#d53f8c; font-weight:bold;">✨ この先輩のポケコロツイン風アイテムをすべてコンプリート済みです！</div>
+        </div>
+      `;
+    } else {
+      giftHTML = `
+        <div class="gift-card" style="background:#f8fafc; border-color:#cbd5e1;">
+          <div style="font-size:0.9rem; color:#64748b;">1問以上正解して5問終えると、着せ替えアイテムがもらえます！</div>
+        </div>
+      `;
+    }
+
+    quizArea.innerHTML = `
+      <div class="result-box">
+        <div style="font-size:0.95rem; color:#64748b; font-weight:bold;">${MODE_LABELS[state.modeKey]}（難易度：${diffInfo.name}）テスト結果</div>
+        <div class="result-score">${state.score} / 5 問正解！</div>
+        ${giftHTML}
+        <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+          <button class="nav-btn primary" onclick="retryLesson()">もう5問挑戦してアイテムを集める ↻</button>
+          <button class="nav-btn" onclick="showScreen('screen-difficulty')">別の難易度を選ぶ</button>
+          <button class="nav-btn" onclick="showScreen('screen-mode')">別の学年を選ぶ</button>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  quizArea.innerHTML = `
+    <div class="question-number" id="q-number">第 ${state.qIndex + 1} 問 / 全 5 問（難易度：${diffInfo.name}）</div>
+    <div class="question-text" id="q-text"></div>
+    <div class="choices-list" id="choices-container"></div>
+    <div class="next-area" id="next-area" style="display:none;">
+      <button class="nav-btn primary" onclick="nextQuestion()">次の問題へ →</button>
+    </div>
+  `;
+
+  const currentQ = questions[state.qIndex];
+  document.getElementById('q-text').textContent = currentQ.q;
+
+  const container = document.getElementById('choices-container');
+  currentQ.choices.forEach((choiceText, idx) => {
+    const btn = document.createElement('button');
+    btn.className = "choice-btn";
+    btn.textContent = choiceText;
+    btn.onclick = () => checkAnswer(idx, btn);
+    container.appendChild(btn);
+  });
+}
+
+function checkAnswer(selectedIndex, clickedBtn) {
+  if (state.answered) return;
+  state.answered = true;
+
+  const subject = GAME_DATA[state.subjectKey];
+  const char = subject[state.gender];
+  const diffInfo = DIFF_LABELS[state.difficultyKey];
+  const currentQ = subject.questions[state.modeKey][state.difficultyKey][state.qIndex];
+  const allBtns = document.querySelectorAll('.choice-btn');
+  const dialogueBox = document.getElementById('dialogue-box');
+  const streakText = document.getElementById('wrong-streak-text');
+
+  allBtns.forEach(b => b.disabled = true);
+
+  if (selectedIndex === currentQ.answer) {
+    clickedBtn.classList.add('correct');
+    state.score++;
+    state.wrongStreak = 0;
+    state.emotion = "happy";
+    dialogueBox.classList.remove('angry-box');
+    dialogueBox.style.borderLeftColor = subject.color;
+    streakText.textContent = "";
+
+    const praiseMsg = char.praise[state.qIndex % char.praise.length];
+    setDialogue(praiseMsg);
+
+    const prog = getCurrentProgress();
+    prog.affection = Math.min(100, prog.affection + diffInfo.gain);
+    updateAffectionUI();
+  } else {
+    clickedBtn.classList.add('wrong');
+    allBtns[currentQ.answer].classList.add('correct');
+    state.wrongStreak++;
+
+    if (state.wrongStreak >= 3) {
+      state.emotion = "angry";
+      dialogueBox.classList.add('angry-box');
+      streakText.textContent = `💢 ${state.wrongStreak}問連続ミス！先輩が怒っています！`;
+      setDialogue(char.angry);
+
+      const container = document.getElementById('main-container');
+      container.classList.remove('shake-anim');
+      void container.offsetWidth;
+      container.classList.add('shake-anim');
+    } else {
+      state.emotion = "sad";
+      dialogueBox.classList.remove('angry-box');
+      dialogueBox.style.borderLeftColor = "#94a3b8";
+      streakText.textContent = `💧 ${state.wrongStreak}問連続ミス（あと${3 - state.wrongStreak}回で…）`;
+      setDialogue(char.sad);
+    }
+  }
+
+  updateCharacterView();
+
+  const nextArea = document.getElementById('next-area');
+  const nextBtn = nextArea.querySelector('button');
+  nextBtn.textContent = state.qIndex < 4 ? "次の問題へ →" : "5問終了！結果とプレゼントを見る →";
+  nextArea.style.display = "block";
+}
+
+function nextQuestion() {
+  state.qIndex++;
+  loadQuestion();
+}
+
+function retryLesson() {
+  startLesson(state.gender);
+}
+
+// ==========================================
+// 7. 勉強モード（Study with me）ロジック
+// ==========================================
+function renderStudyCharSelect() {
+  const grid = document.getElementById('study-char-grid');
+  grid.innerHTML = "";
+
+  const subjectKeys = ["japanese", "social", "math", "english", "science"];
+  subjectKeys.forEach(subKey => {
+    const subject = GAME_DATA[subKey];
+    ["female", "male"].forEach(gender => {
+      const char = subject[gender];
+      const card = document.createElement('div');
+      card.className = "char-card";
+      card.onclick = () => openStudyRoom(subKey, gender);
+
+      card.innerHTML = `
+        <div style="display:flex; justify-content:center; gap:6px; margin-bottom:6px;">
+          <span style="background:${subject.color}; color:#fff; font-size:0.75rem; font-weight:bold; padding:2px 10px; border-radius:10px;">${subject.name}</span>
+          <span style="background:#fef3c7; color:#92400e; font-size:0.75rem; font-weight:bold; padding:2px 10px; border-radius:10px;">Study with me</span>
+        </div>
+        ${renderPortraitHTML(subKey, gender, false)}
+        <div style="font-size:1.05rem; font-weight:bold; margin-bottom:4px;">${char.name}</div>
+        <div style="font-size:0.8rem; color:#607d8b; line-height:1.45;">${char.desc}</div>
+      `;
+      grid.appendChild(card);
+    });
+  });
+}
+
+function openStudyRoom(subKey, gender) {
+  stopStudyTimerInterval();
+  state.studySubjectKey = subKey;
+  state.studyGender = gender;
+  state.studyStatus = "idle";
+
+  const subject = GAME_DATA[subKey];
+  const char = subject[gender];
+
+  const subBadge = document.getElementById('study-subject-badge');
+  subBadge.textContent = subject.name;
+  subBadge.style.background = subject.color;
+
+  document.getElementById('study-char-name').textContent = `${char.name}（高校3年生）`;
+  document.getElementById('study-speaker-name').textContent = `${char.name}（高3）`;
+  document.getElementById('study-state-label').textContent = "📖 勉強時間の設定待ち";
+
+  const askMsg = char.studyAsk.replace(/\{name\}/g, state.playerName);
+  document.getElementById('study-dialogue-text').textContent = askMsg;
+  document.getElementById('study-prompt-question').textContent =
+    `${char.name}「何分勉強する？（半角数字で入力してね）」`;
+
+  document.getElementById('study-setup-panel').style.display = "block";
+  document.getElementById('study-running-panel').style.display = "none";
+  document.getElementById('study-reward-area').style.display = "none";
+
+  updateStudyAffectionUI();
+  updateStudyCharacterView();
+  renderStudyWardrobe();
+  showScreen('screen-study-room');
+
+  setTimeout(() => {
+    const input = document.getElementById('study-minutes-input');
+    if (input) input.focus();
+  }, 100);
+}
+
+function updateStudyCharacterView() {
+  const prog = getCurrentProgress(state.studySubjectKey, state.studyGender);
+  const isWriting = state.studyStatus === "running";
+  const emotion = state.studyStatus === "completed" ? "happy" : (isWriting ? "studying" : "normal");
+
+  document.getElementById('study-portrait-wrap').innerHTML = renderPortraitHTML(
+    state.studySubjectKey,
+    state.studyGender,
+    true,
+    emotion,
+    prog.equipped,
+    true,
+    isWriting
+  );
+}
+
+function renderStudyWardrobe() {
+  const prog = getCurrentProgress(state.studySubjectKey, state.studyGender);
+  const list = document.getElementById('study-wardrobe-list');
+  if (!list) return;
+  list.innerHTML = "";
+
+  ACCESSORIES.forEach(item => {
+    const isUnlocked = prog.unlocked.includes(item.id);
+    const isEquipped = prog.equipped.includes(item.id);
+
+    const btn = document.createElement('button');
+    btn.className = "item-btn";
+    if (!isUnlocked) {
+      btn.classList.add("locked");
+      btn.textContent = "🔒 未解放";
+      btn.title = "勉強タイマーを完了すると解放されます";
+    } else {
+      if (isEquipped) btn.classList.add("equipped");
+      btn.textContent = isEquipped ? `✓ ${item.name}` : item.name;
+      btn.onclick = () => {
+        if (prog.equipped.includes(item.id)) {
+          prog.equipped = prog.equipped.filter(id => id !== item.id);
+        } else {
+          prog.equipped.push(item.id);
+        }
+        updateStudyCharacterView();
+        renderStudyWardrobe();
+      };
+    }
+    list.appendChild(btn);
+  });
+}
+
+function updateStudyAffectionUI() {
+  const prog = getCurrentProgress(state.studySubjectKey, state.studyGender);
+  document.getElementById('study-affection-val').textContent = prog.affection;
+  document.getElementById('study-affection-bar').style.width = `${prog.affection}%`;
+}
+
+function setStudyPreset(mins) {
+  document.getElementById('study-minutes-input').value = mins;
+}
+
+function startStudyTimer() {
+  const inputVal = parseInt(document.getElementById('study-minutes-input').value, 10);
+  if (isNaN(inputVal) || inputVal <= 0) {
+    showToast("⚠️ 1以上の分数（数字）を入力してください！");
+    return;
+  }
+
+  const mins = Math.min(300, inputVal);
+  state.studyTargetMinutes = mins;
+  state.studyTotalSeconds = mins * 60;
+  state.studyRemainingSeconds = mins * 60;
+  state.studyStatus = "running";
+
+  const char = GAME_DATA[state.studySubjectKey][state.studyGender];
+  const startMsg = char.studyStart
+    .replace(/\{name\}/g, state.playerName)
+    .replace(/\{min\}/g, mins);
+
+  document.getElementById('study-dialogue-text').textContent = startMsg;
+  document.getElementById('study-state-label').textContent = "✍️ Study with me 実行中";
+  document.getElementById('study-target-info').textContent = `目標：${mins}分間 集中タイム（先輩と一緒に勉強中）`;
+  document.getElementById('study-clock-caption').textContent = "残り勉強時間";
+
+  document.getElementById('study-setup-panel').style.display = "none";
+  document.getElementById('study-running-panel').style.display = "block";
+  document.getElementById('study-reward-area').style.display = "none";
+
+  const pauseBtn = document.getElementById('study-pause-btn');
+  pauseBtn.style.display = "inline-block";
+  pauseBtn.textContent = "一時停止 ⏸";
+
+  const completeBtn = document.getElementById('study-complete-btn');
+  completeBtn.style.display = "none";
+
+  updateStudyTimerDisplay();
+  updateStudyCharacterView();
+  runStudyTimerInterval();
+}
+
+function runStudyTimerInterval() {
+  stopStudyTimerInterval();
+  state.studyInterval = setInterval(() => {
+    if (state.studyStatus !== "running") return;
+
+    state.studyRemainingSeconds--;
+    updateStudyTimerDisplay();
+
+    if (state.studyRemainingSeconds <= 0) {
+      onStudyTimerReachedZero();
+    }
+  }, 1000);
+}
+
+function stopStudyTimerInterval() {
+  if (state.studyInterval) {
+    clearInterval(state.studyInterval);
+    state.studyInterval = null;
+  }
+}
+
+function updateStudyTimerDisplay() {
+  const sec = Math.max(0, state.studyRemainingSeconds);
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  const formatted = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  document.getElementById('study-timer-clock').textContent = formatted;
+
+  const ratio = state.studyTotalSeconds > 0
+    ? (sec / state.studyTotalSeconds) * 100
+    : 0;
+  document.getElementById('study-timer-progress').style.width = `${ratio}%`;
+}
+
+function togglePauseStudyTimer() {
+  const btn = document.getElementById('study-pause-btn');
+  if (state.studyStatus === "running") {
+    state.studyStatus = "paused";
+    btn.textContent = "再開する ▶";
+    document.getElementById('study-state-label').textContent = "⏸ 一時停止中";
+    updateStudyCharacterView();
+  } else if (state.studyStatus === "paused") {
+    state.studyStatus = "running";
+    btn.textContent = "一時停止 ⏸";
+    document.getElementById('study-state-label').textContent = "✍️ Study with me 実行中";
+    updateStudyCharacterView();
+  }
+}
+
+function resetStudyTimer() {
+  stopStudyTimerInterval();
+  state.studyStatus = "idle";
+  const char = GAME_DATA[state.studySubjectKey][state.studyGender];
+  const askMsg = char.studyAsk.replace(/\{name\}/g, state.playerName);
+  document.getElementById('study-dialogue-text').textContent = askMsg;
+  document.getElementById('study-state-label').textContent = "📖 勉強時間の設定待ち";
+
+  document.getElementById('study-setup-panel').style.display = "block";
+  document.getElementById('study-running-panel').style.display = "none";
+  document.getElementById('study-reward-area').style.display = "none";
+  updateStudyCharacterView();
+}
+
+function onStudyTimerReachedZero() {
+  stopStudyTimerInterval();
+  state.studyStatus = "timeup";
+
+  const char = GAME_DATA[state.studySubjectKey][state.studyGender];
+  const timeUpMsg = char.studyTimeUp
+    .replace(/\{name\}/g, state.playerName)
+    .replace(/\{min\}/g, state.studyTargetMinutes);
+
+  document.getElementById('study-dialogue-text').textContent = timeUpMsg;
+  document.getElementById('study-state-label').textContent = "🔔 タイマー終了！「完了」ボタンを押してください";
+  document.getElementById('study-clock-caption').textContent = "目標時間達成！下の完了ボタンを押してね";
+
+  document.getElementById('study-pause-btn').style.display = "none";
+  document.getElementById('study-complete-btn').style.display = "inline-block";
+
+  updateStudyCharacterView();
+  showToast("🔔 勉強タイマー終了！「完了 ✨」ボタンを押すと先輩からご褒美がもらえます！");
+}
+
+function claimStudyCompletion() {
+  if (state.studyStatus === "completed") return;
+  state.studyStatus = "completed";
+
+  document.getElementById('study-complete-btn').style.display = "none";
+
+  const char = GAME_DATA[state.studySubjectKey][state.studyGender];
+  const doneMsg = char.studyDone
+    .replace(/\{name\}/g, state.playerName)
+    .replace(/\{min\}/g, state.studyTargetMinutes);
+
+  document.getElementById('study-dialogue-text').textContent = doneMsg;
+  document.getElementById('study-state-label').textContent = "🎉 勉強完了！ご褒美獲得";
+
+  const prog = getCurrentProgress(state.studySubjectKey, state.studyGender);
+  const bonus = Math.min(30, Math.max(15, Math.floor(state.studyTargetMinutes / 2) + 10));
+  prog.affection = Math.min(100, prog.affection + bonus);
+  updateStudyAffectionUI();
+
+  const lockedItems = ACCESSORIES.filter(a => !prog.unlocked.includes(a.id));
+  const rewardArea = document.getElementById('study-reward-area');
+  rewardArea.style.display = "block";
+
+  if (lockedItems.length > 0) {
+    const newItem = lockedItems[0];
+    prog.unlocked.push(newItem.id);
+    prog.equipped.push(newItem.id);
+
+    rewardArea.innerHTML = `
+      <div class="gift-card">
+        <div style="font-size:0.85rem; color:#d53f8c; font-weight:bold; margin-bottom:4px;">🎁 ${state.studyTargetMinutes}分勉強達成プレゼント！</div>
+        <div style="font-size:1.05rem; color:#2d3748;"><strong>${newItem.name}</strong> を手に入れて装着しました！（好感度 +${bonus}%）</div>
+      </div>
+    `;
+    showToast(`🎁 勉強完了ご褒美：${newItem.name} を獲得＆装着しました！`);
+  } else {
+    rewardArea.innerHTML = `
+      <div class="gift-card">
+        <div style="font-size:0.95rem; color:#d53f8c; font-weight:bold;">✨ お疲れさま！（好感度 +${bonus}%）<br>この先輩の着せ替えアイテムはすべてコンプリート済みです！</div>
+      </div>
+    `;
+    showToast(`🎉 ${state.studyTargetMinutes}分の勉強完了！先輩との好感度が +${bonus}% アップしました！`);
+  }
+
+  updateStudyCharacterView();
+  renderStudyWardrobe();
+}
+
+function leaveStudyRoom() {
+  stopStudyTimerInterval();
+  state.studyStatus = "idle";
+  renderStudyCharSelect();
+  showScreen('screen-study-char');
+}
+
+function leaveStudyRoomToTop() {
+  stopStudyTimerInterval();
+  state.studyStatus = "idle";
+  showScreen('screen-start');
+}
+</script>
+</body>
+</html>
